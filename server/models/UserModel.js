@@ -37,7 +37,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    avatarUrl: String,
+    avatarUrl: {
+        type: String,
+        default: ''
+    },
     backgroundProfile: String,
     chat: {
         type: Array,

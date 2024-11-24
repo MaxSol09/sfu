@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 export const fetchQuestions = createAsyncThunk('fetch/posts', async() => {
-    const {data} = await axios.get('http://localhost:4444/posts')
+    const {data} = await axios.get('http://localhost:4444/questions')
 
     return data
 })
@@ -24,8 +24,9 @@ type SubmitType = {
   }
 
 export const createQuestion = createAsyncThunk('fetch/postCreate', async(postData: SubmitType) => {
+    console.log(postData)
 
-    const {data} = await axios.post('http://localhost:4444/posts', postData)
+    const {data} = await axios.post('http://localhost:4444/question/create', postData)
 
     return data
 })
@@ -82,6 +83,7 @@ interface TypeRemoveComment {
 }
 
 export const deleteComment = createAsyncThunk('delete/comment', async (commentData: TypeRemoveComment) => {
+    console.log(commentData)
 
     const {data} = await axios.post('http://localhost:4444/delete/comment', commentData)
 
@@ -154,16 +156,13 @@ export const deleteComment = createAsyncThunk('delete/comment', async (commentDa
     createTag: {
         items: TypeTags[]
     },
-    postChanges: {
-        status: 'none' | TypeStatus,
-        img: {
-            status: TypeStatus,
-            value: null | TypeImageValue
-        }
+    questionChanges: {
+        status: 'none' | TypeStatus
     },
     commentCreate: {
         items: []
-    }
+    },
+    comments: []
   }
 
 
@@ -194,22 +193,19 @@ const initialState: TypeState = {
     createTag: {
         items: []
     },
-    postChanges: {
-        status: 'none',
-        img: {
-            status: 'loading',
-            value: null
-        }
+    questionChanges: {
+        status: 'none'
     },
     commentCreate: {
         items: []
-    }
+    },
+    comments: []
 }
 
 
 
-const postsSlice = createSlice({
-    name: 'posts',
+const questionsSlice = createSlice({
+    name: 'questions/slice',
     initialState,
     reducers: {
         createTag: (state, action) => {
@@ -218,49 +214,51 @@ const postsSlice = createSlice({
         deleteTag: (state, action) => {
             state.createTag.items = state.createTag.items.filter(el => el.id !== action.payload)
         },
-        deleteImg: (state) => {
-            state.postChanges.img.value = null
-        },
-        getMyPosts: (state, action) => {
-                state.myQuestions.items = state.questions.items.filter(el => {
-                    const user = typeof(el.user) === 'string' ? {_id: el.user} : el.user as TypeChanell
-                    return user._id === action.payload.id
-                })
+        getMyQuestions: (state, action) => {
+            state.myQuestions.items = state.questions.items.filter(el => {
+                const user = typeof(el.user) === 'string' ? {_id: el.user} : el.user as TypeChanell
+                return user._id === action.payload.id
+            })
             
 
             state.myQuestions.status = 'success'
         },
-        resetCreatePost: (state) => {
-            state.createTag.items = []
-            state.postChanges.img.value = null
+        getQuestionPage: (state, action) => {
+            console.log(action.payload)
+
+            const result = state.questions.items.filter(el => el._id === action.payload.id)
+        
+            state.question.items = result
+            state.comments = result[0].comments
+
         },
         resetPost: (state) => {
             state.question.items = {} as TypePost
         },
         resetPostStatus: (state) => {
-            state.postChanges.status = 'none'
+            state.questionChanges.status = 'none'
         },
-        resetMyPostStatus: (state) => {
+        resetMyQuestionStatus: (state) => {
             state.myQuestions.status = 'loading'
         },
-        popularPost: (state) => {
+        popularQuestions: (state) => {
            state.questionsArr.items = state.questions.items.sort((a, b) => b.viewCount - a.viewCount) 
         },
-        newPosts: (state) => {
+        newQuestion: (state) => {
             state.questionsArr.items = state.questions.items.sort((a, b) => {
                 let c = new Date(a.createdAt).getTime();
                 let d = new Date(b.createdAt).getTime();
                 return d-c;
             });
         },
-        oldPosts: (state) => {
+        oldQuestions: (state) => {
             state.questionsArr.items = state.questions.items.sort((a, b) => {
                 let c = new Date(a.createdAt).getTime();
                 let d = new Date(b.createdAt).getTime();
                 return c-d;
             });
         },
-        searchPost: (state, action) => {
+        searchQuestion: (state, action) => {
             console.log(action.payload)
             state.questionsArr.items = state.questions.items.filter(el => {
                     return el.title.toLowerCase() === action.payload.title.toLowerCase()
@@ -295,28 +293,21 @@ const postsSlice = createSlice({
             state.tags.status = 'errors'
         })
         .addCase(createQuestion.pending, (state) => {
-            state.postChanges.status = 'loading'
+            state.questionChanges.status = 'loading'
         })
-        .addCase(createQuestion.fulfilled, (state) => {
-            state.postChanges.status = 'success'
+        .addCase(createQuestion.fulfilled, (state, action) => {
+            state.questionChanges.status = 'success'
+            state.questions.items = [action.payload, ...state.questions.items]
+            state.questionsArr.items = state.questions.items
         })
         .addCase(createQuestion.rejected, (state) => {
-            state.postChanges.status = 'errors'
-        })      
-        .addCase(sendImg.pending, (state) => {
-            state.postChanges.img.status = 'loading'
-        })    
-        .addCase(sendImg.fulfilled, (state, action) => {
-            state.postChanges.img.status = 'success'
-            state.postChanges.img.value = action.payload
-        })      
-        .addCase(sendImg.rejected, (state) => {
-            state.postChanges.img.status = 'errors'
-        })    
+            state.questionChanges.status = 'errors'
+        })         
         .addCase(deleteQuestion.pending, (state) => {
             state.deleteQuestionStatus.status = 'loading'
         })      
         .addCase(deleteQuestion.fulfilled, (state, action) => {
+            console.log(action.payload)
             state.questions.items = state.questions.items.filter(el => el._id !== action.payload)
             state.deleteQuestionStatus.status = 'success'
         })        
@@ -325,7 +316,7 @@ const postsSlice = createSlice({
         })   
         .addCase(getQuestion.fulfilled, (state, action) => {
             state.question.status = 'success'
-            state.question.items = action.payload
+            state.questions.items = action.payload
         })   
         .addCase(getQuestion.rejected, (state) => {
             state.question.status = 'errors'
@@ -335,16 +326,19 @@ const postsSlice = createSlice({
             if('comments' in state.question.items){
                 state.question.items.comments = action.payload
             }
+
+            state.comments = action.payload
             
         })
         .addCase(deleteComment.fulfilled, (state, action) => {
             if ('comments' in state.question.items && Array.isArray(state.question.items.comments)) {
                 state.question.items.comments = state.question.items.comments.filter(el => el.commentId !== action.payload.id)
+                state.comments = state.question.items[0].comments
             }
         })
     }
 })
 
-export const postsReducer = postsSlice.reducer
-export const {createTag, deleteTag, deleteImg, getMyPosts, resetCreatePost, resetPost, resetPostStatus, resetMyPostStatus, popularPost, oldPosts, newPosts, searchPost} = postsSlice.actions
+export const questionsReducer = questionsSlice.reducer
+export const {createTag, deleteTag, getMyQuestions, resetPost, getQuestionPage, resetPostStatus, resetMyQuestionStatus, popularQuestions, oldQuestions, newQuestion, searchQuestion} = questionsSlice.actions
 

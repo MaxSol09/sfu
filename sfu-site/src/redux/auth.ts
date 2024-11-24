@@ -35,6 +35,35 @@ export const meFetch = createAsyncThunk(
         return data
     }
 )
+
+
+export const changeAvatar = createAsyncThunk('change/avatar', async (dataAvatar: {id: string, avatar: string}) => {
+    const {data} = await axios.post('http://localhost:4444/user/img', dataAvatar)
+
+    return data
+})
+
+export const sendAvatar = createAsyncThunk( 'avatar/fetch', async (formData: object) => {
+    const {data} = await axios.post('http://localhost:4444/upload', formData)
+
+    return data
+})
+
+export const changeBackground = createAsyncThunk('changeBackground/fecth', async(backData: {id: string, backgroundProfile: string}) => {
+    const {data} = await axios.post('http://localhost:4444/user/backgroundProfile', backData)
+
+    console.log(data)
+    
+    return data
+})
+
+export const getUser = createAsyncThunk('getUser/fetch', async (userData: {id: string}) => {
+    console.log(userData)
+    const {data} = await axios.get(`http://localhost:4444/user/${userData.id}`)
+
+    return data
+})
+
 type Message = {
     text: string,
     fullName: string, 

@@ -45,8 +45,8 @@ export const Registration = () => {
         <div className='flex flex-col justify-center w-1/2 items-center'>
           <img className='w-[200px]' src={Logo} alt="logo" />
             <div className='my-[20px] mt-[40px]'>
-              <button style={{background: !isStudent ? 'rgb(226 232 240)' : 'white'}} onClick={() => setIsStudent('Абитуриент')} className='py-[6px] px-[10px] border-[2px] w-[190px]'>Абитуриент</button>
-              <button style={{background: isStudent ? 'rgb(226 232 240)' : 'white'}} onClick={() => setIsStudent('Студент')} className='py-[6px] px-[10px] border-[2px] w-[190px]'>Студент</button>
+              <button style={{background: isStudent === 'Абитуриент' ? 'rgb(226 232 240)' : 'white'}} onClick={() => setIsStudent('Абитуриент')} className='py-[6px] px-[10px] border-[2px] w-[190px]'>Абитуриент</button>
+              <button style={{background: isStudent === 'Студент' ? 'rgb(226 232 240)' : 'white'}} onClick={() => setIsStudent('Студент')} className='py-[6px] px-[10px] border-[2px] w-[190px]'>Студент</button>
             </div>
           <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center space-y-[20px]'>
             <label className='grid text-[20px] justify-center gap-[5px]' >

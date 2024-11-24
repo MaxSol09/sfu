@@ -3,12 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface State {
     page: string,
-    support: boolean
+    form: boolean,
+    support: boolean,
+    commentForm: {
+        type: boolean,
+        id: string
+    }
 }
 
 const initialState: State = {
     page: 'home', 
-    support: false
+    form: false,
+    support: false,
+    commentForm: {
+        type: false,
+        id: ''
+    }
 }
 
 
@@ -31,11 +41,20 @@ const themeSlice = createSlice({
                     break;
             }
         },
+        changeOpenFormCreate: (state) => {
+            state.form = !state.form
+        },
         changeSupport: (state, action) => {
             state.support = !action.payload.type
+        },
+        changeCommentForm: (state, action) => {
+            console.log(action.payload)
+            state.commentForm.id = action.payload.id
+            state.commentForm.type = !state.commentForm.type
+            
         }
     }
 })
 
 export const pageReducer = themeSlice.reducer
-export const {changePage, changeSupport} = themeSlice.actions
+export const {changePage, changeSupport, changeCommentForm, changeOpenFormCreate} = themeSlice.actions

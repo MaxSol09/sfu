@@ -3,13 +3,21 @@ import Land from '../images/land.png'
 import Comment from '../images/comment.svg'
 import Eyes from '../images/eyes.svg'
 import {Button} from 'antd'
-import { useAppSelector } from '../redux/hooks.ts'
+import { useAppDispatch, useAppSelector } from '../redux/hooks.ts'
+import { Posts } from './Posts.jsx'
+import { changeOpenFormCreate } from '../redux/page.ts'
+import { fetchQuestions, newQuestion, oldQuestions, popularQuestions } from '../redux/questions.ts'
 
 export const Questions = () => {
 
   const {page} = useAppSelector(el => el.page)
+  const form = useAppSelector(el => el.page.form)
+  const comments = useAppSelector(el => el.page.commentForm.type)
+  const questions = useAppSelector(el => el.questions.questions.items)
+  
 
-  console.log(page)
+  const dispatch = useAppDispatch()
+
   /*/
           <div className='flex gap-[20px] justify-center items-center'>
             <img className='w-[70px]' src={Land} alt="рука" />
@@ -22,205 +30,24 @@ export const Questions = () => {
         /*/
 
   return (
-    <div style={{display: page === "home" ? 'grid' : 'none'}} className=' grid w-full'>
-        <div className='flex justify-between items-center px-[45px]'>
+    <div style={{display: page === "home" & form === false & comments === false ? 'grid' : 'none'}} className=' grid w-full'>
+        <div className='flex justify-between items-center px-[55px]'>
             <div className='w-[500px] space-y-[3px]'>
               <h1 className='text-[20px] leading-6'>Вопросы</h1>
             </div>
-            <Button className='ml-[10px] text-[17px]'>Задать вопрос</Button>
+            <Button onClick={() => dispatch(changeOpenFormCreate())} className='ml-[10px] text-[17px]'>Задать вопрос</Button>
         </div>
-        <div className='flex items-center px-[45px] justify-between pt-[20px]'>
-          <h1 className='text-[18px]'>Всего: 100 вопросов</h1>
+        <div className='flex items-center px-[55px] justify-between pt-[20px]'>
+          <h1 className='text-[18px]'>Всего вопросов: {questions.length ? questions.length : '0'}</h1>
           <div className='flex gap-[20px]'>
             <h1 className='text-[20px]'>Категории:</h1>
-            <Button>Популярные</Button>
-            <Button>Новые</Button>
-            <Button>Старые</Button>
-            <Button>Все</Button>
+            <Button onClick={() => dispatch(popularQuestions())}>Популярные</Button>
+            <Button onClick={() => dispatch(newQuestion())}>Новые</Button>
+            <Button onClick={() => dispatch(oldQuestions())}>Старые</Button>
+            <Button onClick={() => dispatch(fetchQuestions())}>Все</Button>
           </div>
         </div>
-        <div className='grid w-full place-items-center m-auto pt-[20px] pb-[100px] gap-[30px]'>
-        <div className='bg-gray-200 py-[10px] px-[15px] w-[90%] grid rounded-md'>
-              <h1 className='text-[22px]'>Какую кафедру лучше всего выбрать?</h1>
-              <p className='line-clamp-2'>Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript</p>
-              <div className='flex items-end justify-between py-[5px] pt-[10px]'>
-                <div className='flex gap-[20px]'>
-                  <div className='flex gap-[5px]'>
-                    <img src={Eyes} alt="просмотры" />
-                    <p>29</p>
-                  </div>
-                  <div className='items-center flex gap-[5px]'>
-                    <img src={Comment} alt="глаза" />
-                    <p>5</p>
-                  </div>
-                </div>
-                <Button style={{
-                  color: 'white',
-                  backgroundColor: '#4CAF50', // Default background color
-                  borderColor: '#4CAF50',     // Default border color
-                  ':hover': {                  // Hover styles
-                    backgroundColor: '#388E3D',
-                    borderColor: '#388E3D',
-                  },
-                  ':active': {                 // Active (pressed) styles
-                    backgroundColor: '#2E682C',
-                    borderColor: '#2E682C',
-                  },
-                }}   
-                   >Ответить</Button>
-              </div>
-            </div>
-            <div className='bg-gray-200 py-[10px] px-[15px] w-[90%] grid rounded-md'>
-              <h1 className='text-[22px]'>Какую кафедру лучше всего выбрать?</h1>
-              <p className='line-clamp-2'>Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript</p>
-              <div className='flex items-end justify-between py-[5px] pt-[10px]'>
-                <div className='flex gap-[20px]'>
-                  <div className='flex gap-[5px]'>
-                    <img src={Eyes} alt="просмотры" />
-                    <p>29</p>
-                  </div>
-                  <div className='items-center flex gap-[5px]'>
-                    <img src={Comment} alt="глаза" />
-                    <p>5</p>
-                  </div>
-                </div>
-                <Button style={{
-                  color: 'white',
-                  backgroundColor: '#4CAF50', // Default background color
-                  borderColor: '#4CAF50',     // Default border color
-                  ':hover': {                  // Hover styles
-                    backgroundColor: '#388E3D',
-                    borderColor: '#388E3D',
-                  },
-                  ':active': {                 // Active (pressed) styles
-                    backgroundColor: '#2E682C',
-                    borderColor: '#2E682C',
-                  },
-                }}   
-                   >Ответить</Button>
-              </div>
-            </div>
-            <div className='bg-gray-200 py-[10px] px-[15px] w-[90%] grid rounded-md'>
-              <h1 className='text-[22px]'>Какую кафедру лучше всего выбрать?</h1>
-              <p className='line-clamp-2'>Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript</p>
-              <div className='flex items-end justify-between py-[5px] pt-[10px]'>
-                <div className='flex gap-[20px]'>
-                  <div className='flex gap-[5px]'>
-                    <img src={Eyes} alt="просмотры" />
-                    <p>29</p>
-                  </div>
-                  <div className='items-center flex gap-[5px]'>
-                    <img src={Comment} alt="глаза" />
-                    <p>5</p>
-                  </div>
-                </div>
-                <Button style={{
-                  color: 'white',
-                  backgroundColor: '#4CAF50', // Default background color
-                  borderColor: '#4CAF50',     // Default border color
-                  ':hover': {                  // Hover styles
-                    backgroundColor: '#388E3D',
-                    borderColor: '#388E3D',
-                  },
-                  ':active': {                 // Active (pressed) styles
-                    backgroundColor: '#2E682C',
-                    borderColor: '#2E682C',
-                  },
-                }}   
-                   >Ответить</Button>
-              </div>
-            </div>
-            <div className='bg-gray-200 py-[10px] px-[15px] w-[90%] grid rounded-md'>
-              <h1 className='text-[22px]'>Какую кафедру лучше всего выбрать?</h1>
-              <p className='line-clamp-2'>Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript</p>
-              <div className='flex items-end justify-between py-[5px] pt-[10px]'>
-                <div className='flex gap-[20px]'>
-                  <div className='flex gap-[5px]'>
-                    <img src={Eyes} alt="просмотры" />
-                    <p>29</p>
-                  </div>
-                  <div className='items-center flex gap-[5px]'>
-                    <img src={Comment} alt="глаза" />
-                    <p>5</p>
-                  </div>
-                </div>
-                <Button style={{
-                  color: 'white',
-                  backgroundColor: '#4CAF50', // Default background color
-                  borderColor: '#4CAF50',     // Default border color
-                  ':hover': {                  // Hover styles
-                    backgroundColor: '#388E3D',
-                    borderColor: '#388E3D',
-                  },
-                  ':active': {                 // Active (pressed) styles
-                    backgroundColor: '#2E682C',
-                    borderColor: '#2E682C',
-                  },
-                }}   
-                   >Ответить</Button>
-              </div>
-            </div>
-            <div className='bg-gray-200 py-[10px] px-[15px] w-[90%] grid rounded-md'>
-              <h1 className='text-[22px]'>Какую кафедру лучше всего выбрать?</h1>
-              <p className='line-clamp-2'>Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript</p>
-              <div className='flex items-end justify-between py-[5px] pt-[10px]'>
-                <div className='flex gap-[20px]'>
-                  <div className='flex gap-[5px]'>
-                    <img src={Eyes} alt="просмотры" />
-                    <p>29</p>
-                  </div>
-                  <div className='items-center flex gap-[5px]'>
-                    <img src={Comment} alt="глаза" />
-                    <p>5</p>
-                  </div>
-                </div>
-                <Button style={{
-                  color: 'white',
-                  backgroundColor: '#4CAF50', // Default background color
-                  borderColor: '#4CAF50',     // Default border color
-                  ':hover': {                  // Hover styles
-                    backgroundColor: '#388E3D',
-                    borderColor: '#388E3D',
-                  },
-                  ':active': {                 // Active (pressed) styles
-                    backgroundColor: '#2E682C',
-                    borderColor: '#2E682C',
-                  },
-                }}   
-                   >Ответить</Button>
-              </div>
-            </div>
-            <div className='bg-gray-200 py-[10px] px-[15px] w-[90%] grid rounded-md'>
-              <h1 className='text-[22px]'>Какую кафедру лучше всего выбрать?</h1>
-              <p className='line-clamp-2'>Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript Поступаю в ЮФУ и очень люблю прогать на javascript</p>
-              <div className='flex items-end justify-between py-[5px] pt-[10px]'>
-                <div className='flex gap-[20px]'>
-                  <div className='flex gap-[5px]'>
-                    <img src={Eyes} alt="просмотры" />
-                    <p>29</p>
-                  </div>
-                  <div className='items-center flex gap-[5px]'>
-                    <img src={Comment} alt="глаза" />
-                    <p>5</p>
-                  </div>
-                </div>
-                <Button style={{
-                  color: 'white',
-                  backgroundColor: '#4CAF50', // Default background color
-                  borderColor: '#4CAF50',     // Default border color
-                  ':hover': {                  // Hover styles
-                    backgroundColor: '#388E3D',
-                    borderColor: '#388E3D',
-                  },
-                  ':active': {                 // Active (pressed) styles
-                    backgroundColor: '#2E682C',
-                    borderColor: '#2E682C',
-                  },
-                }}   
-                   >Ответить</Button>
-              </div>
-            </div>
-        </div>
+        <Posts />
 
     </div>
   )

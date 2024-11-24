@@ -95,7 +95,26 @@ export const Register = async(req, res) => {
     }
 }
 
+export const getMe = async (req, res) => {
+    try {
+        const user = await UserModel.findById(req.userId);
 
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const { passwordHash, ...result } = user._doc;
+
+
+        return res.json({
+            ...result
+        });
+    } catch(err){
+        res.status(404).json({
+            msg: 'ошибка при получении'
+        })
+    }
+}
 
 export const createLink = async(req, res) => {
     try{
@@ -121,6 +140,28 @@ export const createLink = async(req, res) => {
     catch(error){
         return res.status(500).json({
             message: 'ошибка при добавлении ссылки в профиль'
+        })
+    }
+}
+
+
+export const getUser = async(req, res) => {
+    try{
+        const userID = req.params.id
+
+        const user = await userModel.findOne({_id: userID}).exec()
+
+        if(!user){
+            return res.status(404).json({
+                message: 'пользователь не найден'
+            })
+        }
+
+        return res.json(user)
+    }
+    catch(err){
+        res.status(500).json({
+            message: 'ошибка при получении пользователя'
         })
     }
 }

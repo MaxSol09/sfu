@@ -21,8 +21,8 @@ export const Chat = () => {
             
     return (
         <>
-            <div title="Поддержка" onClick={() => dispatch(changeSupport({type: support}))} className='bg-white flex items-center justify-center w-[80px] h-[80px] shadow-custom-rounded rounded-[50%] fixed right-8 bottom-8'>
-                <img className='w-[50px] h-[50px]' src={Support} alt="support" />
+            <div style={{display: support === false ? 'flex' : 'none'}} title="Поддержка" onClick={() => dispatch(changeSupport({type: support}))} className='bg-white flex items-center justify-center w-[70px] h-[70px] shadow-custom-rounded rounded-[50%] fixed right-5 bottom-5'>
+                <img className='w-[40px] h-[40px]' src={Support} alt="support" />
             </div>
             <div style={{display: support ? 'flex' : 'none'}} className='w-[320px] flex-col h-[410px] border-gray-600 shadow-custom-rounded bg-white fixed right-6 bottom-6'>
                 <div className='py-2 bg-gray-100 flex px-3 justify-between text-[19px]'>

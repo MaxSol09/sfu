@@ -5,7 +5,7 @@ import { loginValidation, registerValidation } from './validations/AuthValidator
 import multer from 'multer'
 import checkAuth from './utils/checkAuth.js'
 import { Answer, Create, createComment, Delete, GetAllQuestions, getTags, removeComment } from './controllers/QuestionsController.js'
-import { createLink, Login, Register } from './controllers/userController.js'
+import { createLink, getMe, getUser, Login, Register } from './controllers/userController.js'
 import { linkValidation } from './validations/LinkValidators.js'
 import { validationErrors } from './validations/ErorrsValidation.js'
 import { themeValidation } from './validations/ThemeValidation.js'
@@ -50,17 +50,20 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
 
 app.post('/auth/register', registerValidation, validationErrors, Register)
 app.post('/auth/login', loginValidation, validationErrors, Login)
+app.get('/auth/me', checkAuth, getMe)
+
+app.get('/user/:id', checkAuth, getUser)
 
 app.post('/link', linkValidation, validationErrors, createLink)
 
 app.get('/tags', getTags)
 
-app.post('/theme/create', themeValidation, validationErrors, Create)
+app.post('/question/create', themeValidation, validationErrors, Create)
 app.post('/theme/delete', Delete)
-app.get('/themes', GetAllQuestions)
+app.get('/questions', GetAllQuestions)
 
-app.post('/comment', createComment)
-app.delete('/comment', removeComment)
+app.post('/create/comment', createComment)
+app.post('/delete/comment', removeComment)
 app.post('/answer', Answer)
 
 
