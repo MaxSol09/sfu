@@ -1,10 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
+import { Message, StateAuth } from "../types/types";
+import { API_ENDPOINTS } from "../api/endpoints.js";
+
 
 export const loginFetch = createAsyncThunk(
     'login/Fetch',
     async(userData: {password: string, email: string}) => {
-        const {data} = await axios.post('http://localhost:4444/auth/login', userData)
+        const {data} = await axios.post(API_ENDPOINTS.AUTH.LOGIN, userData)
     
         return data
     }
@@ -13,7 +16,7 @@ export const loginFetch = createAsyncThunk(
 export const registerFetch = createAsyncThunk(
     'register/Fetch',
     async(user: {email: string, password: string, fullName: string, role: string}) => {
-        const {data} = await axios.post('http://localhost:4444/auth/register', user)
+        const {data} = await axios.post(API_ENDPOINTS.AUTH.REGISTER, user)
 
         console.log(user)
 
@@ -26,7 +29,7 @@ export const meFetch = createAsyncThunk(
     async() => {
         const token = localStorage.getItem('JWTtoken')
 
-        const {data} = await axios.get('http://localhost:4444/auth/me', {
+        const {data} = await axios.get(API_ENDPOINTS.AUTH.GET_ME, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -38,105 +41,112 @@ export const meFetch = createAsyncThunk(
 
 
 export const changeAvatar = createAsyncThunk('change/avatar', async (dataAvatar: {id: string, avatar: string}) => {
-    const {data} = await axios.post('http://localhost:4444/user/img', dataAvatar)
+
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.CHANGE_AVATAR, dataAvatar)
 
     return data
 })
 
 export const sendAvatar = createAsyncThunk( 'avatar/fetch', async (formData: object) => {
-    const {data} = await axios.post('http://localhost:4444/upload', formData)
+    const {data} = await axios.post(API_ENDPOINTS.QUESTIONS.UPLOAD, formData)
+
+    console.log(formData)
 
     return data
 })
 
 export const changeBackground = createAsyncThunk('changeBackground/fecth', async(backData: {id: string, backgroundProfile: string}) => {
-    const {data} = await axios.post('http://localhost:4444/user/backgroundProfile', backData)
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.CHANGE_BACKGROUND, backData)
 
     console.log(data)
     
     return data
 })
 
-export const getUser = createAsyncThunk('getUser/fetch', async (userData: {id: string}) => {
-    console.log(userData)
-    const {data} = await axios.get(`http://localhost:4444/user/${userData.id}`)
+export const sendBackground = createAsyncThunk('background/fetch', async(formData: object) => {
+    const {data} = await axios.post(API_ENDPOINTS.QUESTIONS.UPLOAD, formData)
 
     return data
 })
 
-type Message = {
+export const getUser = createAsyncThunk('getUser/fetch', async (id: string) => {
+    console.log(id)
+    const {data} = await axios.get(`${API_ENDPOINTS.AUTH.GET_USER}/${id}`)
+
+    return data
+})
+
+export const changeTextFun = createAsyncThunk('text/fetch', async (textData: {userID: string, text: string}) => {
+    console.log(textData)
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.CHANGE_TEXT, textData)
+
+    return data
+})
+
+type ComplaintSubmit = {
+    userID: string,
+    autherID: string,
+    text: string
+}
+
+export const createComplaint = createAsyncThunk('create/complaint', async(dataComplaint: ComplaintSubmit) => {
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.COMPLAINT_CREATE, dataComplaint)
+
+    return data
+})
+
+type MessageSubmit = {
     text: string,
-    fullName: string, 
-    userID?: string,
-    avatar?: string,
-    status: string
+    userID: string,
+    status: 'user' | 'admin',
+    fullName: string
 }
 
-export type UserData = {
-    avatarUrl?: string,
-    backgroundProfile?: string,
-    fullName: string,
-    countSubs: number,
-    createdAt: string,
-    email: string,
-    text: string,
-    updatedAt: string,
-    __v: number,
-    _id: string,
-    token: string,
-    chat: Message[]
+export const sendMessage = createAsyncThunk('send/message', async (message: MessageSubmit) => {
+        
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.SEND_MESSAGE, message)
+
+    return data 
+
+})
+
+type propsChat = {
+    chat: Message[], 
+    userID: string
 }
 
-type State = {
-    state: UserData | {},
-    status: 'loading' | 'success' | 'errors',
-    user: {
-        value: UserData | {},
-        status: 'loading' | 'success' | 'errors'
-    },
-    userAvatar: {
-        status: 'loading' | 'success' | 'errors',
-        img: {
-            status: 'loading' | 'success' | 'errors',
-            value: string | null 
-        }
-    }
-    userBackground: {
-        status: 'loading' | 'success' | 'errors',
-        img: {
-            status: 'loading' | 'success' | 'errors',
-            value: string | null
-        }
-    },
-    subscribe: {
-        status: 'none' | 'success'
-    }
-}
+export const changeLastChat = createAsyncThunk('change/lastChat', async (dataMessages: propsChat) => {
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.CHANGE_LAST_CHAT, dataMessages)
 
-const initialState: State = {
+    return data
+})
+
+
+const initialState: StateAuth = {
     state: {},
-    status: 'loading',
+    status: 'none',
     user: {
-        value: [],
+        value: {},
         status: 'loading'
     },
     userAvatar: {
         status: 'loading',
         img: {
-            status: 'loading',
+            status: 'none',
             value: null
         }
     },
     userBackground: {
-        status: 'loading',
+        status: 'none',
         img: {
-            status: 'loading',
+            status: 'none',
             value: null
         }
     },
     subscribe: {
         status: 'none'
-    }
+    },
+    complaintStatus: 'none'
 }
 
 
@@ -148,14 +158,17 @@ const authSlice = createSlice({
             state.state = {} 
         },
         resetUser: (state) => {
-            state.userBackground.img.value = null
-            state.userBackground.img.status = 'loading'
-            state.userBackground.status = 'loading'
-            state.userAvatar.img.value = null
-            state.userAvatar.img.status = 'loading'
-            state.userAvatar.status = 'loading'
             state.user.value = []
-            state.user.status = 'loading'
+            state.status = 'loading'
+        },
+        sendMessageChat: (state, action) => {
+            console.log(action.payload)
+            if('chat' in state.state){
+                state.state.chat = action.payload.chat
+            }         
+        },
+        banUser: (state, action) => {
+            state.state = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -190,9 +203,79 @@ const authSlice = createSlice({
         .addCase(registerFetch.rejected, (state) => {
             state.status = 'errors'
         })
+        .addCase(sendAvatar.pending, (state) => {
+            state.userAvatar.img.status = 'loading'
+        })    
+        .addCase(sendAvatar.fulfilled, (state, action) => {
+            console.log(action.payload)
+            state.userAvatar.img.status = 'success'
+            state.userAvatar.img.value = action.payload.path
+
+
+            if('avatarUrl' in state.state){
+                state.state.avatarUrl = action.payload.path
+            }
+            
+        })   
+        .addCase(sendAvatar.rejected, (state) => {
+            state.userAvatar.img.status = 'errors'
+        }) 
+        .addCase(changeAvatar.fulfilled, (state, action) => {
+            console.log('USER', action.payload)
+            state.state = action.payload
+            state.user.value = action.payload
+        })   
+        .addCase(sendBackground.pending, (state) => {
+            console.log('payload', 'test')
+            state.userBackground.img.status = 'loading'
+            state.userBackground.img.value = null
+        })
+        .addCase(sendBackground.fulfilled, (state, action) => {
+            state.userBackground.img.status = 'success'
+            state.userBackground.img.value = action.payload.path
+
+            if('backgroundProfile' in state.state){
+                state.state.backgroundProfile = action.payload.path
+            }
+
+        })
+        .addCase(sendBackground.rejected, (state, action) => {
+            console.log('payload', action.payload)
+            state.userBackground.img.status = 'errors'
+        })
+        .addCase(changeBackground.fulfilled, (state, action) => {
+            console.log('payload', action.payload)
+
+            if('backgroundProfile' in state.state && 'backgroundProfile' in state.user.value) {
+                state.state.backgroundProfile = action.payload.backgroundProfile
+                state.user.value.backgroundProfile = action.payload.backgroundProfile
+            }
+        })
+        .addCase(getUser.fulfilled, (state, action) => {
+            console.log(action.payload)
+
+            state.user.value = action.payload
+        })
+        .addCase(changeTextFun.fulfilled, (state, action) => {
+            if('text' in state.user.value){
+                state.user.value.text = action.payload.text
+            }
+        })
+        .addCase(createComplaint.pending, (state, action) => {
+            state.complaintStatus = 'loading'
+        })
+        .addCase(createComplaint.fulfilled, (state, action) => {
+            console.log(action.payload)
+            state.user.value = action.payload
+            state.complaintStatus = 'success'
+        })
+        .addCase(changeLastChat.fulfilled, (state, action) => {
+            state.state = action.payload
+            console.log(action.payload)
+        })
     }
 })
 
 
-export const {logout, resetUser }  = authSlice.actions
+export const {logout, resetUser, sendMessageChat, banUser}  = authSlice.actions
 export const authReducer = authSlice.reducer

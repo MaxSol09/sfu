@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
-import { pageReducer } from './page.ts'
-import { authReducer } from './auth.ts'
-import { questionsReducer } from './questions.ts'
+import { pageReducer } from './page'
+import { authReducer } from './auth'
+import { questionsReducer } from './questions'
 
 
 

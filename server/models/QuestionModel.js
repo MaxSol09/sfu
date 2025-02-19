@@ -1,24 +1,25 @@
 import mongoose from "mongoose"
 
 const QuestionSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    text: {
-        type: String,
-        required: true,
-        unique: true
+    title: String,
+    moderation: {
+        type: Boolean,
+        default: false
     },
     tags: {
         type: Array,
         default: []
     },
+    text: String,
     viewCount: {
         type: Number,
         default: 0
     },
     comments: {
+        type: Array,
+        default: []
+    },
+    likes: {
         type: Array,
         default: []
     },

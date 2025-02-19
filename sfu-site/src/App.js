@@ -1,16 +1,24 @@
 import axios from "axios";
 import { Router } from "./Router";
-import { useEffect } from "react";
+import {useFavicon} from 'react-use'
+import Logo from './images/logo.png'
+import { WebSocketActions } from "./components/WebSocketActions";
 
 
 function App() {
 
-  const token = localStorage.getItem('JWTtoken');
+  useFavicon(Logo)
 
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const token = localStorage.getItem('JWTtoken')
+
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
 
   return (
-    <Router />
+    <>
+      <WebSocketActions />
+      <Router />
+    </>
   );
 }
 

@@ -2,17 +2,26 @@ import { Route, Routes } from "react-router-dom"
 import { Registration } from "./pages/Registration.tsx"
 import { Login } from "./pages/Login.tsx"
 import { Home } from "./pages/Home"
+import { About } from "./components/Tabs/About"
+import { Profile } from "./components/Profile/Profile"
+import { Question } from "./components/Question/Question"
+
+const routes = [
+  { path: '/register', element: <Registration /> },
+  { path: '/home', element: <Home /> },
+  { path: '/home/question/:id', element: <Question /> },
+  { path: '/about', element: <About /> },
+  { path: '/profile/:id', element: <Profile /> },
+  { path: '/', element: <Login /> },
+]
 
 export const Router = () => {
-    return (
-      <div>
-      <Routes> 
-          <Route path='/register' element={<Registration/>}></Route>
-          <Route path='/home' element={<Home/>}></Route>
-          <Route path='/' element={<Login/>}></Route>
-          <Route path='*' element={<h1>Не найденно</h1>}></Route>
+  return (
+      <Routes>
+          {routes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+          ))}
+          <Route path='*' element={<h1>Не найдено</h1>} />
       </Routes>
-      </div>
-    )
-  }
-  
+  )
+}

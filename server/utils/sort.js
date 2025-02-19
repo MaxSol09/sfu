@@ -11,6 +11,6 @@ export function removeDuplicates(arr) {
     
     let sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a])
       
-    return sortedTags.slice(0, 3).map(tag => ({ tag }))
+    return sortedTags.slice(0, 5).map(tag => ({ tag }))
 }
     

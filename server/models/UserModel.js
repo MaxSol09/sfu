@@ -6,6 +6,14 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    answer: {
+        type: Number,
+        default: 0
+    },
+    speciality: {
+        type: String,
+        default: ''
+    },
     text: {
         type: String,
         default: ''
@@ -41,12 +49,31 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    backgroundProfile: String,
+    backgroundProfile: {
+        type: String,
+        default: ''
+    },
     chat: {
         type: Array,
         default: []
     },
+    complaints: {
+        type: Array, 
+        default: []
+    },
     achievements:{
+        type: Array,
+        default: []
+    },
+    ban: {
+        type: Boolean,
+        default: false
+    },
+    banText: {
+        type: String,
+        default: ''
+    },
+    lastChat: {
         type: Array,
         default: []
     },
