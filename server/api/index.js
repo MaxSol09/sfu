@@ -19,7 +19,7 @@ mongoose.connect(
 ).then(() => {
     console.log('MongoDB connect')
 }).catch((err) => {
-    console.log('error connection data base > ')
+    console.log('error connection data base')
 })
 
 export const wss = new WebSocketServer({port: 8080})
