@@ -129,6 +129,8 @@ app.listen(4444, (err) => {
     console.log('сервер стартанул')
 })
 
+export default app;
+
 
 // я старался :)
 //надеюсь выиграю
