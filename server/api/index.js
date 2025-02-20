@@ -123,7 +123,7 @@ app.post('/change/lastchat', checkAuth, changeLastChat)
 
 app.get('/', (req, res) => res.send('<h1>привет</h1>'))
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
     if(err){
         return console.error(err)
     }
