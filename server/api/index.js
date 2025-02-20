@@ -58,9 +58,13 @@ wss.on('connection', (ws, req) => {
 
 const app = express()
 
-app.use(express.json())
-app.use(cors())
-
+const corsConfig = {
+    origin: 'https://sfu-counselor.vercel.app',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig))
+app.options("", cors(corsConfig))
 
 app.use('/upload', express.static('images'))
 
