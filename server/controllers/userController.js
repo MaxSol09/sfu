@@ -2,7 +2,7 @@ import UserModel from '../models/UserModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { WebSocket } from 'ws'
-import { clientsMap, wss } from '../index.js'
+import { clientsMap, wss } from '../api/index.js'
 
 export const Login = async(req, res) => {
     try{
