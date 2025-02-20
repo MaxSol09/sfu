@@ -135,7 +135,10 @@ app.listen(process.env.PORT || 4444, (err) => {
     console.log('сервер стартанул')
 })
 
-export default app;
+export default async function handler(req, res) {
+    app(req, res); // Запускаем обработку Express
+}
+
 
 
 // я старался :)
