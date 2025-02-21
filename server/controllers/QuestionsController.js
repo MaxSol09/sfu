@@ -2,7 +2,7 @@ import QuestionModel from "../models/QuestionModel.js"
 import UserModel from "../models/UserModel.js"
 import { flattenArray } from "../utils/flatten.js"
 import { removeDuplicates } from "../utils/sort.js"
-import { clientsMap, wss } from "../api/index.js"
+import { clientsMap, wss } from "../index.js"
 
 
 export const ModerationQuestion = async(req, res) => {
