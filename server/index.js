@@ -59,10 +59,13 @@ wss.on('connection', (ws, req) => {
 const app = express()
 
 const corsConfig = {
-    origin: 'http://localhost:3000',
+    origin: ['https://sfu-counselor.vercel.app', 'http://localhost:3000'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }
+
+app.use(express.json())
+
 app.use(cors(corsConfig))
 app.options("", cors(corsConfig))
 

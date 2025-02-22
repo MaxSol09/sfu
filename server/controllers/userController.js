@@ -49,6 +49,7 @@ export const Login = async(req, res) => {
 } 
 
 export const Register = async(req, res) => {
+    console.log(req.body)
     try{
 
         const checkUser = await UserModel.findOne({fullName: req.body.fullName})

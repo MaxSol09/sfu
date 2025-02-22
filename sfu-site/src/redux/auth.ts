@@ -16,9 +16,9 @@ export const loginFetch = createAsyncThunk(
 export const registerFetch = createAsyncThunk(
     'register/Fetch',
     async(user: {email: string, password: string, fullName: string, role: string}) => {
-        const {data} = await axios.post(API_ENDPOINTS.AUTH.REGISTER, user)
-
+        console.log('wfqwfq')
         console.log(user)
+        const {data} = await axios.post(API_ENDPOINTS.AUTH.REGISTER, user)
 
         return data
     }
