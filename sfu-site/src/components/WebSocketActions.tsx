@@ -17,10 +17,12 @@ export const WebSocketActions: React.FC = () => {
         if (isUser(state)) {
             if (!ws.current || ws.current.readyState === WebSocket.CLOSED) {
 
-                ws.current = new WebSocket(`ws://localhost:8080?userId=${state._id}/?role=${state.role === 'Абитуриент' ? 'applicant' : 'student'}`)
+                ws.current = new WebSocket(`ws://sfu-1.onrender.com:8080?userId=${state._id}/?role=${state.role === 'Абитуриент' ? 'applicant' : 'student'}`)
 
                 ws.current.onmessage = e => {
                     const userdata = JSON.parse(e.data)
+
+                    console.log('dataWs', userdata)
 
                     switch (userdata.type) {
                         case 'chat':
