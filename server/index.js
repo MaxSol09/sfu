@@ -22,7 +22,7 @@ mongoose.connect(
     console.log('error connection data base')
 })
 
-export const wss = new WebSocketServer({port: 8080})
+export const wss = new WebSocketServer({port: process.env.PORT || 8080})
 
 export let clientsMap = []
 

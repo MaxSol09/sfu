@@ -17,11 +17,7 @@ export const WebSocketActions: React.FC = () => {
         if (isUser(state)) {
             if (!ws.current || ws.current.readyState === WebSocket.CLOSED) {
 
-                const url = `sfu-1.onrender.com/:8080/?userId=${state._id}/?role=${state.role === 'Абитуриент' ? 'applicant' : 'student'}`
-
-                console.log(url)
-
-                ws.current = new WebSocket(url)
+                ws.current = new WebSocket(`wss://sfu-1.onrender.com:8080/?userId=${state._id}/?role=${state.role === 'Абитуриент' ? 'applicant' : 'student'}`)
 
                 ws.current.onmessage = e => {
                     const userdata = JSON.parse(e.data)
