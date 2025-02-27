@@ -22,7 +22,7 @@ mongoose.connect(
     console.log('error connection data base > ')
 })
 
-export const wss = new WebSocketServer({port: 8080})
+export const wss = new WebSocketServer({port: process.env.PORT || 8080})
 
 export let clientsMap = []
 
@@ -84,6 +84,23 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     })
 })
 
+app.get('/api/vk-users', async (req, res) => {
+    try {
+        const { userId, accessToken } = req.query;
+        console.log(userId)
+        console.log(userId)
+        const response = await fetch(`https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country&access_token=${accessToken}&v=5.131`);
+        const data = await response.json();
+
+
+        console.log(data)
+
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch user data' });
+    }
+});
+
 app.post('/auth/register', registerValidation, validationErrors, Register)
 app.post('/auth/login', loginValidation, validationErrors, Login)
 app.get('/auth/me', checkAuth, getMe)
@@ -121,7 +138,7 @@ app.delete('/delete/comment', removeComment) //пока что не исполь
 
 app.post('/change/lastchat', checkAuth, changeLastChat)
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
     if(err){
         return console.error(err)
     }

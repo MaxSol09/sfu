@@ -59,7 +59,7 @@ export const Login: React.FC = () => {
   // Функция для получения данных пользователя (с использованием VK API)
   const getUserData = async (accessToken:any, userId: any) => {
     try {
-      const response = await fetch(`https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country&access_token=${accessToken}&v=5.131`);
+      const response = await fetch(`https://sfu-1.onrender.com/api/vk-users?accessToken=${accessToken}&userId=${userId}`);
       const data = await response.json();
 
       if (data.response && data.response.length > 0) {
