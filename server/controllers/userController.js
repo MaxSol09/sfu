@@ -557,6 +557,7 @@ export const sendMsgSupport = async (req, res) => {
 
         wss.clients.forEach(client => {
             clientsMap.forEach(user => {
+                console.log(user)
                 if ((user.role === 'admin' || user.id === req.body.userID) && user.ws === client && client.readyState === WebSocket.OPEN){
                     client.send(JSON.stringify({type: 'chat', data: send}))
                 }

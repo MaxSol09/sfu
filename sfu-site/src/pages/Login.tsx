@@ -32,11 +32,48 @@ export const Login: React.FC = () => {
   const [user, setUser] = useState(null);
 
   const appId = '53108749'; // Замените на ваш client_id
-  const redirectUri = 'http://localhost'; // Замените на URL вашего приложения
-  
+  const redirectUri = 'https://sfu-counselor.vercel.app'; // Замените на URL вашего приложения
+
+  useEffect(() => {
+    // Получение параметров из URL hash (после редиректа)
+    const hash = window.location.hash.substring(1); // Убираем '#'
+    const params = new URLSearchParams(hash);
+
+    const accessToken = params.get('access_token');
+    const expiresIn = params.get('expires_in');
+    const userId = params.get('user_id');
+
+    if (accessToken && userId) {
+      // Сохраняем токен (например, в localStorage)
+      localStorage.setItem('vk_token', accessToken);
+      localStorage.setItem('vk_userId', userId);
+
+      // Получаем данные пользователя
+      getUserData(accessToken, userId);
+
+      // Очищаем hash из URL (чтобы не было видно в истории браузера)
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
+
+  // Функция для получения данных пользователя (с использованием VK API)
+  const getUserData = async (accessToken:any, userId: any) => {
+    try {
+      const response = await fetch(`https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country&access_token=${accessToken}&v=5.131`);
+      const data = await response.json();
+
+      if (data.response && data.response.length > 0) {
+        console.log(data.response[0])
+        setUser(data.response[0]); // Сохраняем данные пользователя в state
+      }
+    } catch (error) {
+      console.error('Ошибка при получении данных пользователя:', error);
+    }
+  };
+
   const handleLogin = () => {
-      const scope = 'email'; // Укажите необходимые разрешения
-      window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.131`;
+    const scope = 'email'; // Укажите необходимые разрешения
+    window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.131`;
   };
 
   const {
