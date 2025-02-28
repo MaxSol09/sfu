@@ -62,6 +62,8 @@ export const Login: React.FC = () => {
       const response = await fetch(`https://sfu-1.onrender.com/api/vk-users?accessToken=${accessToken}&userId=${userId}`);
       const data = await response.json();
 
+      console.log(data)
+
       if (data.response && data.response.length > 0) {
         console.log(data.response[0])
         setUser(data.response[0]); // Сохраняем данные пользователя в state
