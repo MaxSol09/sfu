@@ -90,13 +90,16 @@ export const Login: React.FC = () => {
       dispatch(loginFetch(data))
   }
 
+
+  console.log('vercel dayn')
+
   return (
     <div className='h-[100vh] flex w-full'>
       <img alt='sfu-logo' className='w-1/2 bg-img' src={Sfu}/>
       <div className='flex flex-col justify-center w-1/2 items-center'>
         <img className='w-[200px]' src={Logo} alt="" />
         <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
-        <button onClick={() => handleLogin()}>вк вход testt</button>
+        <button onClick={() => handleLogin()}>вк вход test</button>
         <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
           <label className='grid text-[20px] justify-center gap-[5px]' >
               Электронная почта
