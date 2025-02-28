@@ -3,7 +3,7 @@ import Sfu from '../images/sfu.jpeg'
 import Logo from '../images/logo.png'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginFetch } from '../redux/auth'
+import { getVkUser, loginFetch } from '../redux/auth'
 import { isUser } from '../utils/checkValue'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { useForm } from 'react-hook-form'
@@ -59,17 +59,7 @@ export const Login: React.FC = () => {
   // Функция для получения данных пользователя (с использованием VK API)
   const getUserData = async (accessToken: any, userId: any) => {
     try {
-      const response = await axios.post('https://sfu-1.onrender.com/api/vk/user', { 
-        accessToken,
-        userId,
-      });
-      const data = response.data;
-  
-      console.log(data);
-  
-      if (data) { // Проверяем, что данные пришли
-        setUser(data);
-      }
+      dispatch(getVkUser({token: accessToken, vkID: userId}))
     } catch (error) {
       console.error('Ошибка при получении данных пользователя:', error);
     }
