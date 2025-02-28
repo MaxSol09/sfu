@@ -59,8 +59,7 @@ export const Login: React.FC = () => {
   // Функция для получения данных пользователя (с использованием VK API)
   const getUserData = async (accessToken:any, userId: any) => {
     try {
-      const response = await fetch(`https://api.vk.com/method/friends.get?user_id=${userId}&v=5.74&access_token=${accessToken}`);
-      const data = await response.json();
+      const {data} = await axios.post(`https://id.vk.com/oauth2/user_info`, {accessToken, userId});
 
       console.log(data)
 
