@@ -27,13 +27,15 @@ export const registerFetch = createAsyncThunk(
 export const meFetch = createAsyncThunk(
     'me/Fetch',
     async() => {
-        const token = localStorage.getItem('JWTtoken')
+        const token = localStorage.getItem('vk_token')
 
         const {data} = await axios.get(API_ENDPOINTS.AUTH.GET_ME, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
+
+        console.log(data)
     
         return data
     }
