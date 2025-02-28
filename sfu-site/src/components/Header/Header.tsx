@@ -31,6 +31,7 @@ export const Header: React.FC<Props> = ({currPage}) => {
 
   useEffect(() => {
     if(token && vkID){
+      console.log('v')
       dispatch(getVkUser({token, vkID}))
     }
   }, [token, vkID, dispatch])
