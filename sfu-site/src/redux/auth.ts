@@ -42,6 +42,17 @@ export const meFetch = createAsyncThunk(
 )
 
 
+export const getVkUser = createAsyncThunk('user/vk', async (user: {token: any, vkID: any}) => {
+        console.log("data >>> ", user)
+        const {data} = await axios.post('https://sfu-1.onrender.com/api/vk/user', user)
+
+        console.log(data)
+
+        return data
+    }
+)
+
+
 export const changeAvatar = createAsyncThunk('change/avatar', async (dataAvatar: {id: string, avatar: string}) => {
 
     const {data} = await axios.post(API_ENDPOINTS.AUTH.CHANGE_AVATAR, dataAvatar)
@@ -273,6 +284,12 @@ const authSlice = createSlice({
         })
         .addCase(changeLastChat.fulfilled, (state, action) => {
             state.state = action.payload
+            console.log(action.payload)
+        })
+        .addCase(getVkUser.pending, (state, action) => {
+            console.log(action.payload)
+        })
+        .addCase(getVkUser.fulfilled, (state, action) => {
             console.log(action.payload)
         })
     }

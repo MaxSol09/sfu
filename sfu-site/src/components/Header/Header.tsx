@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changePage, changeSupport } from '../../redux/page'
 import { fetchQuestions, fetchTags} from '../../redux/questions'
 import {Link, useNavigate} from 'react-router-dom'
-import { meFetch } from '../../redux/auth'
+import { getVkUser, meFetch } from '../../redux/auth'
 import { isUser } from '../../utils/checkValue'
 import { TypePage } from '../../types/types'
 import { Chat } from '../Chat/Chat'
@@ -25,6 +25,15 @@ export const Header: React.FC<Props> = ({currPage}) => {
   const [modal, setModal] = useState(false)
 
   const {state, status} = useAppSelector(el => el.auth)
+
+  const token = localStorage.getItem('vk_token')
+  const vkID = localStorage.getItem('vk_userId')
+
+  useEffect(() => {
+    if(token && vkID){
+      dispatch(getVkUser({token, vkID}))
+    }
+  }, [token, vkID])
 
   useEffect(() => {
     if(status === 'none'){
