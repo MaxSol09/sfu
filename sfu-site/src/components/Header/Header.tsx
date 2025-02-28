@@ -33,7 +33,7 @@ export const Header: React.FC<Props> = ({currPage}) => {
     if(token && vkID){
       dispatch(getVkUser({token, vkID}))
     }
-  }, [token, vkID])
+  }, [token, vkID, dispatch])
 
   useEffect(() => {
     if(status === 'none'){
