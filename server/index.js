@@ -88,28 +88,30 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
 const VK_API_VERSION = '5.131'; // Укажите актуальную версию VK API
 
 app.post('/api/vk/user', async (req, res) => {
-  const { accessToken, userId } = req.body;
+    const { accessToken, userId } = req.body;
 
-  if (!accessToken || !userId) {
-    return res.status(400).json({ error: 'Missing access_token or user_id' });
-  }
-
-  try {
-    const vkApiUrl = `https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country,email&access_token=${accessToken}&v=${VK_API_VERSION}`;
-    const response = await fetch(vkApiUrl); // Делаем запрос к VK API с сервера
-    const data = await response.json();
-
-    if (data.error) {
-      console.error('VK API error:', data.error);
-      return res.status(500).json({ error: 'Failed to fetch user data', vk_error: data.error });
+    console.log('body', req.body)
+  
+    if (!accessToken || !userId) {
+      return res.status(400).json({ error: 'Missing access_token or user_id' });
     }
-
-    res.json(data.response && data.response.length > 0 ? data.response[0] : null); // Отправляем данные клиенту
-  } catch (error) {
-    console.error('Error fetching VK data:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+  
+    try {
+      const vkApiUrl = `https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country,email&access_token=${accessToken}&v=${VK_API_VERSION}`;
+      const response = await fetch(vkApiUrl); // Делаем запрос к VK API с сервера
+      const data = await response.json();
+  
+      if (data.error) {
+        console.error('VK API error:', data.error);
+        return res.status(500).json({ error: 'Failed to fetch user data', vk_error: data.error });
+      }
+  
+      res.json(data.response && data.response.length > 0 ? data.response[0] : null); // Отправляем данные клиенту
+    } catch (error) {
+      console.error('Error fetching VK data:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 
 app.get('/api/vk-users', async (req, res) => {
