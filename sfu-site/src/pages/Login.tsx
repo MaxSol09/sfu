@@ -57,14 +57,15 @@ export const Login: React.FC = () => {
   }, []);
 
   // Функция для получения данных пользователя (с использованием VK API)
-  const getUserData = async (accessToken:any, userId: any) => {
+  const getUserData = async (accessToken: any, userId: any) => {
     try {
-      const {data} = await axios.post(`https://id.vk.com/oauth2/user_info`, {accessToken, userId});
-
-      console.log(data)
-
+      const response = await axios.get(`https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country,email&access_token=${accessToken}&v=5.131`);
+      const data = response.data; // Axios возвращает данные в поле data
+  
+      console.log(data);
+  
       if (data.response && data.response.length > 0) {
-        console.log(data.response[0])
+        console.log(data.response[0]);
         setUser(data.response[0]); // Сохраняем данные пользователя в state
       }
     } catch (error) {
