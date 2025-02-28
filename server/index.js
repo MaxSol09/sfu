@@ -84,40 +84,33 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     })
 })
 
-app.post('/api/vk/user', async (req, res) => {
-    const accessToken = req.body.access_token;
-    const userId = req.body.user_id;
-  
-    if (!accessToken || !userId) {
-      return res.status(400).json({ error: 'Missing access_token or user_id' });
-    }
-  
-    try {
-      // 1. (Опционально) Проверка токена (с помощью метода users.get)
-      // const validationResponse = await fetch(`https://api.vk.com/method/users.get?access_token=${accessToken}&user_id=${userId}&v=${VK_API_VERSION}`);
-      // const validationData = await validationResponse.json();
-  
-      // if (validationData.error) {
-      //   return res.status(401).json({ error: 'Invalid access_token', vk_error: validationData.error });
-      // }
-  
-      // 2. Получение данных пользователя
-      const userResponse = await fetch(`https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country,email&access_token=${accessToken}&v=${VK_API_VERSION}`); // Укажите нужные поля
-      const userData = await userResponse.json();
 
-      console.log(userData)
-  
-      if (userData.error) {
-        return res.status(500).json({ error: 'Failed to fetch user data', vk_error: userData.error });
-      }
-  
-      // Отправка данных пользователя клиенту
-      res.json(userData.response[0]); // Отправляем первый (и единственный) элемент из массива response
-    } catch (error) {
-      console.error('Error fetching VK data:', error);
-      res.status(500).json({ error: 'Internal server error' });
+const VK_API_VERSION = '5.131'; // Укажите актуальную версию VK API
+
+app.post('/api/vk/user', async (req, res) => {
+  const { accessToken, userId } = req.body;
+
+  if (!accessToken || !userId) {
+    return res.status(400).json({ error: 'Missing access_token or user_id' });
+  }
+
+  try {
+    const vkApiUrl = `https://api.vk.com/method/users.get?user_id=${userId}&fields=photo_max,city,country,email&access_token=${accessToken}&v=${VK_API_VERSION}`;
+    const response = await fetch(vkApiUrl); // Делаем запрос к VK API с сервера
+    const data = await response.json();
+
+    if (data.error) {
+      console.error('VK API error:', data.error);
+      return res.status(500).json({ error: 'Failed to fetch user data', vk_error: data.error });
     }
+
+    res.json(data.response && data.response.length > 0 ? data.response[0] : null); // Отправляем данные клиенту
+  } catch (error) {
+    console.error('Error fetching VK data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
 
 app.get('/api/vk-users', async (req, res) => {
     try {
