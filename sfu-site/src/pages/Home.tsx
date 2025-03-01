@@ -28,6 +28,9 @@ export const Home: React.FC = () => {
     }, [dispatch])
 
 
+    console.log(form)
+
+
   return (
     <>
       <Header currPage={'home'}/>
