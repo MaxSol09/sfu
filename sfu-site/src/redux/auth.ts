@@ -44,7 +44,7 @@ export const meFetch = createAsyncThunk(
 
 export const getVkUser = createAsyncThunk('user/vk', async (user: {token: any, vkID: any}) => {
         console.log("data >>> ", user)
-        const {data} = await axios.get(`https://api.vk.com/method/users.get?user_ids=${user.vkID}&access_token=${user.token}&v=5.131`)
+        const {data} = await axios.get(`https://api.vk.com/method/users.get?user_ids=${user.vkID}&access_token=${user.token}&v=5.199`)
 
         console.log(data)
 
