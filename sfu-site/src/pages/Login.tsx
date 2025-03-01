@@ -67,7 +67,7 @@ export const Login: React.FC = () => {
 
   const handleLogin = () => {
     const scope = 'email'; // Укажите необходимые разрешения
-    window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`;
+    window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.13`;
   };
 
   const {

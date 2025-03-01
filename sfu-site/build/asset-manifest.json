@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a473b450.css",
+    "main.js": "/static/js/main.00b48625.js",
+    "static/js/453.39c31066.chunk.js": "/static/js/453.39c31066.chunk.js",
+    "static/media/sfu.jpeg": "/static/media/sfu.10e8b4ed4df4aff3e84b.jpeg",
+    "static/media/logo.png": "/static/media/logo.a41ca931a6b597789eb0.png",
+    "static/media/sfu-bg.webp": "/static/media/sfu-bg.8f122cf8de3c0e727172.webp",
+    "static/media/del.png": "/static/media/del.e40ea603ce63b9fde779.png",
+    "static/media/Like.png": "/static/media/Like.902227aa3e914148ce7b.png",
+    "static/media/Like2.png": "/static/media/Like2.8b8aa5fcfe1100a52409.png",
+    "static/media/support.png": "/static/media/support.213e5f59e3ce1f59396c.png",
+    "static/media/comment.svg": "/static/media/comment.f9032b6dbf6a057e9728f20eb6118b8c.svg",
+    "static/media/eyes.svg": "/static/media/eyes.0807b2869739fe14c7465bb3ef98f88e.svg",
+    "index.html": "/index.html",
+    "main.a473b450.css.map": "/static/css/main.a473b450.css.map",
+    "main.00b48625.js.map": "/static/js/main.00b48625.js.map",
+    "453.39c31066.chunk.js.map": "/static/js/453.39c31066.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a473b450.css",
+    "static/js/main.00b48625.js"
+  ]
+}
