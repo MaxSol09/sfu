@@ -32,7 +32,7 @@ export const Login: React.FC = () => {
   const [user, setUser] = useState(null);
 
   const appId = '53108749'; // Замените на ваш client_id
-  const redirectUri = 'https://sfu-counselor.vercel.app'; // Замените на URL вашего приложения
+  const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
 
   useEffect(() => {
     // Получение параметров из URL hash (после редиректа)
@@ -67,7 +67,7 @@ export const Login: React.FC = () => {
 
   const handleLogin = () => {
     const scope = 'email'; // Укажите необходимые разрешения
-    window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.131`;
+    window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`;
   };
 
   const {
