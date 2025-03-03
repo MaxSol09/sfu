@@ -92,27 +92,38 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     })
 })
 
-app.post('/vk/user', async(req, res) => {
-    try{
-        const {vkID, token} = req.body
+app.post('/vk/user', async (req, res) => {
+    try {
+        const { vkID, token } = req.body;
 
-        const data = await fetch(`https://api.vk.com/method/users.get?user_ids=${vkID}&fields=bdate&access_token=${token}&v=5.199`)
+        const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate&access_token=${token}&v=5.199`);
 
-        if(!data.json()){
-            res.status(500).json({
-                message: 'vk ошибка'
-            })
+        if (!data.ok) {
+            console.error(`VK API error: ${data.status} ${data.statusText}`);
+            return res.status(data.status).json({
+                message: `VK API error: ${data.status} ${data.statusText}`,
+            });
         }
 
+        const jsonData = await data.json();
 
-        return res.json(data.json())
-    }
-    catch(err){
+        if (jsonData.error) {
+            console.error('VK API error:', jsonData.error);
+            return res.status(500).json({
+                message: 'VK API error',
+                vkError: jsonData.error,
+            });
+        }
+
+        return res.json(jsonData); // Отправляем JSON
+    } catch (err) {
+        console.error('Error fetching VK user:', err);
         res.status(500).json({
-            message: 'ошибка при получении пользователя vk'
-        })
+            message: 'Error fetching VK user',
+            error: err.message,
+        });
     }
-})
+});
 
 app.post('/auth/register', registerValidation, validationErrors, Register)
 app.post('/auth/login', loginValidation, validationErrors, Login)
