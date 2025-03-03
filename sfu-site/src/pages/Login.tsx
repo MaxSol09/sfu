@@ -39,6 +39,8 @@ export const Login: React.FC = () => {
     const hash = window.location.hash.substring(1); // Убираем '#'
     const params = new URLSearchParams(hash);
 
+    console.log(params)
+
     const accessToken = params.get('access_token');
     const expiresIn = params.get('expires_in');
     const userId = params.get('user_id');
