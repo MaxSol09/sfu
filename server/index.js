@@ -92,6 +92,27 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     })
 })
 
+app.post('/vk/user', async(req, res) => {
+    try{
+        const {vkID, token} = req.body
+
+        const data = await fetch(`https://api.vk.com/method/users.get?user_ids=${vkID}&fields=bdate&access_token=${token}&v=5.199`)
+
+        if(!data.json()){
+            res.status(500).json({
+                message: 'vk ошибка'
+            })
+        }
+
+
+        return res.json(data.json())
+    }
+    catch(err){
+        res.status(500).json({
+            message: 'ошибка при получении пользователя vk'
+        })
+    }
+})
 
 app.post('/auth/register', registerValidation, validationErrors, Register)
 app.post('/auth/login', loginValidation, validationErrors, Login)
