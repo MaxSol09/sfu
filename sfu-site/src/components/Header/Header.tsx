@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Logo from '../../images/logo.png'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changePage, changeSupport } from '../../redux/page'
@@ -16,6 +16,8 @@ type Props = {
   currPage: TypePage
 }
 
+const MemoSearchPosts = React.memo(SearchPosts)
+
 export const Header: React.FC<Props> = ({currPage}) => {
 
   const questionLink = useAppSelector(el => el.page.questionOpen.link)
@@ -30,13 +32,14 @@ export const Header: React.FC<Props> = ({currPage}) => {
   const vkID = localStorage.getItem('vk_userId')
 
   useEffect(() => {
+    console.log('render vk user')
     if(token && vkID){
-      console.log('v')
       dispatch(getVkUser({token, vkID}))
     }
   }, [token, vkID, dispatch])
 
   useEffect(() => {
+    console.log('render effect mefetch')
     if(status === 'none'){
       dispatch(meFetch())
     }
@@ -47,6 +50,9 @@ export const Header: React.FC<Props> = ({currPage}) => {
 
 
   const homeClick = () => {
+
+    console.log('render homeclick')
+
     dispatch(fetchQuestions())
     dispatch(fetchTags())
 
@@ -63,6 +69,8 @@ export const Header: React.FC<Props> = ({currPage}) => {
 
   const aboutClick = () => {
 
+    console.log('render aboutclick')
+
     if(currPage === 'question'){
       dispatch(changePage({type: 'ABOUT', link: window.location.href}))
     }
@@ -72,6 +80,8 @@ export const Header: React.FC<Props> = ({currPage}) => {
 
     navigate('/about')
   }
+
+  console.log('render header')
 
 
   return (
@@ -83,7 +93,7 @@ export const Header: React.FC<Props> = ({currPage}) => {
           <button onClick={() => aboutClick()} className={`${currPage === 'about' && 'text-black'}`}>Об институте</button>
           <button onClick={() => dispatch(changeSupport({type: false}))}>Поддержка</button>
       </nav>
-      <SearchPosts />
+      <MemoSearchPosts />
       { isUser(state) && state._id ? <button onClick={() => setModal(true)} style={{marginRight: modal ? '17px' : ''}} 
         className='bg-red-500 text-white py-[9px] px-[40px] rounded-sm'>
         Выйти

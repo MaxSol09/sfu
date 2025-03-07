@@ -102,7 +102,10 @@ export const CreateQuestion: React.FC = () => {
         </div>
       </div>
       <div className='flex justify-between pt-[15px]'>
-        <Button disabled={statusCreate === 'loading' ? true : false} onClick={() => dispatch(changePage({type: 'HOME'}))} className='px-[30px] py-[10px] text-[18px]'>Назад</Button>
+        <Button disabled={statusCreate === 'loading' ? true : false} onClick={() => dispatch(changePage({type: 'HOME'}))}
+         className='px-[30px] py-[10px] text-[18px]'>
+          Назад
+        </Button>
         <Button disabled={statusCreate === 'loading' ? true : false} onClick={() => submit()} type='primary' className='text-[16px]'>Опубликовать</Button>
       </div>
     </div>

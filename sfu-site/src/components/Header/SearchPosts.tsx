@@ -12,7 +12,11 @@ export const SearchPosts: React.FC = () => {
         setTimeout(() => {
             dispatch(searchQuestion({title: e}))
         }, 300)
+
+        console.log('render find')
     }
+
+    console.log('render input')
 
     return (
         <input onChange={e => findPost(e.target.value)} className='text-[20px] outline-gray-400 border-[2px] w-[400px] py-[5px] px-[10px]' placeholder='поиск по теме или названию' type="text" />

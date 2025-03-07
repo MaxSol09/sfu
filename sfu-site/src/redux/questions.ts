@@ -54,7 +54,6 @@ export const deleteQuestion = createAsyncThunk('delete/Post', async (id: string)
 export const getQuestion = createAsyncThunk(
     'getPost/fetch',
     async (id: string) => {
-        console.log(id)
 
         const {data} = await axios.get(`${API_ENDPOINTS.QUESTIONS.GET_QUESTION}/${id}`)
 
@@ -224,7 +223,6 @@ const questionsSlice = createSlice({
             state.favorite = sortedPosts;
         },
         getQuestionPage: (state, action) => {
-            console.log(action.payload)
 
             const result = state.questions.items.filter(el => el._id === action.payload.id)
         
@@ -256,7 +254,6 @@ const questionsSlice = createSlice({
             });
         },
         searchQuestion: (state, action) => {
-            console.log(action.payload)
             const findTitle = state.questions.items.filter(el => {
                     return el.title.toLowerCase() === action.payload.title.toLowerCase() && el.moderation === true
                 }
@@ -267,12 +264,9 @@ const questionsSlice = createSlice({
             })
 
             const findTag = state.questions.items.filter(el => {
-                    console.log(current(el.tags[0]), action.payload.title)
                     return el.tags[0].tag.toLowerCase() === action.payload.title.toLowerCase() && el.moderation === true
                 }
             )
-
-            console.log(findTitle)
 
             if(findTag.length){
                 state.questionsArr.items = findTag

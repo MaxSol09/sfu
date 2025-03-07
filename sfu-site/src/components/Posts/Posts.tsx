@@ -14,7 +14,7 @@ export const Posts: React.FC<Props> = ({questions, loadingQuestions}) => {
 
     const state = useAppSelector(el => el.auth.state)
   
-    console.log(questions)
+    console.log('posts render')
       
   
     return (

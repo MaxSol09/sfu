@@ -32,7 +32,7 @@ export const Login: React.FC = () => {
   const [user, setUser] = useState(null);
 
   const appId = '53108749'; // Замените на ваш client_id
-  const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
+  const redirectUri = 'https://sfu-counselor.vercel.app'; // Замените на URL вашего приложения
 
   useEffect(() => {
     // Получение параметров из URL hash (после редиректа)

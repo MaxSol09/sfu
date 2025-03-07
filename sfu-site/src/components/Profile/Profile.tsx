@@ -21,6 +21,8 @@ import { EditUser } from './EditUser/EditUser'
 import { Variants } from './Variants'
 import { useGetUser } from './useGetUser'
 
+const MemoHeader = React.memo(Header)
+
 export const Profile: React.FC = () => {
   
   const {id} = useParams()
@@ -28,15 +30,11 @@ export const Profile: React.FC = () => {
   const state = useAppSelector(el => el.auth.state)
   const user = useGetUser(id as string)
 
-  useEffect(() => {
-    if(isUser(user) && isUser(state)){
-      console.log(!isSendBan(user, state._id))
-    }
-  }, [user, state])
+  console.log('render profile')
 
   return (
     <>
-      <Header currPage={'home'}/>
+      <MemoHeader currPage={'home'}/>
       <aside className='grid fixed left-[100px] top-[110px] py-[20px] gap-[20px] w-[250px]'>
         {isUser(user) ? user.role === 'Студент' ? <Achievements /> : <Tags /> : <SkeletonBlock />}
       </aside>

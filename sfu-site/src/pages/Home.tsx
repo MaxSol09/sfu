@@ -6,6 +6,8 @@ import { CreateQuestion } from '../components/Modals/CreateQuestion'
 import { Questions } from '../components/Tabs/Questions/Questions'
 import { NotificationQuestion } from '../components/Notifications/NotificationQuestion'
 
+const MemoHeader = React.memo(Header)
+
 export const Home: React.FC = () => {
 
     const dispatch = useAppDispatch();
@@ -27,13 +29,15 @@ export const Home: React.FC = () => {
         }
     }, [dispatch])
 
-
     console.log(form)
+
+
+    console.log('render Home')
 
 
   return (
     <>
-      <Header currPage={'home'}/>
+      <MemoHeader currPage={'home'}/>
       <Panel />
       <main className='z-0 pt-[130px] ml-[25%] mr-[50px]'>
         {form ? <CreateQuestion /> : <Questions />}

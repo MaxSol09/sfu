@@ -7,6 +7,8 @@ export const FilterQuestions: React.FC = () => {
 
     const dispatch = useAppDispatch()
 
+    console.log('render filter')
+
     return (
         <div className='flex gap-[20px]'>
         <h1 className='text-[20px]'>Категории:</h1>

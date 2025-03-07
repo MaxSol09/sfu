@@ -7,17 +7,18 @@ import { Posts } from '../../Posts/Posts'
 import { FilterQuestions } from './FilterQuestions'
 
 
+const MemoFilterQuestions = React.memo(FilterQuestions)
+
 export const Questions: React.FC = () => {
 
   const status = useAppSelector(el => el.questions.questions.status)
   const questions = useAppSelector(el => el.questions.questionsArr.items)
   const state = useAppSelector(el => el.auth.state)
-  const answers = useAppSelector(el => el.questions.myAnswer.value)
   const dispatch = useAppDispatch()
 
   const statusQuestions = status === 'success'
 
-  console.log(answers)
+  console.log('render questions')
 
   /*/
           <div className='flex gap-[20px] justify-center items-center'>
@@ -31,6 +32,7 @@ export const Questions: React.FC = () => {
         /*/
 
   const formopen = () => {
+    console.log('qg32222222S')
     dispatch(changePage({type: 'FORM_CREATE'}))
   }
 
@@ -47,7 +49,7 @@ export const Questions: React.FC = () => {
         </div>
         <div className='items-center px-[55px] justify-between flex pt-[20px] max-[1200px]:flex-wrap max-[1200px]:gap-[10px]'>
           <h1 className='text-[18px]'>Всего вопросов: {questions.length ? questions.length : '0'}</h1>
-          <FilterQuestions />
+          <MemoFilterQuestions />
         </div>
         <Posts loadingQuestions={statusQuestions} questions={questions}/>
     </div>
