@@ -73,7 +73,7 @@ export const Login: React.FC = () => {
     window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`;
   };
 
-  const test = (client_id) => VKIDSDK.Config.init({
+  const test = (client_id: any) => VKIDSDK.Config.init({
     app: client_id, // Идентификатор приложения.
     redirectUrl: redirectUri, // Адрес для перехода после авторизации.
     state: '<случайно сгенерированный state>', // Произвольная строка состояния приложения.
