@@ -7,9 +7,9 @@ import { getVkUser, loginFetch } from '../redux/auth'
 import { isUser } from '../utils/checkValue'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { useForm } from 'react-hook-form'
+import * as VKIDSDK from '@vkid/sdk';
 
 export const Login: React.FC = () => {
-  
   const navigate = useNavigate()
 
   const dispatch = useAppDispatch()
@@ -33,6 +33,7 @@ export const Login: React.FC = () => {
 
   const appId = '53108749'; // Замените на ваш client_id
   const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
+  
 
   useEffect(() => {
     // Получение параметров из URL hash (после редиректа)
@@ -51,7 +52,7 @@ export const Login: React.FC = () => {
       localStorage.setItem('vk_userId', userId);
 
       // Получаем данные пользователя
-      getUserData(accessToken, userId);
+      test(userId);
 
       // Очищаем hash из URL (чтобы не было видно в истории браузера)
       window.history.replaceState({}, document.title, window.location.pathname);
@@ -71,6 +72,14 @@ export const Login: React.FC = () => {
     const scope = 'email,offline'; // Укажите необходимые разрешения
     window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`;
   };
+
+  const test = (client_id) => VKIDSDK.Config.init({
+    app: client_id, // Идентификатор приложения.
+    redirectUrl: redirectUri, // Адрес для перехода после авторизации.
+    state: '<случайно сгенерированный state>', // Произвольная строка состояния приложения.
+    codeVerifier: '<ваш сгенерированный code_verifier>', // Параметр в виде случайной строки. Обеспечивает защиту передаваемых данных.
+    scope: 'email phone'
+  })
 
   const {
       register, 
