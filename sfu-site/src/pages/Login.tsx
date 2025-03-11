@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
  import { isUser } from '../utils/checkValue'
  import { useAppDispatch, useAppSelector } from '../redux/hooks'
  import { useForm } from 'react-hook-form'
- import * as VKID from '@vkid/sdk'
+import * as VKID from '@vkid/sdk'
  
  export const Login: React.FC = () => {
  
@@ -29,51 +29,46 @@ import React, { useEffect, useState } from 'react'
        }
  
    }, [state, dispatch, navigate]); 
+
  
-   const [user, setUser] = useState(null);
- 
-   const appId = '53108749'; // Замените на ваш client_id
+   const appId = 53108749
    const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
 
+   const [vkid, setVkid] = useState<null>(null);
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const [user, setUser] = useState<any>(null);
+ 
 
- 
-   useEffect(() => {
-     // Получение параметров из URL hash (после редиректа)
-     const hash = window.location.hash.substring(1); // Убираем '#'
-     const params = new URLSearchParams(hash);
- 
-     console.log(params)
- 
-     const accessToken = params.get('access_token');
-     const expiresIn = params.get('expires_in');
-     const userId = params.get('user_id');
- 
-     if (accessToken && userId) {
-       // Сохраняем токен (например, в localStorage)
-       localStorage.setItem('vk_token', accessToken);
-       localStorage.setItem('vk_userId', userId);
- 
-       // Получаем данные пользователя
-       getUserData(accessToken, userId);
- 
-       // Очищаем hash из URL (чтобы не было видно в истории браузера)
-       window.history.replaceState({}, document.title, window.location.pathname);
-     }
-   }, []);
- 
-   // Функция для получения данных пользователя (с использованием VK API)
-   const getUserData = async (accessToken: any, userId: any) => {
-     try {
-       dispatch(getVkUser({token: accessToken, vkID: userId}))
-     } catch (error) {
-       console.error('Ошибка при получении данных пользователя:', error);
-     }
-   };
- 
-   const handleLogin = () => {
-     const scope = 'email,offline'; // Укажите необходимые разрешения
-     window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`;
-   };
+  useEffect(() => {
+    const initializeVKID = async () => {
+      try {
+        VKID.Config.init({
+          app: appId,
+          redirectUrl: redirectUri,
+          scope: 'email'
+        });
+
+
+        // Проверяем, авторизован ли пользовател
+
+        if (isLoggedIn) {
+          // Получаем данные пользователя, если авторизован
+          try {
+            const userData = await VKID.Auth.login();
+            setUser(userData);
+            console.log('User data:', user); // Выводим данные пользователя в консоль
+            // TODO: Сохраните данные пользователя в Redux store или локальном хранилище
+          } catch (error) {
+            console.error('Error getting user info:', error);
+          }
+        }
+      } catch (error) {
+        console.error('VKID init error:', error);
+      }
+    };
+
+    initializeVKID();
+  }, [appId, redirectUri]);
  
    const {
        register, 
@@ -85,6 +80,14 @@ import React, { useEffect, useState } from 'react'
        dispatch(loginFetch(data))
    }
  
+   const handleLogin = async () => {
+    try {
+      await VKID.Auth.login(); // Перенаправляем на страницу авторизации
+      // Код после этого вызова не будет выполнен немедленно!
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
  
    console.log('vercel dayn')
  
