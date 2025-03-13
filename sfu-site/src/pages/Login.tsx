@@ -34,16 +34,57 @@ import * as VKID from '@vkid/sdk'
    const appId = 53108749
    const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
 
-   const [vkid, setVkid] = useState<null>(null);
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
-   const [user, setUser] = useState<any>(null);
- 
 
    VKID.Config.init({
     app: appId,
     redirectUrl: redirectUri,
     scope: 'email'
   });
+
+
+  const [vkid, setVkid] = useState<any>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
+
+  useEffect(() => {
+    const initializeVKID = async () => {
+      try {
+        const vkidInstance = await VKID.Config.init({
+          app: appId,
+          redirectUrl: redirectUri,
+          scope: 'email',
+        });
+        setVkid(vkidInstance);
+
+
+
+          try {
+            const user = await vkidInstance.get();
+            console.log('User data:', user);
+          } catch (error) {
+            console.error('Error getting user info:', error);
+          }
+      } catch (error) {
+        console.error('VKID init error:', error);
+      }
+    };
+
+    initializeVKID();
+  }, [appId, redirectUri]);
+
+  const handleLogin = async () => {
+    if (!vkid) {
+      console.warn('VKID not initialized yet');
+      return;
+    }
+    try {
+      await vkid.login(); // Просто вызываем vkid.login() без аргументов
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  };
+
  
    const {
        register, 
@@ -55,28 +96,8 @@ import * as VKID from '@vkid/sdk'
        dispatch(loginFetch(data))
    }
 
-   interface AuthParams {
-    // Define the properties expected in the AuthParams
-    session?: {
-        user: {
-            id: number;
-            name: string;
-        };
-    };
-    // Other properties based on the actual AuthParams definition
-}
 
-// Update the callback to match AuthParams
-function handleLogin() {
-    VKID.Auth.login((r: AuthParams) => {
-        console.log(r)
-        if (r.session) {
-            console.log(r.session);
-        } else {
-            console.log('error vk');
-        }
-    });
-}
+
  
    console.log('vercel dayn')
  
