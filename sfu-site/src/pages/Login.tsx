@@ -32,47 +32,23 @@ import * as VKID from '@vkid/sdk'
 
  
    const appId = 53108749
-   const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
+   const redirectUrl = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
+
 
 
    VKID.Config.init({
     app: appId,
-    redirectUrl: redirectUri,
-    scope: 'email'
+    redirectUrl: redirectUrl,
+    state: 'state',
+    codeVerifier: 'codeVerifier',
+    scope: 'phone email',
   });
 
+  const floatingOneTap = new VKID.FloatingOneTap()
 
-  const [vkid, setVkid] = useState<any>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
-
-
-  useEffect(() => {
-    const initializeVKID = async () => {
-      try {
-        const vkidInstance = await VKID.Config.init({
-          app: appId,
-          redirectUrl: redirectUri,
-          scope: 'email',
-        });
-        setVkid(vkidInstance);
-
-
-
-          try {
-            const user = await vkidInstance.get();
-            console.log('User data:', user);
-          } catch (error) {
-            console.error('Error getting user info:', error);
-          }
-      } catch (error) {
-        console.error('VKID init error:', error);
-      }
-    };
-
-    initializeVKID();
-  }, [appId, redirectUri]);
-
+  floatingOneTap
+  .render({ appName: 'sfu-site' })
+  .on(VKID.WidgetEvents.ERROR, console.error);
  
    const {
        register, 
