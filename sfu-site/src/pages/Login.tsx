@@ -73,7 +73,6 @@ import * as VKID from '@vkid/sdk'
     initializeVKID();
   }, [appId, redirectUri]);
 
-  const handleLogin = VKID.Auth.login()
  
    const {
        register, 
@@ -96,7 +95,7 @@ import * as VKID from '@vkid/sdk'
        <div className='flex flex-col justify-center w-1/2 items-center'>
          <img className='w-[200px]' src={Logo} alt="" />
          <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
-         <button onClick={() => handleLogin}>вк вход test</button>
+         <button onClick={() => VKID.Auth.login()}>вк вход test</button>
          <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
            <label className='grid text-[20px] justify-center gap-[5px]' >
                Электронная почта
