@@ -39,36 +39,11 @@ import * as VKID from '@vkid/sdk'
    const [user, setUser] = useState<any>(null);
  
 
-  useEffect(() => {
-    const initializeVKID = async () => {
-      try {
-        VKID.Config.init({
-          app: appId,
-          redirectUrl: redirectUri,
-          scope: 'email'
-        });
-
-
-        // Проверяем, авторизован ли пользовател
-
-        if (isLoggedIn) {
-          // Получаем данные пользователя, если авторизован
-          try {
-            const userData = await VKID.Auth.login();
-            setUser(userData);
-            console.log('User data:', user); // Выводим данные пользователя в консоль
-            // TODO: Сохраните данные пользователя в Redux store или локальном хранилище
-          } catch (error) {
-            console.error('Error getting user info:', error);
-          }
-        }
-      } catch (error) {
-        console.error('VKID init error:', error);
-      }
-    };
-
-    initializeVKID();
-  }, [appId, redirectUri]);
+   VKID.Config.init({
+    app: appId,
+    redirectUrl: redirectUri,
+    scope: 'email'
+  });
  
    const {
        register, 
@@ -79,15 +54,29 @@ import * as VKID from '@vkid/sdk'
    const submit = (data: {email: string, password: string}) => {
        dispatch(loginFetch(data))
    }
- 
-   const handleLogin = async () => {
-    try {
-      await VKID.Auth.login(); // Перенаправляем на страницу авторизации
-      // Код после этого вызова не будет выполнен немедленно!
-    } catch (error) {
-      console.error('Login error:', error);
-    }
-  };
+
+   interface AuthParams {
+    // Define the properties expected in the AuthParams
+    session?: {
+        user: {
+            id: number;
+            name: string;
+        };
+    };
+    // Other properties based on the actual AuthParams definition
+}
+
+// Update the callback to match AuthParams
+function handleLogin() {
+    VKID.Auth.login((r: AuthParams) => {
+        console.log(r)
+        if (r.session) {
+            console.log(r.session);
+        } else {
+            console.log('error vk');
+        }
+    });
+}
  
    console.log('vercel dayn')
  
