@@ -71,7 +71,7 @@ import React, { useEffect, useState } from 'react'
      const scope = 'email,offline'; // Укажите необходимые разрешения
      console.log(scope)
 
-     const url = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`
+     const url = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&v=5.199`
      
      console.log(url)
      
