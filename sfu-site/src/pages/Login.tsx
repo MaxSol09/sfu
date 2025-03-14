@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
  import Sfu from '../images/sfu.jpeg'
  import Logo from '../images/logo.png'
  import axios from 'axios'
- import { Link, useNavigate } from 'react-router-dom'
+ import { data, Link, useNavigate } from 'react-router-dom'
  import { getVkUser, loginFetch } from '../redux/auth'
  import { isUser } from '../utils/checkValue'
  import { useAppDispatch, useAppSelector } from '../redux/hooks'
@@ -51,6 +51,17 @@ import * as VKID from '@vkid/sdk'
        dispatch(loginFetch(data))
    }
 
+
+   const handleLogin = () => {
+    VKID.Auth.login().then(response => {
+      console.log(response)
+    }).then(data => {
+      console.log(data)
+    }).catch(err => {
+      console.log('error vk ', err)
+    })
+   }
+
  
    return (
      <div className='h-[100vh] flex w-full'>
@@ -58,7 +69,7 @@ import * as VKID from '@vkid/sdk'
        <div className='flex flex-col justify-center w-1/2 items-center'>
          <img className='w-[200px]' src={Logo} alt="" />
          <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
-         <button onClick={() => VKID.Auth.login().then(res => console.log(res)).catch(err => console.error('error vk >>> ', err))}>вк вход test</button>
+         <button onClick={() => handleLogin()}>вк вход test</button>
          <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
            <label className='grid text-[20px] justify-center gap-[5px]' >
                Электронная почта
