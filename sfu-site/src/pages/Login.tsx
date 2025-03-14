@@ -40,7 +40,7 @@ import React, { useEffect, useState } from 'react'
      const hash = window.location.hash.substring(1); // Убираем '#'
      const params = new URLSearchParams(hash);
  
-     console.log(params)
+     console.log(params.get('email'))
  
      const accessToken = params.get('access_token');
      const userId = params.get('user_id');
