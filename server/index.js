@@ -108,7 +108,7 @@ app.post('/vk/user', async (req, res) => {
 
         const jsonData = await data.json();
 
-        const findUser = await UserModel.findOne({_id: vkID})
+        const findUser = await UserModel.findById(vkID)
 
         if(findUser){
             return res.json({
@@ -132,9 +132,15 @@ app.post('/vk/user', async (req, res) => {
             _id: vkID
         })
 
+        if(!user){
+            res.status(500).json({
+                message: 'ошибка при регистрации'
+            })
+        }
+
         const tokenUser = jwt.sign(
             {
-                _id: user._id
+                _id: vkID
             },
             'secretMax392',
             {
