@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
  import { isUser } from '../utils/checkValue'
  import { useAppDispatch, useAppSelector } from '../redux/hooks'
  import { useForm } from 'react-hook-form'
+
  
  export const Login: React.FC = () => {
  
@@ -69,13 +70,7 @@ import React, { useEffect, useState } from 'react'
  
    const handleLogin = () => {
      const scope = 'email,offline'; // Укажите необходимые разрешения
-     console.log(scope)
-
-     const url = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&v=5.199`
-     
-     console.log(url)
-     
-     window.location.href = url
+     window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`;
    };
  
    const {
