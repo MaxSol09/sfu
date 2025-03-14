@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react'
  import { isUser } from '../utils/checkValue'
  import { useAppDispatch, useAppSelector } from '../redux/hooks'
  import { useForm } from 'react-hook-form'
-import * as VKID from '@vkid/sdk'
  
  export const Login: React.FC = () => {
  
@@ -29,18 +28,49 @@ import * as VKID from '@vkid/sdk'
        }
  
    }, [state, dispatch, navigate]); 
-
  
-   const appId = 53108749
-   const redirectUrl = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
-
-
-  useEffect(() => {
-    // Инициализация VK API (выполняется при загрузке компонента)
-    window.VK.init({
-      apiId: appId,
-    });
-  }, [appId]);
+   const [user, setUser] = useState(null);
+ 
+   const appId = '53108749'; // Замените на ваш client_id
+   const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
+ 
+   useEffect(() => {
+     // Получение параметров из URL hash (после редиректа)
+     const hash = window.location.hash.substring(1); // Убираем '#'
+     const params = new URLSearchParams(hash);
+ 
+     console.log(params)
+ 
+     const accessToken = params.get('access_token');
+     const userId = params.get('user_id');
+ 
+     if (accessToken && userId) {
+       // Сохраняем токен (например, в localStorage)
+       localStorage.setItem('vk_token', accessToken);
+       localStorage.setItem('vk_userId', userId);
+ 
+       // Получаем данные пользователя
+       getUserData(accessToken, userId);
+ 
+       // Очищаем hash из URL (чтобы не было видно в истории браузера)
+       window.history.replaceState({}, document.title, window.location.pathname);
+     }
+   }, []);
+ 
+   // Функция для получения данных пользователя (с использованием VK API)
+   const getUserData = async (accessToken: any, userId: any) => {
+     try {
+       dispatch(getVkUser({token: accessToken, vkID: userId}))
+       console.log('handle log data >>> ', accessToken)
+     } catch (error) {
+       console.error('Ошибка при получении данных пользователя:', error);
+     }
+   };
+ 
+   const handleLogin = () => {
+     const scope = 'email,offline'; // Укажите необходимые разрешения
+     window.location.href = `https://oauth.vk.com/authorize?client_id=${appId}&display=popup&redirect_uri=${redirectUri}&scope=${scope}&response_type=token&v=5.199`;
+   };
  
    const {
        register, 
@@ -51,20 +81,9 @@ import * as VKID from '@vkid/sdk'
    const submit = (data: {email: string, password: string}) => {
        dispatch(loginFetch(data))
    }
-
-   type Response = {
-    session: any;
-    settings: any
-   }
-
-   window.VK.Auth.login((response: any) => {
-    if (response.session) {
-      // User is logged in
-      console.log('Logged in:', response);
-    } else {
-      console.log('Not logged in', response);
-    }
-  }, {scope: 'email'});
+ 
+ 
+   console.log('vercel dayn')
  
    return (
      <div className='h-[100vh] flex w-full'>
@@ -72,7 +91,7 @@ import * as VKID from '@vkid/sdk'
        <div className='flex flex-col justify-center w-1/2 items-center'>
          <img className='w-[200px]' src={Logo} alt="" />
          <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
-         <button onClick={() => VKID.Auth.login()}>вк вход test</button>
+         <button onClick={() => handleLogin()}>вк вход test</button>
          <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
            <label className='grid text-[20px] justify-center gap-[5px]' >
                Электронная почта
