@@ -43,12 +43,6 @@ import * as VKID from '@vkid/sdk'
     codeVerifier: 'codeVerifier',
     scope: 'phone email',
   });
-
-  const floatingOneTap = new VKID.FloatingOneTap()
-
-  floatingOneTap
-  .render({ appName: 'sfu-site' })
-  .on(VKID.WidgetEvents.ERROR, console.error);
  
    const {
        register, 
@@ -60,10 +54,6 @@ import * as VKID from '@vkid/sdk'
        dispatch(loginFetch(data))
    }
 
-
-
- 
-   console.log('vercel dayn')
  
    return (
      <div className='h-[100vh] flex w-full'>
