@@ -101,7 +101,7 @@ app.post('/vk/user', async (req, res) => {
 
         const emailData = email.json()
 
-        if (!data.ok) {
+        if (!data.ok | !email.ok) {
             console.error(`VK API error: ${data.status} ${data.statusText}`);
             return res.status(data.status).json({
                 message: `VK API error: ${data.status} ${data.statusText}`,
@@ -118,7 +118,7 @@ app.post('/vk/user', async (req, res) => {
             });
         }
 
-        return res.json({data: jsonData, email: emailData}); // Отправляем JSON
+        return res.json({data: jsonData, email: email}); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({
