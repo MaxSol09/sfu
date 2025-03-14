@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
  import Sfu from '../images/sfu.jpeg'
  import Logo from '../images/logo.png'
  import axios from 'axios'
- import { data, Link, useNavigate } from 'react-router-dom'
+ import { Link, useNavigate } from 'react-router-dom'
  import { getVkUser, loginFetch } from '../redux/auth'
  import { isUser } from '../utils/checkValue'
  import { useAppDispatch, useAppSelector } from '../redux/hooks'
@@ -29,9 +29,12 @@ import * as VKID from '@vkid/sdk'
        }
  
    }, [state, dispatch, navigate]); 
+
  
    const appId = 53108749
    const redirectUrl = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
+
+
 
    VKID.Config.init({
     app: appId,
@@ -50,9 +53,6 @@ import * as VKID from '@vkid/sdk'
    const submit = (data: {email: string, password: string}) => {
        dispatch(loginFetch(data))
    }
-
-
-
 
  
    return (
