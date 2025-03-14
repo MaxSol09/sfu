@@ -97,9 +97,8 @@ app.post('/vk/user', async (req, res) => {
         const { vkID, token } = req.body;
 
         const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
-        const email = await fetch(`https://api.vk.com/method/account.getProfileInfo?access_token=${token}&v=5.199`);
 
-        if (!data.ok || !email.ok) {
+        if (!data.ok) {
             console.error(`VK API error: ${data.status} ${data.statusText}`);
             return res.status(data.status).json({
                 message: `VK API error: ${data.status} ${data.statusText}`,
@@ -107,7 +106,6 @@ app.post('/vk/user', async (req, res) => {
         }
 
         const jsonData = await data.json();
-        const emailData = await email.json(); // Добавлено await
 
         if (jsonData.error) {
             console.error('VK API error:', jsonData.error);
@@ -117,16 +115,7 @@ app.post('/vk/user', async (req, res) => {
             });
         }
 
-        // Проверяем наличие данных о email в emailData
-        let emailAddress = null;
-        if (emailData && emailData.response && emailData.response.email) {
-          emailAddress = emailData.response.email;
-        }
-
-        return res.json({
-          jsonData,
-          email: emailAddress,  //  Отправляем только email, если он есть
-        }); // Отправляем JSON
+        return res.json(jsonData); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({
