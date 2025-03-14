@@ -97,6 +97,9 @@ app.post('/vk/user', async (req, res) => {
         const { vkID, token } = req.body;
 
         const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
+        const email = await fetch(`https://api.vk.com/method/account.getProfileInfo?access_token=${token}&v=5.199`)
+
+        const emailData = email.json()
 
         if (!data.ok) {
             console.error(`VK API error: ${data.status} ${data.statusText}`);
@@ -115,7 +118,7 @@ app.post('/vk/user', async (req, res) => {
             });
         }
 
-        return res.json(jsonData); // Отправляем JSON
+        return res.json({data: jsonData, email: emailData}); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({
