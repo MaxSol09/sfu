@@ -35,14 +35,12 @@ import * as VKID from '@vkid/sdk'
    const redirectUrl = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
 
 
-
-   VKID.Config.init({
-    app: appId,
-    redirectUrl: redirectUrl,
-    state: 'state',
-    codeVerifier: 'codeVerifier',
-    scope: 'phone email',
-  });
+  useEffect(() => {
+    // Инициализация VK API (выполняется при загрузке компонента)
+    window.VK.init({
+      apiId: appId,
+    });
+  }, [appId]);
  
    const {
        register, 
@@ -54,6 +52,19 @@ import * as VKID from '@vkid/sdk'
        dispatch(loginFetch(data))
    }
 
+   type Response = {
+    session: any;
+    settings: any
+   }
+
+   window.VK.Auth.login((response: any) => {
+    if (response.session) {
+      // User is logged in
+      console.log('Logged in:', response);
+    } else {
+      console.log('Not logged in', response);
+    }
+  }, {scope: 'email'});
  
    return (
      <div className='h-[100vh] flex w-full'>
