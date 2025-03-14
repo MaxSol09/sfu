@@ -55,6 +55,9 @@ export type Complaint = {
 export type StateAuth = {
     state: UserData | {},
     status: 'loading' | 'success' | 'errors' | 'none',
+    vkAuth: {
+        status: TypeStatus
+    }, 
     user: {
         value: UserData | {},
         status: 'loading' | 'success' | 'errors'

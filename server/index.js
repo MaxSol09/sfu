@@ -11,6 +11,7 @@ import { validationErrors } from './validations/ErorrsValidation.js'
 import { themeValidation } from './validations/ThemeValidation.js'
 import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
+import UserModel from './models/UserModel.js'
 
 configDotenv()
 
@@ -94,9 +95,9 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
 
 app.post('/vk/user', async (req, res) => {
     try {
-        const { vkID, token } = req.body;
-
-        const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex,email&access_token=${token}&v=5.199`);
+        const { vkID, token, email } = req.body;
+        
+        const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
 
         if (!data.ok) {
             console.error(`VK API error: ${data.status} ${data.statusText}`);
@@ -107,6 +108,15 @@ app.post('/vk/user', async (req, res) => {
 
         const jsonData = await data.json();
 
+        const findUser = await UserModel.findOne({_id: vkID})
+
+        if(findUser){
+            return res.json({
+                message: 'вы уже зарегистрированы через вк'
+            })
+        }
+
+
         if (jsonData.error) {
             console.error('VK API error:', jsonData.error);
             return res.status(500).json({
@@ -115,7 +125,24 @@ app.post('/vk/user', async (req, res) => {
             });
         }
 
-        return res.json(jsonData); // Отправляем JSON
+        const user = new UserModel({
+            fullName: jsonData.first_name,
+            email: email,
+            role: 'Абитуриент',
+            _id: vkID
+        })
+
+        const tokenUser = jwt.sign(
+            {
+                _id: user._id
+            },
+            'secretMax392',
+            {
+                expiresIn: '30d'
+            }
+        )
+
+        return res.json({...user, token: tokenUser}); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({

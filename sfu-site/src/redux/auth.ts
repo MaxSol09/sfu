@@ -42,7 +42,7 @@ export const meFetch = createAsyncThunk(
 )
 
 
-export const getVkUser = createAsyncThunk('user/vk', async (user: {token: any, vkID: any}) => {
+export const getVkUser = createAsyncThunk('user/vk', async (user: {token: string, vkID: string, email: string | null}) => {
         console.log("data >>> ", user)
         const {data} = await axios.post('https://sfu-1.onrender.com/vk/user', user)
 
@@ -141,6 +141,9 @@ const initialState: StateAuth = {
     user: {
         value: {},
         status: 'loading'
+    },
+    vkAuth: {
+        status: 'none'
     },
     userAvatar: {
         status: 'loading',
@@ -278,19 +281,21 @@ const authSlice = createSlice({
             state.complaintStatus = 'loading'
         })
         .addCase(createComplaint.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.user.value = action.payload
             state.complaintStatus = 'success'
         })
         .addCase(changeLastChat.fulfilled, (state, action) => {
             state.state = action.payload
-            console.log(action.payload)
         })
-        .addCase(getVkUser.pending, (state, action) => {
-            console.log(action.payload)
+        .addCase(getVkUser.pending, (state) => {
+            state.vkAuth.status = 'loading'
         })
-        .addCase(getVkUser.fulfilled, (state, action) => {
-            console.log(action.payload)
+        .addCase(getVkUser.fulfilled, (state) => {
+            state.vkAuth.status = 'success'
+            console.log('success')
+        })
+        .addCase(getVkUser.rejected, (state) => {
+            state.vkAuth.status = 'errors'
         })
     }
 })

@@ -32,13 +32,6 @@ export const Header: React.FC<Props> = ({currPage}) => {
   const vkID = localStorage.getItem('vk_userId')
 
   useEffect(() => {
-    console.log('render vk user')
-    if(token && vkID){
-      dispatch(getVkUser({token, vkID}))
-    }
-  }, [token, vkID, dispatch])
-
-  useEffect(() => {
     console.log('render effect mefetch')
     if(status === 'none'){
       dispatch(meFetch())

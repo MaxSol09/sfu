@@ -30,8 +30,6 @@ import React, { useEffect, useState } from 'react'
  
    }, [state, dispatch, navigate]); 
  
-   const [user, setUser] = useState(null);
- 
    const appId = '53108749'; // Замените на ваш client_id
    const redirectUri = 'https://sfu-counselor.onrender.com'; // Замените на URL вашего приложения
  
@@ -44,6 +42,7 @@ import React, { useEffect, useState } from 'react'
  
      const accessToken = params.get('access_token');
      const userId = params.get('user_id');
+     const email = params.get('email')
  
      if (accessToken && userId) {
        // Сохраняем токен (например, в localStorage)
@@ -51,7 +50,7 @@ import React, { useEffect, useState } from 'react'
        localStorage.setItem('vk_userId', userId);
  
        // Получаем данные пользователя
-       getUserData(accessToken, userId);
+       getUserData(accessToken, userId, email);
  
        // Очищаем hash из URL (чтобы не было видно в истории браузера)
        window.history.replaceState({}, document.title, window.location.pathname);
@@ -59,10 +58,10 @@ import React, { useEffect, useState } from 'react'
    }, []);
  
    // Функция для получения данных пользователя (с использованием VK API)
-   const getUserData = async (accessToken: any, userId: any) => {
+   const getUserData = async (accessToken: string, userId: string, email: string | null) => {
      try {
-       dispatch(getVkUser({token: accessToken, vkID: userId}))
-       console.log('handle log data >>> ', accessToken)
+       dispatch(getVkUser({token: accessToken, vkID: userId, email: email}))
+       console.log('handle log data >>> ', accessToken) 
      } catch (error) {
        console.error('Ошибка при получении данных пользователя:', error);
      }
