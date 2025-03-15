@@ -55,6 +55,8 @@ export const ModerationQuestion = async(req, res) => {
 export const Create = async(req, res) => {
     try{
 
+        console.log(req.body)
+
         const doc = new QuestionModel({
             title: req.body.title,
             text: req.body.text,
