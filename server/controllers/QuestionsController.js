@@ -55,8 +55,6 @@ export const ModerationQuestion = async(req, res) => {
 export const Create = async(req, res) => {
     try{
 
-        //QuestionModel.collection.dropIndex('text_1')
-
         const doc = new QuestionModel({
             title: req.body.title,
             text: req.body.text,
