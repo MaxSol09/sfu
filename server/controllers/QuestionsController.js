@@ -56,7 +56,7 @@ export const Create = async(req, res) => {
         const { userId, title, text, tags } = req.body;
 
         //  Находим пользователя по vkID
-        const user = await UserModel.findOne({ _id: userId }); //  Предполагается, что _id содержит vkID
+        const user = await UserModel.findById(userId) //  Предполагается, что _id содержит vkID
 
         if (!user) {
             return res.status(404).json({
@@ -68,7 +68,7 @@ export const Create = async(req, res) => {
             title: title,
             text: text,
             tags: tags,
-            user: user._id, // Используем ObjectId найденного пользователя
+            user: userId, // Используем ObjectId найденного пользователя
         });
 
         await doc.save();
