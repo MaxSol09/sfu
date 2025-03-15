@@ -3,7 +3,7 @@ import UserModel from "../models/UserModel.js"
 import { flattenArray } from "../utils/flatten.js"
 import { removeDuplicates } from "../utils/sort.js"
 import { clientsMap, wss } from "../index.js"
-import mongoose from "mongoose"
+import mongoose, { isObjectIdOrHexString } from "mongoose"
 
 
 export const ModerationQuestion = async(req, res) => {
@@ -52,6 +52,9 @@ export const ModerationQuestion = async(req, res) => {
     }
 }
 
+function isValidObjectId(id) {
+    return mongoose.Types.ObjectId.isValid(id);
+}
 
 export const Create = async(req, res) => {
     try{
@@ -62,7 +65,7 @@ export const Create = async(req, res) => {
             title: req.body.title,
             text: req.body.text,
             tags: req.body.tags,
-            user: new mongoose.Types.ObjectId(req.body.userId)
+            user: isObjectIdOrHexString(req.body.userId)
         });
 
         await doc.save();
