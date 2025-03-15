@@ -73,7 +73,7 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    _id: {
+    vkid: {
         type: String,
         required: true
     }
