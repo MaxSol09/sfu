@@ -56,8 +56,8 @@ export const Create = async(req, res) => {
     try {
         const { userId, title, text, tags } = req.body;
 
-        //  Находим пользователя по vkID
-        const user = await UserModel.findById(userId) //  Предполагается, что _id содержит vkID
+        //  Находим пользователя по _id (предполагается, что userId - это строка ObjectId)
+        const user = await UserModel.findById(userId);
 
         if (!user) {
             return res.status(404).json({
@@ -69,7 +69,7 @@ export const Create = async(req, res) => {
             title: title,
             text: text,
             tags: tags,
-            user: mongoose.Types.ObjectId(userId), // Используем ObjectId найденного пользователя
+            user: user._id, //  Используем ObjectId найденного пользователя
         });
 
         await doc.save();
