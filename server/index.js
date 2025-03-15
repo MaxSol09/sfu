@@ -142,7 +142,7 @@ app.post('/vk/user', async (req, res) => {
             }
         )
 
-        return res.json({...result, token: tokenUser}); // Отправляем JSON
+        return res.json({...result.toObject(), token: tokenUser}); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({

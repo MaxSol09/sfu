@@ -77,6 +77,10 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    _id: {
+        type: String,
+        required: true
+    }
     },
     {
         timestamps: true
