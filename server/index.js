@@ -109,14 +109,6 @@ app.post('/vk/user', async (req, res) => {
 
         const jsonData = await data.json();
 
-        const findUser = await UserModel.findById(vkID)
-
-        if(findUser){
-            return res.json({
-                message: 'вы уже зарегистрированы через вк'
-            })
-        }
-
 
         if (jsonData.error) {
             console.error('VK API error:', jsonData.error);
