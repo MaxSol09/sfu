@@ -109,6 +109,14 @@ app.post('/vk/user', async (req, res) => {
 
         const jsonData = await data.json();
 
+        const findUser = await UserModel.findOne({_id: vkID})
+
+        if(findUser){
+            return res.json({
+                message: 'вы уже зарегистрированы через вк'
+            })
+        }
+
 
         if (jsonData.error) {
             console.error('VK API error:', jsonData.error);
@@ -118,7 +126,30 @@ app.post('/vk/user', async (req, res) => {
             });
         }
 
-        return res.json(jsonData); // Отправляем JSON
+        const user = new UserModel({
+            fullName: jsonData.first_name,
+            email: email,
+            role: 'Абитуриент',
+            _id: vkID
+        })
+
+        if(!user){
+            res.status(500).json({
+                message: 'ошибка при регистрации'
+            })
+        }
+
+        const tokenUser = jwt.sign(
+            {
+                _id: vkID
+            },
+            'secretMax392',
+            {
+                expiresIn: '30d'
+            }
+        )
+
+        return res.json({...user, token: tokenUser}); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({
