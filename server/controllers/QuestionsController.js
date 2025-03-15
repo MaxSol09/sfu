@@ -62,7 +62,7 @@ export const Create = async(req, res) => {
             title: req.body.title,
             text: req.body.text,
             tags: req.body.tags,
-            user: mongoose.Types.ObjectId(req.body.userId)
+            user: new mongoose.Types.ObjectId(req.body.userId)
         });
 
         await doc.save();
