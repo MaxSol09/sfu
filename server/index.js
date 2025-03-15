@@ -125,6 +125,8 @@ app.post('/vk/user', async (req, res) => {
             _id: vkID
         })
 
+        await user.save()
+
         if(!user){
             res.status(500).json({
                 message: 'ошибка при регистрации'
