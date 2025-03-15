@@ -51,42 +51,46 @@ export const ModerationQuestion = async(req, res) => {
     }
 }
 
-
 export const Create = async(req, res) => {
-    try{
+    try {
+        const { userId, title, text, tags } = req.body;
 
-        console.log(req.body)
+        //  Находим пользователя по vkID
+        const user = await UserModel.findOne({ _id: userId }); //  Предполагается, что _id содержит vkID
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'Пользователь не найден'
+            });
+        }
 
         const doc = new QuestionModel({
-            title: req.body.title,
-            text: req.body.text,
-            tags: req.body.tags,
-            user: req.body.userId
+            title: title,
+            text: text,
+            tags: tags,
+            user: user._id, // Используем ObjectId найденного пользователя
         });
 
         await doc.save();
 
-        // Здесь мы сначала сохраняем документ, а затем извлекаем его с помощью метода populate
-        const populatedDoc = await QuestionModel.findById(doc._id).populate({ path: 'user'});
+        const populatedDoc = await QuestionModel.findById(doc._id).populate({ path: 'user' });
 
         wss.clients.forEach(client => {
             clientsMap.map(user => {
-                if(user.role === 'admin' && client.readyState === WebSocket.OPEN){
-                    client.send(JSON.stringify({type: 'createQuestion', data: populatedDoc}))
+                if (user.role === 'admin' && client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify({ type: 'createQuestion', populatedDoc }));
                 }
-
                 return user
             })
         })
 
         return res.json(populatedDoc);
-    }
-    catch(err){
-        console.log(err)
+    } catch (err) {
+        console.log(err);
 
         return res.status(500).json({
-            message: 'Тема не опубликовался'
-        })
+            message: 'Тема не опубликовалась'
+        });
     }
 }
 
