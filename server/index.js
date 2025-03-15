@@ -98,8 +98,6 @@ app.post('/vk/user', async (req, res) => {
     try {
         const { vkID, token, email } = req.body;
         
-        console.log(req.body)
-        
         const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
 
         if (!data.ok) {
@@ -110,6 +108,7 @@ app.post('/vk/user', async (req, res) => {
         }
 
         const jsonData = await data.json();
+
 
         if (jsonData.error) {
             console.error('VK API error:', jsonData.error);
@@ -123,12 +122,10 @@ app.post('/vk/user', async (req, res) => {
             fullName: jsonData.first_name,
             email: email,
             role: 'Абитуриент',
-            _id: String(vkID)
+            _id: vkID
         })
 
-        const result = await user.save()
-
-        if(!result){
+        if(!user){
             res.status(500).json({
                 message: 'ошибка при регистрации'
             })
@@ -144,7 +141,7 @@ app.post('/vk/user', async (req, res) => {
             }
         )
 
-        return res.json({...result.toObject(), token: tokenUser}); // Отправляем JSON
+        return res.json({...user, token: tokenUser}); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({
