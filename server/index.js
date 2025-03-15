@@ -118,8 +118,14 @@ app.post('/vk/user', async (req, res) => {
             });
         }
 
+        const firstName = jsonData.response[0].first_name;
+        const lastName = jsonData.response[0].last_name;
+
+        // Объединяем в fullName
+        const fullName = `${firstName} ${lastName}`;
+
         const user = new UserModel({
-            fullName: jsonData.first_name,
+            fullName: fullName,  // Используем объединенное имя
             email: email,
             role: 'Абитуриент',
             _id: vkID
