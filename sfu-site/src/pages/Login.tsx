@@ -15,6 +15,8 @@ import React, { useEffect, useState } from 'react'
  
    const dispatch = useAppDispatch()
    const {state, status} = useAppSelector(el => el.auth)
+
+   console.log(state)
  
    useEffect(() => {
        if (isUser(state)) {

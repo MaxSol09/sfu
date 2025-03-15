@@ -292,6 +292,8 @@ const authSlice = createSlice({
         })
         .addCase(getVkUser.fulfilled, (state, action) => {
             state.vkAuth.status = 'success'
+
+            console.log(action.payload)
             state.state = action.payload
         })
         .addCase(getVkUser.rejected, (state) => {
