@@ -89,7 +89,8 @@ export const Create = async(req, res) => {
         console.log(err);
 
         return res.status(500).json({
-            message: 'Тема не опубликовалась'
+            message: 'Тема не опубликовалась',
+            error: err
         });
     }
 }
