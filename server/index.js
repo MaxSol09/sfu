@@ -12,6 +12,7 @@ import { themeValidation } from './validations/ThemeValidation.js'
 import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
+import jwt from 'jsonwebtoken'
 
 configDotenv()
 
