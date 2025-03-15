@@ -3,6 +3,7 @@ import UserModel from "../models/UserModel.js"
 import { flattenArray } from "../utils/flatten.js"
 import { removeDuplicates } from "../utils/sort.js"
 import { clientsMap, wss } from "../index.js"
+import mongoose from "mongoose"
 
 
 export const ModerationQuestion = async(req, res) => {
@@ -61,7 +62,7 @@ export const Create = async(req, res) => {
             title: req.body.title,
             text: req.body.text,
             tags: req.body.tags,
-            user: req.body.userId
+            user: mongoose.Types.ObjectId(req.body.userId)
         });
 
         await doc.save();
