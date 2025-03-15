@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 export default (req, res, next) => {
+    console.log(req.headers.authorization)
     if(!req.headers.authorization){
         return res.status(500).json({
             message: 'не указан токен'

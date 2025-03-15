@@ -28,9 +28,6 @@ export const Header: React.FC<Props> = ({currPage}) => {
 
   const {state, status} = useAppSelector(el => el.auth)
 
-  const token = localStorage.getItem('vk_token')
-  const vkID = localStorage.getItem('vk_userId')
-
   useEffect(() => {
     console.log('render effect mefetch')
     if(status === 'none'){

@@ -138,6 +138,8 @@ export const Register = async(req, res) => {
 
 export const getMe = async (req, res) => {
     try {
+
+        console.log(req.body)
         const user = await UserModel.findById(req.userId);
 
         if (!user) {
