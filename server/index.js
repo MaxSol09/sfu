@@ -102,8 +102,8 @@ app.post('/vk/user', async (req, res) => {
         const checkUser = await UserModel.findById(vkID)
 
         if(checkUser){
-            return res.status().json({
-                message: 'вы уже зарегистрированы'
+            return res.status(500).json({
+                message: 'такой пользователь уже зарегистрирован'
             })
         }
         
