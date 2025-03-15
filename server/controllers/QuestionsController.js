@@ -65,13 +65,12 @@ export const Create = async(req, res) => {
             title: req.body.title,
             text: req.body.text,
             tags: req.body.tags,
-            user: isObjectIdOrHexString(req.body.userId)
         });
 
         await doc.save();
 
         // Здесь мы сначала сохраняем документ, а затем извлекаем его с помощью метода populate
-        const populatedDoc = await QuestionModel.findById(doc._id).populate({ path: 'user'});
+        const populatedDoc = await QuestionModel.findById(doc._id)
 
         wss.clients.forEach(client => {
             clientsMap.map(user => {
