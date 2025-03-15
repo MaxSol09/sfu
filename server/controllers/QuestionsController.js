@@ -3,7 +3,6 @@ import UserModel from "../models/UserModel.js"
 import { flattenArray } from "../utils/flatten.js"
 import { removeDuplicates } from "../utils/sort.js"
 import { clientsMap, wss } from "../index.js"
-import mongoose from "mongoose"
 
 
 export const ModerationQuestion = async(req, res) => {
@@ -52,47 +51,40 @@ export const ModerationQuestion = async(req, res) => {
     }
 }
 
+
 export const Create = async(req, res) => {
-    try {
-        const { userId, title, text, tags } = req.body;
-
-        //  Находим пользователя по _id (предполагается, что userId - это строка ObjectId)
-        const user = await UserModel.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({
-                message: 'Пользователь не найден'
-            });
-        }
+    try{
 
         const doc = new QuestionModel({
-            title: title,
-            text: text,
-            tags: tags,
-            user: user._id, //  Используем ObjectId найденного пользователя
+            title: req.body.title,
+            text: req.body.text,
+            tags: req.body.tags,
+            user: req.body.userId
         });
 
         await doc.save();
 
-        const populatedDoc = await QuestionModel.findById(doc._id).populate({ path: 'user' });
+        // Здесь мы сначала сохраняем документ, а затем извлекаем его с помощью метода populate
+
 
         wss.clients.forEach(client => {
             clientsMap.map(user => {
-                if (user.role === 'admin' && client.readyState === WebSocket.OPEN) {
-                    client.send(JSON.stringify({ type: 'createQuestion', populatedDoc }));
+                if(user.role === 'admin' && client.readyState === WebSocket.OPEN){
+                    client.send(JSON.stringify({type: 'createQuestion', data: populatedDoc}))
                 }
+
                 return user
             })
         })
 
-        return res.json(populatedDoc);
-    } catch (err) {
-        console.log(err);
+        return res.json(doc);
+    }
+    catch(err){
+        console.log(err)
 
         return res.status(500).json({
-            message: 'Тема не опубликовалась',
-            error: err
-        });
+            message: 'Тема не опубликовался'
+        })
     }
 }
 
