@@ -55,6 +55,8 @@ export const ModerationQuestion = async(req, res) => {
 export const Create = async(req, res) => {
     try{
 
+        console.log(req.body)
+
         const doc = new QuestionModel({
             title: req.body.title,
             text: req.body.text,
@@ -65,7 +67,7 @@ export const Create = async(req, res) => {
         await doc.save();
 
         // Здесь мы сначала сохраняем документ, а затем извлекаем его с помощью метода populate
-
+        const populatedDoc = await QuestionModel.findById(doc._id).populate({ path: 'user'});
 
         wss.clients.forEach(client => {
             clientsMap.map(user => {
@@ -77,7 +79,7 @@ export const Create = async(req, res) => {
             })
         })
 
-        return res.json(doc);
+        return res.json(populatedDoc);
     }
     catch(err){
         console.log(err)
