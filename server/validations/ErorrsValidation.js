@@ -5,6 +5,7 @@ export const validationErrors = (req, res, next) => {
     const errors = validationResult(req)
     
     if(!errors.isEmpty()) {
+        console.log('ВНИМАНИЕ ERROR')
         return res.status(400).json(errors.array())
     } 
 

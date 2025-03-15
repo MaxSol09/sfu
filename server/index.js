@@ -8,12 +8,11 @@ import { Create, createComment, CreateLike, Delete, GetAllQuestions, getOne, get
 import { avatarUser, backgroundUser, banUser, changeLastChat, changeText, createComplaint, createLink, deleteComplaint, deleteUser, getAllComplaints, getAllUsers, getMe, getUser, Login, Register, sendMsgSupport, userRole } from './controllers/userController.js'
 import { linkValidation } from './validations/LinkValidators.js'
 import { validationErrors } from './validations/ErorrsValidation.js'
-import { themeValidation } from './validations/ThemeValidation.js'
+import { questionValidation } from './validations/QuestionValidation.js'
 import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
 import jwt from 'jsonwebtoken'
-import { check } from 'express-validator'
 
 configDotenv()
 
@@ -192,7 +191,7 @@ app.post('/link', linkValidation, validationErrors, createLink) //пока чт�
 
 app.get('/tags', checkAuth, getTags)
 
-app.post('/question/create',checkAuth, themeValidation, validationErrors, Create)
+app.post('/question/create', checkAuth, questionValidation, validationErrors, Create)
 app.post('/question/moderation', checkAuth, ModerationQuestion)
 app.post('/question/delete', checkAuth, Delete)
 app.get('/questions', checkAuth, GetAllQuestions)
