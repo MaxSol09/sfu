@@ -3,7 +3,6 @@ import UserModel from "../models/UserModel.js"
 import { flattenArray } from "../utils/flatten.js"
 import { removeDuplicates } from "../utils/sort.js"
 import { clientsMap, wss } from "../index.js"
-import mongoose, { isObjectIdOrHexString } from "mongoose"
 
 
 export const ModerationQuestion = async(req, res) => {
@@ -52,25 +51,23 @@ export const ModerationQuestion = async(req, res) => {
     }
 }
 
-function isValidObjectId(id) {
-    return mongoose.Types.ObjectId.isValid(id);
-}
 
 export const Create = async(req, res) => {
     try{
 
-        console.log(req.body)
+        //QuestionModel.collection.dropIndex('text_1')
 
         const doc = new QuestionModel({
             title: req.body.title,
             text: req.body.text,
             tags: req.body.tags,
+            user: req.body.userId
         });
 
         await doc.save();
 
         // Здесь мы сначала сохраняем документ, а затем извлекаем его с помощью метода populate
-        const populatedDoc = await QuestionModel.findById(doc._id)
+        const populatedDoc = await QuestionModel.findById(doc._id).populate({ path: 'user'});
 
         wss.clients.forEach(client => {
             clientsMap.map(user => {

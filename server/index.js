@@ -134,7 +134,7 @@ app.post('/vk/user', async (req, res) => {
             fullName: fullName,  // Используем объединенное имя
             email: email,
             role: 'Абитуриент',
-            _id: vkID
+            vkid: vkID
         })
 
         await user.save()
