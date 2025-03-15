@@ -126,30 +126,7 @@ app.post('/vk/user', async (req, res) => {
             });
         }
 
-        const user = new UserModel({
-            fullName: jsonData.first_name,
-            email: email,
-            role: 'Абитуриент',
-            _id: vkID
-        })
-
-        if(!user){
-            res.status(500).json({
-                message: 'ошибка при регистрации'
-            })
-        }
-
-        const tokenUser = jwt.sign(
-            {
-                _id: vkID
-            },
-            'secretMax392',
-            {
-                expiresIn: '30d'
-            }
-        )
-
-        return res.json({...user, token: tokenUser}); // Отправляем JSON
+        return res.json(jsonData); // Отправляем JSON
     } catch (err) {
         console.error('Error fetching VK user:', err);
         res.status(500).json({
