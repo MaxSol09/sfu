@@ -147,7 +147,7 @@ app.post('/vk/user', async (req, res) => {
 
         const tokenUser = jwt.sign(
             {
-                _id: vkID
+                _id: user._id
             },
             'secretMax392',
             {
