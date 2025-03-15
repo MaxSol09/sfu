@@ -98,7 +98,7 @@ app.post('/vk/user', async (req, res) => {
     try {
         const { vkID, token, email } = req.body;
 
-        const checkUser = await UserModel.findById(vkID)
+        const checkUser = await UserModel.findOne({vkid: vkID})
 
         if(checkUser){
             return res.status(500).json({
