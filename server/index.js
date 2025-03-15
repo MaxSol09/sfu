@@ -122,7 +122,7 @@ app.post('/vk/user', async (req, res) => {
         const lastName = jsonData.response[0].last_name;
 
         // Объединяем в fullName
-        const fullName = `${firstName} ${lastName}`;
+        const fullName = `${firstName}`;
 
         const user = new UserModel({
             fullName: fullName,  // Используем объединенное имя
