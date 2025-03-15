@@ -121,7 +121,7 @@ app.post('/vk/user', async (req, res) => {
             fullName: jsonData.first_name,
             email: email,
             role: 'Абитуриент',
-            _id: vkID
+            _id: String(vkID)
         })
 
         const result = await user.save()
