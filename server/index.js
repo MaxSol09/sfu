@@ -13,6 +13,7 @@ import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
 import jwt from 'jsonwebtoken'
+import { check } from 'express-validator'
 
 configDotenv()
 
@@ -97,6 +98,14 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
 app.post('/vk/user', async (req, res) => {
     try {
         const { vkID, token, email } = req.body;
+
+        const checkUser = await UserModel.findById(vkID)
+
+        if(checkUser){
+            return res.status().json({
+                message: 'вы уже зарегистрированы'
+            })
+        }
         
         const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
 
@@ -119,9 +128,7 @@ app.post('/vk/user', async (req, res) => {
         }
 
         const firstName = jsonData.response[0].first_name;
-        const lastName = jsonData.response[0].last_name;
 
-        // Объединяем в fullName
         const fullName = `${firstName}`;
 
         const user = new UserModel({
