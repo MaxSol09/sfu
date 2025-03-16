@@ -29,12 +29,6 @@ export const Home: React.FC = () => {
         }
     }, [dispatch])
 
-    console.log(form)
-
-
-    console.log('render Home')
-
-
   return (
     <>
       <MemoHeader currPage={'home'}/>
