@@ -94,6 +94,25 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     })
 })
 
+app.post('/vk/login', async (req, res) => {
+    try{
+        const user = await UserModel.findOne({vkid: req.body.vkid})
+
+        if(!user){
+            res.status(404).json({
+                message: 'данные о вас не найденны'
+            })
+        }
+
+        res.json(user)
+    }
+    catch(err){
+        res.status(500).json({
+            message: 'ошибка при входе через вк'
+        })
+    }
+})
+
 app.post('/vk/user', async (req, res) => {
     try {
         const { vkID, token, email } = req.body;

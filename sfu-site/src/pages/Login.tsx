@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
  import Logo from '../images/logo.png'
  import axios from 'axios'
  import { Link, useNavigate } from 'react-router-dom'
- import { getVkUser, loginFetch } from '../redux/auth'
+ import { getVkUser, loginFetch, loginVk } from '../redux/auth'
  import { isUser } from '../utils/checkValue'
  import { useAppDispatch, useAppSelector } from '../redux/hooks'
  import { useForm } from 'react-hook-form'
@@ -50,7 +50,7 @@ import React, { useEffect, useState } from 'react'
      if (accessToken && userId) {
  
        // Получаем данные пользователя
-       getUserData(accessToken, userId, email);
+       getUserData(userId);
  
        // Очищаем hash из URL (чтобы не было видно в истории браузера)
        window.history.replaceState({}, document.title, window.location.pathname);
@@ -58,10 +58,9 @@ import React, { useEffect, useState } from 'react'
    }, []);
  
    // Функция для получения данных пользователя (с использованием VK API)
-   const getUserData = async (accessToken: string, userId: string, email: string | null) => {
+   const getUserData = async (userId: string) => {
      try {
-       dispatch(getVkUser({token: accessToken, vkID: userId, email: email}))
-       console.log('handle log data >>> ', accessToken) 
+       dispatch(loginVk(userId))
      } catch (error) {
        console.error('Ошибка при получении данных пользователя:', error);
      }

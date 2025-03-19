@@ -52,6 +52,12 @@ export const getVkUser = createAsyncThunk('user/vk', async (user: {token: string
     }
 )
 
+export const loginVk = createAsyncThunk('login/vk', async(vkid: string) => {
+    const {data} = await axios.post('https://sfu-4bm4.onrender.com/vk/login', {vkid: vkid})
+
+    return data
+})
+
 
 export const changeAvatar = createAsyncThunk('change/avatar', async (dataAvatar: {id: string, avatar: string}) => {
 
@@ -298,6 +304,9 @@ const authSlice = createSlice({
         })
         .addCase(getVkUser.rejected, (state) => {
             state.vkAuth.status = 'errors'
+        })
+        .addCase(loginVk.fulfilled, (state, action) => {
+            console.log(action.payload)
         })
     }
 })
