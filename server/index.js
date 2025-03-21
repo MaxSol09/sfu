@@ -104,7 +104,17 @@ app.post('/vk/login', async (req, res) => {
             })
         }
 
-        res.json(user)
+        const token = jwt.sign(
+            {
+                _id: user._id
+            },
+            'secretMax392',
+            {
+                expiresIn: '30d'
+            }
+        )
+
+        res.json({...user, token})
     }
     catch(err){
         res.status(500).json({
