@@ -306,7 +306,7 @@ const authSlice = createSlice({
             state.vkAuth.status = 'errors'
         })
         .addCase(loginVk.fulfilled, (state, action) => {
-            console.log(action.payload)
+            state.state = action.payload
         })
     }
 })
