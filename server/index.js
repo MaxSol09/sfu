@@ -114,7 +114,7 @@ app.post('/vk/login', async (req, res) => {
             }
         )
 
-        res.json({token: token, ...user})
+        res.json({token: token, ...user._doc})
     }
     catch(err){
         res.status(500).json({
