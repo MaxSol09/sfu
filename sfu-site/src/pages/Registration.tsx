@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import axios from 'axios'
 import { isUser } from '../utils/checkValue'
 import { useForm } from 'react-hook-form'
+import * as Msal from '@azure/msal-react'
 
 export const Registration: React.FC = () => {
 
@@ -85,6 +86,12 @@ export const Registration: React.FC = () => {
         onClick={() => setIsStudent('Студент')} className='py-[6px] px-[10px] border-[2px] w-[190px]'>Студент</button>
       </div>
     /*/
+
+    const { instance } = Msal.useMsal();
+
+    const handleLogoutRedirect = () => {
+        instance.logoutRedirect().catch((error) => console.log(error));
+    };
 
     
     return (

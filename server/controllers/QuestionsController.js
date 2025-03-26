@@ -2,7 +2,7 @@ import QuestionModel from "../models/QuestionModel.js"
 import UserModel from "../models/UserModel.js"
 import { flattenArray } from "../utils/flatten.js"
 import { removeDuplicates } from "../utils/sort.js"
-import { clientsMap, wss } from "../index.js"
+import { clientsMap, sendMail, wss } from "../index.js"
 
 
 export const ModerationQuestion = async(req, res) => {
@@ -253,6 +253,7 @@ export const createComment = async (req, res) => {
                       model: 'User'
                     }
                   }).populate({ path: 'user'});
+                  
 
                 console.log(comment)
     
@@ -270,6 +271,10 @@ export const createComment = async (req, res) => {
                         return user
                     })
                 })   
+
+                if(question.user.email){
+                    sendMail(question.user.email, `новый ответ на ваш вопрос от пользователя ${question.user.fullName}`, `Текст: ${req.body.text}`)
+                }
     
                 return res.json(comment)
             }

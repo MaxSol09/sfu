@@ -13,6 +13,7 @@ import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
 import jwt from 'jsonwebtoken'
+import * as nodemailer from 'nodemailer'
 
 configDotenv()
 
@@ -122,6 +123,32 @@ app.post('/vk/login', async (req, res) => {
         })
     }
 })
+
+const transporter = nodemailer.createTransport({
+    secure: true,
+    host: 'smtp.gmail.com',
+    port: 465,
+    auth: {
+        user: 'maksimsologor@gmail.com',
+        pass: 'qvdxyxwfbukpngsw'
+    }
+})
+
+export function sendMail(to, sub, msg){
+    transporter.sendMail({
+        to: to,
+        subject: sub,
+        html: msg
+    }, (error, info) => {
+        if (error) {
+            console.error('Error sending email:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
+}
+
+
 
 app.post('/vk/user', async (req, res) => {
     try {
