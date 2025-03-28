@@ -273,7 +273,7 @@ export const createComment = async (req, res) => {
                 })   
 
                 if(comment.user.email){
-                    sendMail('maksimsologor@gmail.com', `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, `Текст: ${comment.text}`)
+                    sendMail('maksimsologor@gmail.com', `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, `Текст: ${req.body.text}`)
                 }
     
                 return res.json(comment)
