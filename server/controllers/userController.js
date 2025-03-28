@@ -49,92 +49,90 @@ export const Login = async(req, res) => {
 } 
 
 export const Register = async(req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     try{
 
-        const checkUser = await UserModel.findOne({fullName: req.body.fullName})
+        // Check if email exists (more reliable than fullName)
+        const checkUser = await UserModel.findOne({email: req.body.email}); // Changed to email
 
         if(checkUser){
-            return res.status(404).json({
-                message: 'имя занято'
-            })
+            return res.status(400).json({ // Changed status to 400 Bad Request
+                message: 'email уже занят' // Changed message
+            });
         }
-    
-        const password = req.body.password
-        const salt = await bcrypt.genSalt(10)
-        const hash = await bcrypt.hash(password, salt)
+
+        // Validate required fields
+        if (!req.body.fullName || !req.body.email || !req.body.password || !req.body.role) {
+            return res.status(400).json({ message: 'Необходимо заполнить все обязательные поля' });
+        }
+
+        const password = req.body.password;
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+
+        let user; // Declare user variable outside the if/else block
 
         if(req.body.speciality){
+            // Create student user
             const student = new UserModel({
                 fullName: req.body.fullName,
                 email: req.body.email,
                 role: req.body.role,
                 passwordHash: hash,
                 speciality: req.body.speciality
-            })
-        
-            const user = await student.save()
-    
-            const token = jwt.sign(
-                {
-                    _id: user._id
-                },
-                'secretMax392',
-                {
-                    expiresIn: '30d'
-                }
-            )
-    
-            const {passwordHash, ...result} = user._doc
-    
-    
-            res.json({
-                ...result,
-                token
-            })
+            });
+
+            user = await student.save();
+
         }
         else{
+            // Create regular user
             const doc = new UserModel({
                 fullName: req.body.fullName,
                 email: req.body.email,
                 role: req.body.role,
                 passwordHash: hash
-            })
-        
-            const user = await doc.save()
-    
-            const token = jwt.sign(
-                {
-                    _id: user._id
-                },
-                'secretMax392',
-                {
-                    expiresIn: '30d'
-                }
-            )
-    
-            const {passwordHash, ...result} = user._doc
-
-            wss.clients.forEach(client => {
-                clientsMap.forEach(user => {
-                    if (user.role === 'admin' && user.ws === client && client.readyState === WebSocket.OPEN){
-                        client.send(JSON.stringify({type: 'registerUser', data: {...result, token}}))
-                    }
-                });
             });
-    
-            res.json({
-                ...result,
-                token
-            })
+
+            user = await doc.save();
         }
+
+        const token = jwt.sign(
+            {
+                _id: user._id
+            },
+            'secretMax392',
+            {
+                expiresIn: '30d'
+            }
+        );
+
+        const {passwordHash, ...result} = user._doc;
+
+        // Moved WebSocket logic here, after successful registration
+        wss.clients.forEach(client => {
+            clientsMap.forEach(registeredUser => { // Renamed 'user' to 'registeredUser'
+                if (registeredUser.role === 'admin' && registeredUser.ws === client && client.readyState === WebSocket.OPEN){
+                    client.send(JSON.stringify({type: 'registerUser', data: {...result, token}}));
+                }
+            });
+        });
+
+        res.json({
+            ...result,
+            token
+        });
+
     }
     catch(error){
+        console.error("Error in Register:", error); // Log the error
         res.status(500).json({
-            message: 'не удалось зарегистрироваться'
-        })
+            message: 'не удалось зарегистрироваться',
+            error: error.message // Include error message in response
+        });
     }
-}
+};
+
 
 export const getMe = async (req, res) => {
     try {
