@@ -30,6 +30,7 @@ export const Comments: React.FC = () => {
           commentId: uniqid(),
           avatar: state.avatarUrl,
           user: state._id,
+          url: window.location.href
         };
 
 

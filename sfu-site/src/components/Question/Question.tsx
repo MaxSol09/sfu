@@ -20,7 +20,6 @@ export const Question: React.FC = () => {
 
   const dispatch = useAppDispatch()
 
-
   useEffect(() => {
     dispatch(meFetch())
 

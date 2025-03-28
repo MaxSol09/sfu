@@ -274,7 +274,7 @@ export const createComment = async (req, res) => {
 
                 const message = `
                     <p>Текст: ${req.body.text}</p>
-                    <p>Перейдите по ссылке: <a href="${req.protocol}://${req.get('host')}">Example Website</a></p>
+                    <p>Перейдите по ссылке: <a href="${req.body.url}">Ссылка на вопрос</a></p>
                     <p>С уважением, Ваше приложение</p>
                 `;
 

@@ -4,7 +4,7 @@ import { TypeComment } from '../../types/types'
 import User from '../../images/user.jpg'
 
 type Props = {
-    comment: TypeComment, 
+  comment: TypeComment, 
 }
 
 export const Comment: React.FC<Props> = ({comment}) => {
