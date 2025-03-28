@@ -13,6 +13,8 @@ export const ModerationQuestion = async(req, res) => {
             })
         }
 
+        const users = await UserModel.find()
+
         if(req.body.moderation === true){
             const post = await QuestionModel.findByIdAndUpdate(
                 req.body.postId, 
@@ -30,6 +32,23 @@ export const ModerationQuestion = async(req, res) => {
                     return user
                 })
             })    
+
+            users.filter(el => {
+                if(el.role === 'Студент' || el.speciality.toLocaleLowerCase() === post.tags[0].tag.toLocaleLowerCase()){
+                    const message = `
+                        <p>Текст: новый вопрос</p>
+                        <p>Перейдите по ссылке: <a href="https://sfu-86v5.vercel.app/home/question/${post._id}">Ссылка на вопрос</a></p>
+                        <p>С уважением, ИКТИБ-СОВЕТНИК</p>
+                    `;
+
+                    if(el.email){
+                        sendMail('alekstook68@gmail.com', `новый вопрос по вашей тематике`, message)
+                    }
+                }
+
+
+                return el.role === 'Студент'
+            })
 
             return res.json(post)
         }
