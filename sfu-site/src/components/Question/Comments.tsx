@@ -42,11 +42,13 @@ export const Comments: React.FC = () => {
     }
 
 
+    const checkSpecility = isUser(state) && isPost(question) && state.speciality.toLocaleLowerCase() === question.tags[0].tag.toLocaleLowerCase()
+
 
   return (
     <div className='py-[20px] text-2xl space-y-[20px] pb-[100px] mr-[50px]'>
       {isUser(state) && isPost(question) && question.user !== null && 
-      <form onSubmit={submitComment} style={{display: (state.role === 'Студент' && state.speciality === question.tags[0].tag) || state._id === question.user._id ? 'flex' : 'none' }} className='gap-[20px] justify-between'>
+      <form onSubmit={submitComment} style={{display: (state.role === 'Студент' && checkSpecility) || state._id === question.user._id ? 'flex' : 'none' }} className='gap-[20px] justify-between'>
         <input
           onChange={(e) => setText(e.target.value)}
           value={text}
