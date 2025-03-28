@@ -270,13 +270,11 @@ export const createComment = async (req, res) => {
         
                         return user
                     })
-                })   
-
-                let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl; 
+                })    
 
                 const message = `
                     <p>Текст: ${req.body.text}</p>
-                    <p>Перейдите по ссылке: <a href="${fullUrl}">Example Website</a></p>
+                    <p>Перейдите по ссылке: <a href="${req.path}}">Example Website</a></p>
                     <p>С уважением, Ваше приложение</p>
                 `;
 
