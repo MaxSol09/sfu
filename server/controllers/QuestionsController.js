@@ -272,8 +272,16 @@ export const createComment = async (req, res) => {
                     })
                 })   
 
+                let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl; 
+
+                const message = `
+                    <p>Текст: ${req.body.text}</p>
+                    <p>Перейдите по ссылке: <a href="${fullUrl}">Example Website</a></p>
+                    <p>С уважением, Ваше приложение</p>
+                `;
+
                 if(comment.user.email){
-                    sendMail('maksimsologor@gmail.com', `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, `Текст: ${req.body.text}`)
+                    sendMail('maksimsologor@gmail.com', `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, message)
                 }
     
                 return res.json(comment)
