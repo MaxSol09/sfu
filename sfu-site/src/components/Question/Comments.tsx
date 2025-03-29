@@ -46,7 +46,7 @@ export const Comments: React.FC = () => {
   return (
     <div className='py-[20px] text-2xl space-y-[20px] pb-[100px] mr-[50px]'>
       {isUser(state) && isPost(question) && 
-      <form onSubmit={submitComment} style={{display: state.speciality.toLowerCase() === question.tags[0].tag.toLowerCase() || state._id === question.user._id ? 'flex' : 'none' }} className='gap-[20px] justify-between'>
+      <form onSubmit={submitComment} style={{display: state.speciality.toLowerCase() === question.tags[0].tag.toLowerCase() || (isUser(question.user) && state._id === question.user._id) ? 'flex' : 'none' }} className='gap-[20px] justify-between'>
         <input
           onChange={(e) => setText(e.target.value)}
           value={text}
