@@ -237,7 +237,7 @@ export const createComment = async (req, res) => {
         }
 
         const userComment = await UserModel.findById(req.body.user)
-        const question = await QuestionModel.findById(req.body.postId)
+        const question = await QuestionModel.findById(req.body.postId).populate({ path: 'user'});
 
 
         if(userComment && question){
