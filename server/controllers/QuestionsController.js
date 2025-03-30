@@ -297,15 +297,15 @@ export const createComment = async (req, res) => {
                     <p>С уважением, ИКТИБ-СОВЕТНИК</p>
                 `;
 
-                if(comment.user.email){
-                    sendMail('maksimsologor@gmail.com', `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, message)
+                if(question.user.email){
+                    sendMail(question.user.email, `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, message)
                 }
     
                 return res.json(comment)
             }
             else{
                 return res.json({
-                    message: 'отказано в доступе'
+                    message: 'отказано в доступе',
                 })
             }
         }
