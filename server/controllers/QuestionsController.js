@@ -34,7 +34,8 @@ export const ModerationQuestion = async(req, res) => {
             })    
 
             users.filter(el => {
-                if(el.role === 'Студент' || el.speciality.toLowerCase() === post.tags[0].toLowerCase()){
+                console.log(el)
+                if(el.role === 'Студент' && el.speciality.toLowerCase() === post.tags[0].toLowerCase()){
                     const message = `
                         <p>Текст: новый вопрос</p>
                         <p>Перейдите по ссылке: <a href="https://sfu-86v5.vercel.app/home/question/${post._id}">Ссылка на вопрос</a></p>
@@ -65,7 +66,8 @@ export const ModerationQuestion = async(req, res) => {
     }
     catch(err){
         res.status(500).json({
-            message: 'ошибка при модерации'
+            message: 'ошибка при модерации',
+            err: err
         })
     }
 }
