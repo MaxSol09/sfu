@@ -33,6 +33,10 @@ export const ModerationQuestion = async(req, res) => {
                 })
             })    
 
+            console.log(post)
+
+            console.log(post.tags[0].toLowerCase())
+
             for (const el of users) { // Используем обычный цикл для асинхронных операций
                 let message = null; // Инициализируем message значением null
 
