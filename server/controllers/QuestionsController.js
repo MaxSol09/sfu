@@ -35,6 +35,8 @@ export const ModerationQuestion = async(req, res) => {
 
             for (const el of users) { // Используем обычный цикл для асинхронных операций
                 let message = null; // Инициализируем message значением null
+
+                console.log(post.tags[0].toLowerCase())
             
                 if (el.role === 'Студент' && el.speciality && el.speciality.toLowerCase() === post.tags[0].toLowerCase()) {
                     message = `
@@ -42,16 +44,11 @@ export const ModerationQuestion = async(req, res) => {
                         <p>Перейдите по ссылке: <a href="https://sfu-86v5.vercel.app/home/question/${post._id}">Ссылка на вопрос</a></p>
                         <p>С уважением, ИКТИБ-СОВЕТНИК</p>
                     `;
+
+                    sendMail(el.email, `новый вопрос по вашей тематике`, message); // Добавлена await и try/catch
+                    console.log(`Письмо отправлено студенту ${el.fullName}`);
                 }
             
-                if (message && el.email) { // Проверяем, что message определен и el.email есть
-                    try {
-                        await sendMail(el.email, `новый вопрос по вашей тематике`, message); // Добавлена await и try/catch
-                        console.log(`Письмо отправлено студенту ${el.fullName}`);
-                    } catch (sendMailError) {
-                        console.error(`Ошибка отправки письма студенту ${el.fullName}:`, sendMailError);
-                    }
-                }
             }
 
             return res.json(post)
