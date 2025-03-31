@@ -34,7 +34,7 @@ export const ModerationQuestion = async(req, res) => {
             })    
 
             users.filter(el => {
-                if(el.role === 'Студент' || el.speciality.toLocaleLowerCase() === post.tags[0].tag.toLocaleLowerCase()){
+                if(el.role === 'Студент' || el.speciality.toLowerCase() === post.tags[0].toLowerCase()){
                     const message = `
                         <p>Текст: новый вопрос</p>
                         <p>Перейдите по ссылке: <a href="https://sfu-86v5.vercel.app/home/question/${post._id}">Ссылка на вопрос</a></p>
@@ -297,7 +297,7 @@ export const createComment = async (req, res) => {
                     <p>С уважением, ИКТИБ-СОВЕТНИК</p>
                 `;
 
-                if(question.user.email){
+                if(question.user.email && question.user._id !== comment.user._id){
                     sendMail(question.user.email, `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, message)
                 }
     
