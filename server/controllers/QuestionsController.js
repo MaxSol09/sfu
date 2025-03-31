@@ -34,7 +34,8 @@ export const ModerationQuestion = async(req, res) => {
             })    
 
             for (const el of users) { // Используем обычный цикл для асинхронных операций
-                let message = null; // Инициализируем message значением null
+
+                console.log(el.role)
 
             
                 if (el.role === 'Студент') {
