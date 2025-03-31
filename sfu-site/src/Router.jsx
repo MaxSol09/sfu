@@ -7,12 +7,12 @@ import { Profile } from "./components/Profile/Profile"
 import { Question } from "./components/Question/Question"
 
 const routes = [
-  { path: '/register', element: <Login />},
+  { path: '/register', element: <Login /> },
   { path: '/home', element: <Home /> },
   { path: '/home/question/:id', element: <Question /> },
   { path: '/about', element: <About /> },
   { path: '/profile/:id', element: <Profile /> },
-  { path: '/', element: <Registration /> },
+  { path: '/', element: <Registration /> }
 ]
 
 export const Router = () => {
