@@ -22,6 +22,8 @@ export const ModerationQuestion = async(req, res) => {
                 {new: true}
             ).populate({ path: 'user'});
 
+            console.log(post.tags[0].toLowerCase())
+
             wss.clients.forEach(client => {
                 clientsMap.map(user => {
                     if((user.role === 'admin' || user.role === 'student') && client.readyState === WebSocket.OPEN){
@@ -33,16 +35,10 @@ export const ModerationQuestion = async(req, res) => {
                 })
             })    
 
-            console.log(post)
-
-            console.log(post.tags[0].toLowerCase())
-
             for (const el of users) { // Используем обычный цикл для асинхронных операций
                 let message = null; // Инициализируем message значением null
-
-                console.log(post.tags[0].toLowerCase())
             
-                if (el.role === 'Студент' && el.speciality && el.speciality.toLowerCase() === post.tags[0].toLowerCase()) {
+                if (el.role === 'Студент' && el.speciality && el.speciality.toLowerCase() === post.tags[0].tag.toLowerCase()) {
                     message = `
                         <p>Текст: новый вопрос</p>
                         <p>Перейдите по ссылке: <a href="https://sfu-86v5.vercel.app/home/question/${post._id}">Ссылка на вопрос</a></p>
