@@ -6,13 +6,15 @@ import { About } from "./components/Tabs/About"
 import { Profile } from "./components/Profile/Profile"
 import { Question } from "./components/Question/Question"
 
+const token = localStorage.getItem('JWTtoken')
+
 const routes = [
-  { path: '/register', element: <Registration /> },
+  { path: '/register', element: !token ? <Registration /> : <Login/>},
   { path: '/home', element: <Home /> },
   { path: '/home/question/:id', element: <Question /> },
   { path: '/about', element: <About /> },
   { path: '/profile/:id', element: <Profile /> },
-  { path: '/', element: <Login /> },
+  { path: '/', element: token ? <Login /> : <Registration />},
 ]
 
 export const Router = () => {
