@@ -33,22 +33,23 @@ export const ModerationQuestion = async(req, res) => {
                 })
             })    
 
-            for (const el of users) { // Используем обычный цикл для асинхронных операций
+            if(users.length){
 
-                console.log(el.role)
+                for (const el of users) { // Используем обычный цикл для асинхронных операций
 
-            
-                if (el.role === 'Студент') {
-                    message = `
-                        <p>Текст: новый вопрос</p>
-                        <p>Перейдите по ссылке: <a href="https://sfu-86v5.vercel.app/home/question/${post._id}">Ссылка на вопрос</a></p>
-                        <p>С уважением, ИКТИБ-СОВЕТНИК</p>
-                    `;
+                    console.log('тема вопроса', post.tags[0].tag)
+                    console.log('user.speciality >>> ', el.speciality)
+                    console.log('user email', el.email)
 
-                    sendMail(el.email, `новый вопрос по вашей тематике`, message); // Добавлена await и try/catch
-                    console.log(`Письмо отправлено студенту ${el.fullName}`);
+                    console.log(String(post._id))
+                
+                    if (el.role === 'Студент') {
+                        console.log('отправленно на ', el.email)
+                        sendMail('alekstook68@gmail.com', `новый вопрос по вашей тематике`, 'tyest messsage'); // Добавлена await и try/catch
+                        console.log(`Письмо отправлено студенту ${el.fullName}`);
+                    }
+                
                 }
-            
             }
 
             return res.json(post)
