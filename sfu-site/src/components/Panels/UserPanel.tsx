@@ -49,7 +49,7 @@ export const UserPanel = () => {
 
   return (
     <>
-        {isUser(state) && state._id ? <div className='bg-slate-100 py-[20px] px-[60px] flex flex-col justify-center items-center text-center'>
+        {isUser(state) && state._id ? <aside className='bg-slate-100 py-[20px] px-[60px] flex flex-col justify-center items-center text-center'>
         <div className='grid place-items-center break-all w-[150px]'>
             {status === 'loading' ? <SkeletAvatar variant="circular" width={130} height={130} /> 
             : <div className='relative flex flex-col justify-center items-center'>
@@ -76,7 +76,7 @@ export const UserPanel = () => {
             <h1 className='text-center pt-[5px] text-xl max-w-[150px] break-words text-ellipsis max-[1100px]:text-[18px]'>
               {state.fullName}
             </h1>
-        </div> : <div className='bg-slate-100 w-[250px] px-[20px] py-[20px]'><Skeleton active/></div>
+        </aside> : <div className='bg-slate-100 w-full px-[20px] py-[20px]'><Skeleton active/></div>
         }
         <Link to={`/profile/${isUser(state) && state._id}`} className='bg-slate-100 py-[10px] flex justify-center shadow-btn-shadow'>Профиль</Link>
     </>
