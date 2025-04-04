@@ -34,7 +34,7 @@ import React, { useEffect, useState } from 'react'
    }, [state, dispatch, navigate]); 
  
    const appId = '53108749'; // Замените на ваш client_id
-   const redirectUri = 'https://sfu-86v5.vercel.app'; // Замените на URL вашего приложения
+   const redirectUri = 'https://sfu-86v5.vercel.app/login'; // Замените на URL вашего приложения
  
    useEffect(() => {
      // Получение параметров из URL hash (после редиректа)
