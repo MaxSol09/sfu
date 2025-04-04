@@ -28,8 +28,6 @@ export const Logout: React.FC<Props> = ({modal, setModal}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-      const {status} = useAppSelector(el => el.auth)
-
     const logoutFun = () => {
         dispatch(logout())
         setModal(false)
@@ -37,12 +35,6 @@ export const Logout: React.FC<Props> = ({modal, setModal}) => {
         navigate('/login')
         window.location.reload()
     }
-
-    useEffect(() => {
-        if(!localStorage.getItem('JWTtoken')){
-          navigate('/login')
-        }
-    }, [status, navigate])
 
     return (
         <Modal

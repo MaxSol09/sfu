@@ -46,7 +46,6 @@ import React, { useEffect, useState } from 'react'
  
      if (accessToken && userId) {
        // Сохраняем токен (например, в localStorage)
-       localStorage.setItem('vk_token', accessToken);
        localStorage.setItem('vk_userId', userId);
  
        // Получаем данные пользователя
