@@ -34,7 +34,7 @@ export const Logout: React.FC<Props> = ({modal, setModal}) => {
         dispatch(logout())
         setModal(false)
         localStorage.removeItem('JWTtoken')
-        navigate('/')
+        navigate('/login')
         window.location.reload()
     }
 
