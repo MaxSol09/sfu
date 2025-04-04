@@ -52,7 +52,7 @@ export const Header: React.FC<Props> = ({currPage}) => {
       navigate('/' + questionLink.slice(22, questionLink.length))
     }
     else{
-      navigate('/home')
+      navigate('/')
     }
     
   }
@@ -88,7 +88,7 @@ export const Header: React.FC<Props> = ({currPage}) => {
         className='bg-red-500 text-white py-[9px] px-[40px] rounded-sm'>
         Выйти
       </button>
-      : <Link to={'/'} style={{backgroundColor: '#4CAF50', color: 'white'}} className='py-[9px] px-[40px]'>Войти</Link>}
+      : <Link to={'/login'} style={{backgroundColor: '#4CAF50', color: 'white'}} className='py-[9px] px-[40px]'>Войти</Link>}
     </header>
     <Logout modal={modal} setModal={setModal}/>
     <Chat />
