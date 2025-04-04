@@ -20,7 +20,7 @@ export const Registration: React.FC = () => {
             if(state.token){
                 localStorage.setItem('JWTtoken', state.token);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
-                navigate('/home');
+                navigate('/');
             }
         }
     }, [state, navigate])

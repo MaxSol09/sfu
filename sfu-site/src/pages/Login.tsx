@@ -24,7 +24,7 @@ import React, { useEffect, useState } from 'react'
                localStorage.setItem('JWTtoken', state.token)
                console.log(state.token)
                axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
-               navigate('/home');
+               navigate('/');
            }
            else{
                return

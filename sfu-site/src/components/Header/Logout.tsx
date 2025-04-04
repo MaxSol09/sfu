@@ -40,7 +40,7 @@ export const Logout: React.FC<Props> = ({modal, setModal}) => {
 
     useEffect(() => {
         if(!localStorage.getItem('JWTtoken')){
-          navigate('/')
+          navigate('/login')
         }
     }, [status, navigate])
 

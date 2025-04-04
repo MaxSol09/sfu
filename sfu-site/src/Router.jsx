@@ -8,11 +8,11 @@ import { Question } from "./components/Question/Question"
 
 const routes = [
   { path: '/register', element: <Registration /> },
-  { path: '/home', element: <Home /> },
-  { path: '/home/question/:id', element: <Question /> },
+  { path: '/login', element: <Login /> },
+  { path: '/question/:id', element: <Question /> },
   { path: '/about', element: <About /> },
   { path: '/profile/:id', element: <Profile /> },
-  { path: '/', element: <Login /> },
+  { path: '/', element: <Home /> },
 ]
 
 export const Router = () => {
