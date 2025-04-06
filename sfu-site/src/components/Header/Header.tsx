@@ -10,6 +10,8 @@ import { TypePage } from '../../types/types'
 import { Chat } from '../Chat/Chat'
 import { Logout } from './Logout'
 import { SearchPosts } from './SearchPosts'
+import Menu from '../../images/menu.png'
+import { Button, Drawer } from 'antd'
 
 
 type Props = {
@@ -71,26 +73,54 @@ export const Header: React.FC<Props> = ({currPage}) => {
     navigate('/about')
   }
 
-  console.log('render header')
+  const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
+  const showLoading = () => {
+    setOpen(true);
+    setLoading(true);
+    // Simple loading mock. You should add cleanup logic in real world.
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
+
+  console.log('render header')
 
   return (
     <>
-    <header className='fixed bg-white border-b-[2px] z-20 flex py-[20px] px-[100px] w-full items-center gap-[20px] justify-between'>
-      <img onClick={() => homeClick()} className='w-[180px]' src={Logo} alt="logo" />
-      <nav className='flex items-center gap-[40px] text-[17px] text-gray-500'>
+    <header className='fixed bg-white border-b-[2px] z-20 flex py-[20px] px-[100px] max-[940px]:px-[50px] max-[720px]:px-[10px] w-full items-center gap-[20px] max-[500px]:gap-[10px] max-[1130px]:px-[105px] justify-between'>
+      <img onClick={() => homeClick()} className='w-[180px] max-[540px]:w-[110px] max-[940px]:w-[130px]' src={Logo} alt="logo" />
+      <nav className='flex items-center gap-[40px] text-[17px] text-gray-500 max-[1130px]:hidden'>
           <button onClick={() => homeClick()} className={`${currPage !== 'about' && 'text-black'}`}>Вопросы</button>
           <button onClick={() => aboutClick()} className={`${currPage === 'about' && 'text-black'}`}>Об институте</button>
           <button onClick={() => dispatch(changeSupport({type: false}))}>Поддержка</button>
       </nav>
       <MemoSearchPosts />
       { isUser(state) && state._id ? <button onClick={() => setModal(true)} style={{marginRight: modal ? '17px' : ''}} 
-        className='bg-red-500 text-white py-[9px] px-[40px] rounded-sm'>
+        className='bg-red-500 text-white py-[9px] px-[40px] rounded-sm max-[1130px]:hidden'>
         Выйти
       </button>
-      : <Link to={'/login'} style={{backgroundColor: '#4CAF50', color: 'white'}} className='py-[9px] px-[40px]'>Войти</Link>}
+      : <Link className='py-[9px] px-[40px] max-[1130px]:hidden' to={'/login'} style={{backgroundColor: '#4CAF50', color: 'white'}}>Войти</Link>}
+      <img onClick={() => showLoading()} className='hidden w-[40px] max-[1130px]:flex' src={Menu} alt='menu'></img>
     </header>
     <Logout modal={modal} setModal={setModal}/>
+    <Drawer
+        closable
+        destroyOnClose
+        title={<p>Боковое меню</p>}
+        placement="right"
+        open={open}
+        loading={loading}
+        onClose={() => setOpen(false)}
+      >
+        <Button type="primary" style={{ marginBottom: 16 }} onClick={showLoading}>
+          Меню
+        </Button>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
     <Chat />
   </>
   )

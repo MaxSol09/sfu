@@ -19,6 +19,6 @@ export const SearchPosts: React.FC = () => {
     console.log('render input')
 
     return (
-        <input onChange={e => findPost(e.target.value)} className='text-[20px] outline-gray-400 border-[2px] w-[400px] py-[5px] px-[10px]' placeholder='поиск по теме или названию' type="text" />
+        <input onChange={e => findPost(e.target.value)} className='text-[20px] max-[640px]:text-[16px] outline-gray-400 border-[2px] w-[400px] py-[5px] px-[10px]' placeholder='поиск по теме или названию' type="text" />
     )
 }

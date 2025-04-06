@@ -38,7 +38,7 @@ export const Questions: React.FC = () => {
 
   return (
     <div className='grid w-full'>
-        <div className='flex justify-between items-center px-[55px]'>
+        <div className='flex justify-between items-center'>
             <div className='space-y-[3px]'>
               <h1 className='text-[20px]'>Вопросы</h1>
             </div>
@@ -47,7 +47,7 @@ export const Questions: React.FC = () => {
               <Button id='titlewrapper'  disabled={isUser(state) && state.role === 'Абитуриент' && !state.ban ? false : true} onClick={() => formopen()} className='ml-[10px] text-[17px]'>Задать вопрос</Button>
             </Tooltip>
         </div>
-        <div className='items-center px-[55px] justify-between flex pt-[20px] max-[1200px]:flex-wrap max-[1200px]:gap-[10px]'>
+        <div className='items-center justify-between flex pt-[20px] max-[1200px]:flex-wrap max-[1200px]:gap-[10px]'>
           <h1 className='text-[18px]'>Всего вопросов: {questions.length ? questions.length : '0'}</h1>
           <MemoFilterQuestions />
         </div>

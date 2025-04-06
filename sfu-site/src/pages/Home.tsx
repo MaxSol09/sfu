@@ -33,7 +33,7 @@ export const Home: React.FC = () => {
     <>
       <MemoHeader currPage={'home'}/>
       <Panel />
-      <main className='z-0 pt-[130px] ml-[25%] mr-[50px]'>
+      <main className='z-0 pt-[130px]  max-[520px]:px-[20px] max-[1130px]:ml-0 max-[1130px]:pl-[105px] max-[940px]:px-[50px] max-[720px]:px-[20px] ml-[25%] pl-[50px] pr-[105px]'>
         {form ? <CreateQuestion /> : <Questions />}
       </main>
       <NotificationQuestion />

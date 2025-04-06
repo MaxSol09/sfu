@@ -10,8 +10,8 @@ export const FilterQuestions: React.FC = () => {
     console.log('render filter')
 
     return (
-        <div className='flex gap-[20px]'>
-        <h1 className='text-[20px]'>Категории:</h1>
+        <div className='flex gap-[20px] max-[590px]:flex-wrap'>
+            <h1 className='text-[20px]'>Категории:</h1>
             <Button onClick={() => dispatch(popularQuestions())}>Полезные</Button>
             <Button onClick={() => dispatch(newQuestion())}>Новые</Button>
             <Button onClick={() => dispatch(oldQuestions())}>Старые</Button>

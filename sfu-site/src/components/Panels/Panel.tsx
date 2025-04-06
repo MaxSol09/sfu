@@ -7,7 +7,7 @@ export const Panel = () => {
   console.log('panel render')
 
   return (
-      <aside className="fixed left-[100px] top-[110px] bottom-0 py-[20px] w-[17%] overflow-hidden">
+      <aside className="fixed left-[100px] top-[110px] bottom-0 py-[20px] w-[17%] overflow-hidden max-[1130px]:hidden">
         <div className="flex flex-col gap-[20px]">
           <Tags />
           <UserPanel />

@@ -18,7 +18,7 @@ export const Posts: React.FC<Props> = ({questions, loadingQuestions}) => {
       
   
     return (
-    <div className='grid place-items-center pt-[20px] pb-[100px] gap-[30px] max-[1300px]:mx-[15px]'>
+    <div className='grid place-items-center pt-[20px] pb-[100px] gap-[30px]'>
       {!loadingQuestions ? (
         <Spin className='py-[20px] flex justify-center'/>
       ) : questions.length && isUser(state) ? questions.map(el => (

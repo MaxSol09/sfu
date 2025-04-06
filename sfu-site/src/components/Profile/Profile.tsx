@@ -35,10 +35,10 @@ export const Profile: React.FC = () => {
   return (
     <>
       <MemoHeader currPage={'home'}/>
-      <aside className='grid fixed left-[100px] top-[110px] py-[20px] gap-[20px] w-[250px]'>
+      <aside className='grid fixed left-[100px] top-[110px] py-[20px] gap-[20px] w-[250px] max-[1300px]:hidden'>
         {isUser(user) ? user.role === 'Студент' ? <Achievements /> : <Tags /> : <SkeletonBlock />}
       </aside>
-      <main className='pt-[130px] pl-[35px] ml-[25%] mr-[100px]'>
+      <main className='pt-[130px] pl-[35px] ml-[25%] mr-[100px] max-[1300px]:w-full max-[1300px]:ml-[0%] max-[1300px]:px-[8%]'>
         {isUser(state) && isUser(user) ?      
           <div className='w-full h-[200px] bg-gray-200 relative'>
             <BackgroundProfile />

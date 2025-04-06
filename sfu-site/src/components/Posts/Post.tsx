@@ -72,8 +72,8 @@ export const Post: React.FC<Props> = ({question}) => {
   return (
     <>
         {isUser(state) && isPost(question) && 
-            <div key={question._id} className={`bg-gray-200 py-[10px] px-[15px] grid rounded-md relative
-                 ${url === '/home' ? 'w-[90%]' : 'w-full'}`}>
+            <div key={question._id} className={`bg-gray-200 py-[10px] px-[15px] grid rounded-md relative 
+                 ${url === '/' ? 'w-full' : 'w-full'}`}>
                 <div className='absolute top-[10px] right-[15px] flex gap-[10px]'>
                 <div onClick={() => dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
                     className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
@@ -87,16 +87,16 @@ export const Post: React.FC<Props> = ({question}) => {
                     <img alt='delete-btn' className='w-[25px] h-[25px]' src={Delete}></img>
                 </div>
                 </div>
-                <h1 className='text-[21px] break-words overflow-hidden text-ellipsis whitespace-nowrap max-w-[85%]'>Название: {question.title}</h1>
+                <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[65%]'>Название: {question.title}</h1>
                 <p className='text-[16px] pt-[2px]'>Описание: {question.text === null ? 'отсутствует' : 
-                    question.text.length > 50 ? question.text.slice(0, 50) + '........' : question.text ? question.text : 'отсутствует'}
+                    question.text.length > 50 ? question.text.slice(0, 50) + '.....' : question.text ? question.text : 'отсутствует'}
                 </p>
                 <div className='flex gap-[10px] pt-[5px]'>
                     {question.tags.length ? question.tags.map(t => (
                     <p key={t.id} className='text-[16px]'>#{t.tag}</p>
                     )) : <p>Тэги отсутствуют</p>}
                 </div>
-                <div className='flex items-end justify-between pb-[5px]'>
+                <div className='flex items-end justify-between pb-[5px] max-[590px]:flex-wrap'>
                     <div className='flex gap-[20px]'>
                         <div className='flex gap-[5px]'>
                             <p>Ответов: {question.comments.length}</p>
@@ -107,8 +107,9 @@ export const Post: React.FC<Props> = ({question}) => {
                             </p> 
                         </div>
                     </div>
-                    <button className='button-hover' onClick={() => openQuestion(question._id)}   
-                        >{state.role === 'Абитуриент' ? 'Перейти' : 'Ответить'}</button>
+                    <button className='button-hover max-[590px]:flex max-[590px]:ml-auto max-[590px]:mt-[5px]' onClick={() => openQuestion(question._id)}   
+                        >{state.role === 'Абитуриент' ? 'Перейти' : 'Ответить'}
+                    </button>
                 </div>
         </div>}
         <Modal

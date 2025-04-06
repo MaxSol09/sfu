@@ -1,5 +1,5 @@
 import axios from "axios"
-import { API_ENDPOINTS } from "../api/endpoints"
+import { API_ENDPOINTS_REAL } from "../api/endpoints"
 
 interface DataModeration {
     moderation: boolean,
@@ -9,7 +9,7 @@ interface DataModeration {
 class QuestionsService {
 
     getQuestions(){
-        const data = axios.get(API_ENDPOINTS.QUESTIONS.GET_QUESTIONS)
+        const data = axios.get(API_ENDPOINTS_REAL.QUESTIONS.GET_QUESTIONS)
 
         return data
     }
@@ -21,13 +21,13 @@ class QuestionsService {
     }
 
     moderationQuestion(dataModeration: DataModeration){
-        const data = axios.post(API_ENDPOINTS.QUESTIONS.MODERATION_QUESTION, dataModeration)
+        const data = axios.post(API_ENDPOINTS_REAL.QUESTIONS.MODERATION_QUESTION, dataModeration)
 
         return data
     }
 
     deleteQuestion(id: string){
-        const data = axios.post(API_ENDPOINTS.QUESTIONS.DELETE_QUESTION, {id})
+        const data = axios.post(API_ENDPOINTS_REAL.QUESTIONS.DELETE_QUESTION, {id})
 
         return data
     }
