@@ -173,3 +173,7 @@ body, html {
   height: 100px;
   border: 1px solid #ccc;
 }
+
+.hidden-btn{
+  display: none !important;
+}

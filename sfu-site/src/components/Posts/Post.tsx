@@ -74,22 +74,32 @@ export const Post: React.FC<Props> = ({question}) => {
         {isUser(state) && isPost(question) && 
             <div key={question._id} className={`bg-gray-200 py-[10px] px-[15px] grid rounded-md relative 
                  ${url === '/' ? 'w-full' : 'w-full'}`}>
-                <div className='absolute top-[10px] right-[15px] flex gap-[10px]'>
-                <div onClick={() => dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
-                    className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
-                    style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
-                    >
-                    <img alt='like' className='w-[30px]' src={isUser(state) && checkTwoArrayId(question.likes, state._id) ? Like2 : Like}></img>
+                <div className='absolute top-[10px] right-[15px] flex gap-[10px] max-[470px]:hidden'>
+                    <button onClick={() => dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
+                        className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
+                        style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
+                        >
+                        <img alt='like' className='w-[30px]' src={isUser(state) && checkTwoArrayId(question.likes, state._id) ? Like2 : Like}></img>
+                    </button>
+                    <button style={{display: question.user === null ? 'none' : state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s'}} 
+                        className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full flex items-center hover:shadow-custom-hoverShadow' 
+                        onClick={() => clickDelete(question._id)}>
+                        <img alt='delete-btn' className='w-[25px] h-[25px]' src={Delete}></img>
+                    </button>
                 </div>
-                <div style={{display: question.user === null ? 'none' : state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s'}} 
-                    className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full flex items-center hover:shadow-custom-hoverShadow' 
-                    onClick={() => clickDelete(question._id)}>
-                    <img alt='delete-btn' className='w-[25px] h-[25px]' src={Delete}></img>
+                <div className='absolute top-[10px] right-[15px] gap-[10px] hidden max-[470px]:flex'>
+                    <button onClick={() => dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
+                        className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
+                        style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
+                        >
+                        <img alt='like' className='w-[30px]' src={isUser(state) && checkTwoArrayId(question.likes, state._id) ? Like2 : Like}></img>
+                    </button>
                 </div>
-                </div>
-                <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[65%]'>Название: {question.title}</h1>
-                <p className='text-[16px] pt-[2px]'>Описание: {question.text === null ? 'отсутствует' : 
-                    question.text.length > 50 ? question.text.slice(0, 50) + '.....' : question.text ? question.text : 'отсутствует'}
+                <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis break-words max-w-[80%]'>
+                    Название:<span className='pl-[3px]'>{question.title}</span>
+                </h1>
+                <p className='text-[16px] pt-[2px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[80%]'>
+                    Описание: {!question.text.length ? 'отсутствует' : question.text}
                 </p>
                 <div className='flex gap-[10px] pt-[5px]'>
                     {question.tags.length ? question.tags.map(t => (
@@ -107,6 +117,13 @@ export const Post: React.FC<Props> = ({question}) => {
                             </p> 
                         </div>
                     </div>
+                    <div className=' max-[450px]:flex hidden'>
+                        <button style={{display: question.user === null ? 'none' : state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s'}} 
+                            className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full items-center hover:shadow-custom-hoverShadow' 
+                            onClick={() => clickDelete(question._id)}>
+                            удалить
+                        </button>
+                    </div>
                     <button className='button-hover max-[590px]:flex max-[590px]:ml-auto max-[590px]:mt-[5px]' onClick={() => openQuestion(question._id)}   
                         >{state.role === 'Абитуриент' ? 'Перейти' : 'Ответить'}
                     </button>
@@ -123,8 +140,8 @@ export const Post: React.FC<Props> = ({question}) => {
                 Вы уверены, что хотите удалить вопрос?
                 </h1>
                 <div className='flex gap-[15px] justify-end pt-[20px]'>
-                <button onClick={() => setModal(false)} className='border-[1px] rounded-[5px] border-gray-400 py-[5px] px-[15px] text-[17px] hover:border-blue-500 hover:text-blue-500'>нет</button>
-                <button onClick={() => deleteQuest()} className='rounded-[5px] bg-blue-500 py-[5px] px-[20px] text-white text-[17px] hover:bg-blue-400'>да</button>
+                    <button onClick={() => setModal(false)} className='border-[1px] rounded-[5px] border-gray-400 py-[5px] px-[15px] text-[17px] hover:border-blue-500 hover:text-blue-500'>нет</button>
+                    <button onClick={() => deleteQuest()} className='rounded-[5px] bg-blue-500 py-[5px] px-[20px] text-white text-[17px] hover:bg-blue-400'>да</button>
                 </div>
             </Box>
         </Modal>
