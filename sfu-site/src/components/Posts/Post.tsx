@@ -96,7 +96,7 @@ export const Post: React.FC<Props> = ({question}) => {
                     </button>
                 </div>
                 <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis break-words max-w-[80%]'>
-                    Название:<span className='pl-[3px]'>{question.title}</span>
+                    Название:{question.title}
                 </h1>
                 <p className='text-[16px] pt-[2px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[80%]'>
                     Описание: {!question.text.length ? 'отсутствует' : question.text}
@@ -107,7 +107,7 @@ export const Post: React.FC<Props> = ({question}) => {
                     )) : <p>Тэги отсутствуют</p>}
                 </div>
                 <div className='flex items-end justify-between pb-[5px] max-[590px]:flex-wrap'>
-                    <div className='flex gap-[20px]'>
+                    <div className='flex gap-[20px] pb-[5px]'>
                         <div className='flex gap-[5px]'>
                             <p>Ответов: {question.comments.length}</p>
                         </div>
@@ -118,8 +118,8 @@ export const Post: React.FC<Props> = ({question}) => {
                         </div>
                     </div>
                     <div className=' max-[450px]:flex hidden'>
-                        <button style={{display: question.user === null ? 'none' : state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s'}} 
-                            className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full items-center hover:shadow-custom-hoverShadow' 
+                        <button style={{display: question.user === null ? 'none' : state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s', background: "red"}} 
+                            className='p-[7px] px-[9.5px] button-hover' 
                             onClick={() => clickDelete(question._id)}>
                             удалить
                         </button>
