@@ -41,7 +41,7 @@ export const Post: React.FC<Props> = ({question}) => {
     const [id, setId] = useState<string>('')
 
     const openQuestion = (id: string) => {
-        navigate(`/home/question/${id}`)
+        navigate(`/question/${id}`)
     }
 
     const deleteQuest = () => {
