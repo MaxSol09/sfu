@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TypePost } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
@@ -33,6 +33,7 @@ export const Post: React.FC<Props> = ({question}) => {
     const dispatch = useAppDispatch()
 
     const state = useAppSelector(el => el.auth.state)
+    const [title, setTitle] = useState<String>('')
 
     const navigate = useNavigate()
     const [modal, setModal] = useState<boolean>(false)
@@ -67,6 +68,10 @@ export const Post: React.FC<Props> = ({question}) => {
         }
     }
 
+    useEffect(() => {
+        setTitle(question.title)
+    }, [question.title])
+
     const url = window.location.pathname
 
   return (
@@ -96,7 +101,7 @@ export const Post: React.FC<Props> = ({question}) => {
                     </button>
                 </div>
                 <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis break-words max-w-[80%]'>
-                    Название:{question.title}
+                    Название:{title}
                 </h1>
                 <p className='text-[16px] pt-[2px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[80%]'>
                     Описание: {!question.text.length ? 'отсутствует' : question.text}
