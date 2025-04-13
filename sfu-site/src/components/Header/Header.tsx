@@ -89,7 +89,7 @@ export const Header: React.FC<Props> = ({currPage}) => {
 
   return (
     <>
-    <header className='fixed bg-white border-b-[2px] z-20 flex py-[20px] px-[100px] max-[940px]:px-[50px] max-[720px]:px-[10px] w-full items-center gap-[20px] max-[500px]:gap-[10px] max-[1130px]:px-[105px] justify-between'>
+    <header className='fixed bg-white border-b-[2px] z-20 flex py-[20px] px-[70px] max-[940px]:px-[50px] max-[720px]:px-[10px] w-full items-center gap-[20px] max-[500px]:gap-[10px] max-[1130px]:px-[105px] justify-around'>
       <img onClick={() => homeClick()} className='w-[180px] max-[540px]:w-[110px] max-[940px]:w-[130px]' src={Logo} alt="logo" />
       <nav className='flex items-center gap-[40px] text-[17px] text-gray-500 max-[1130px]:hidden'>
           <button onClick={() => homeClick()} className={`${currPage !== 'about' && 'text-black'}`}>Вопросы</button>

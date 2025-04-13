@@ -44,9 +44,10 @@ export const Comments: React.FC = () => {
 
 
   return (
-    <div className='py-[20px] text-2xl space-y-[20px] pb-[100px] mr-[50px]'>
+    <div className='py-[20px] text-2xl space-y-[20px] pb-[100px] mr-[50px] max-[800px]:mr-[0px]'>
       {isUser(state) && isPost(question) && 
-      <form onSubmit={submitComment} style={{display: state.speciality.toLowerCase() === question.tags[0].tag.toLowerCase() || (question.user !== null && state._id === question.user._id) ? 'flex' : 'none' }} className='gap-[20px] justify-between'>
+      <form onSubmit={submitComment} style={{display: state.speciality.toLowerCase() === question.tags[0].tag.toLowerCase() || (question.user !== null && state._id === question.user._id) ? 'flex' : 'none' }} 
+        className='gap-[20px] justify-between'>
         <input
           onChange={(e) => setText(e.target.value)}
           value={text}
@@ -59,7 +60,7 @@ export const Comments: React.FC = () => {
           <button
             onClick={e => submitComment(e)}
             disabled={statusCreate === 'loading' && true}
-            className={`text-xl bg-green-300 ${loadingComment || state.ban ? 'hover:bg-gray-300' : 'hover:bg-green-400'} delay-75 py-2 px-6 text-white rounded`}
+            className={`text-xl bg-green-300 ${loadingComment || state.ban ? 'hover:bg-gray-300' : 'hover:bg-green-400'} delay-75 py-2 px-6 max-[700px]:px-3 text-white rounded`}
           >
             Отправить
           </button>

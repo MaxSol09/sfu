@@ -34,9 +34,9 @@ export const Question: React.FC = () => {
     <>
     <Header currPage={'question'}/>
     <Panel />
-      <main className='z-0 pt-[130px] ml-[27%] max-[1130px]:ml-[0%] max-[1130px]:px-[100px] max-[950px]:px-[50px] max-[520px]:px-[20px]'>
+      <main className='z-0 pt-[130px] ml-[27%] pr-[100px] max-[1130px]:ml-[0%] max-[1130px]:px-[100px] max-[950px]:px-[50px] max-[520px]:px-[20px]'>
         {!loadingQuestion ? (
-        <Skeleton paragraph={{rows: 6}} className='pb-[60px] pt-[10px] w-[93%]'/>
+        <Skeleton paragraph={{rows: 6}} className='pb-[60px] pt-[10px] w-full'/>
       ) : isPost(question) ? <div>
           <div className='px-[20px] pt-[10px] pb-[10px] bg-gray-200'>
             <h1 className='text-[20px] break-all'>Название: {question.title}</h1>
@@ -48,7 +48,7 @@ export const Question: React.FC = () => {
                 <div key={el.id} className='text-[18px] text-gray-500 pt-[10px]'>#{el.tag}</div>
               )): <p>Тэги отсутствуют</p>}
             </div>
-            <div className='flex justify-between pt-[20px] max-[520px]:flex-wrap'>
+            <div className='flex justify-between pt-[20px] max-[520px]:pt-[10px] max-[520px]:flex-wrap '>
               <div className='flex gap-[10px]'>
                 <div className='flex gap-[3px]'>
                   <img className='w-[23px]' src={Eyes} alt="просмотры" />
@@ -59,7 +59,10 @@ export const Question: React.FC = () => {
                   <p>{question.comments.length}</p>
                 </div>
               </div>
-              <p>Дата: {question.createdAt.slice(0, 10)} <span className='pl-[15px]'>Время публикации: {+question.createdAt.slice(11, 13) + 3}{question.createdAt.slice(13, 16)}</span></p>
+              <p className='max-[520px]:pt-[10px]'>Дата: {question.createdAt.slice(0, 10)} 
+                <span className='pl-[15px]'>Время публикации: {+question.createdAt.slice(11, 13) + 3}
+                {question.createdAt.slice(13, 16)}</span>
+              </p>
             </div>
           </div>
           </div>

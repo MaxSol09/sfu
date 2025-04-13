@@ -9,7 +9,7 @@ type Props = {
 
 export const Comment: React.FC<Props> = ({comment}) => {
   return (
-    <div className="py-2 px-4 break-words realtive shadow-custom-rounded w-3/4">
+    <div className="py-2 px-4 break-words realtive shadow-custom-rounded w-3/4 max-[800px]:w-full">
         <div className='flex items-center justify-between'>
         <div className='flex items-center gap-1'>
             <img className='w-[35px] h-[35px] rounded-full mr-1 object-cover' src={comment.user === null ? User : comment.user.avatarUrl ? comment.user.avatarUrl : User} alt='User'/>
