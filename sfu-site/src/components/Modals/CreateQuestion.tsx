@@ -79,7 +79,7 @@ export const CreateQuestion: React.FC = () => {
   console.log(tags)
 
   return (
-    <div className='w-[100%] py-[20px] pb-[35px] max-[530px]:w-[100%] max-[640px]:py-[10px] max-[640px]:px-[20px] px-[80px] flex flex-col shadow-custom-rounded m-auto max-[640px]:w-[85%]'>
+    <div className='w-[100%] py-[20px] pb-[35px] max-[530px]:w-[100%] max-[640px]:py-[10px] max-[640px]:px-[20px] px-[80px] flex flex-col shadow-custom-rounded m-auto max-[640px]:w-[85%] max-[600px]:mb-[100px]'>
       <div className='w-full'>
         <input value={title} onChange={e => changeTitle(e.target.value)} className='text-gray-500 border-b-[3px] w-full outline-none 
         focus:border-b-blue-300 py-[10px] px-[10px] text-[20px] max-[540px]:text-[18px]' type="text" placeholder='Введите вопрос'/>
