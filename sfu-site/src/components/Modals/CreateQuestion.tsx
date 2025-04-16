@@ -79,17 +79,18 @@ export const CreateQuestion: React.FC = () => {
   console.log(tags)
 
   return (
-    <div className=' ml-[100px] w-[80%] py-[20px] pb-[35px] px-[80px] flex flex-col shadow-custom-rounded'>
+    <div className='w-[100%] py-[20px] pb-[35px] max-[530px]:w-[100%] max-[640px]:py-[10px] max-[640px]:px-[20px] px-[80px] flex flex-col shadow-custom-rounded m-auto max-[640px]:w-[85%]'>
       <div className='w-full'>
-        <input value={title} onChange={e => changeTitle(e.target.value)} className='text-gray-500 border-b-[3px] w-full outline-none focus:border-b-blue-300  py-[10px] px-[10px] text-[20px]' type="text" placeholder='Введите вопрос'/>
+        <input value={title} onChange={e => changeTitle(e.target.value)} className='text-gray-500 border-b-[3px] w-full outline-none 
+        focus:border-b-blue-300 py-[10px] px-[10px] text-[20px] max-[540px]:text-[18px]' type="text" placeholder='Введите вопрос'/>
         {errorTitle && <p className='text-red-400 text-[18px] py-[10px]'>{title.length > 100 ? 'максимум 100 символов' : 'минимум 10 символов'}</p>}
       </div>
       <div className={`grid gap-[10px] ${errorTitle ? 'pt-[0px]' : 'pt-[15px]'}`}>
-        <h1 className='text-gray-500 text-[19px] break-all'>
+        <h1 className='text-gray-500 text-[19px] break-all max-[540px]:text-[18px]'>
           Выберите тему вопроса
           <span className='text-[23px] text-red-500 pl-[2px]'>{errorTag && '*'}</span>
         </h1>
-        <div className='parent text-[18px] gap-[10px] pl-[5px]'>
+        <div className='parent text-[18px] gap-[10px] pl-[5px] max-[540px]:text-[16px] max-[540px]:gap-[5px]'>
           {variants.map(el => (
             <p onClick={() => changeTag(el.value)} className={`${tag === el.value ? 'text-slate-500' : 'text-gray-400'} ${tag === el.value ? 'rounded-[5px] border-gray-400' : 'border-white'} border-[1px] py-[3px] text-center cursor-pointer hover:text-slate-500`} key={el.id}>{el.value}</p>
           ))}
@@ -97,7 +98,9 @@ export const CreateQuestion: React.FC = () => {
       </div>
       <div className='pt-[15px]'>
         <div>
-          <textarea value={textNum} onChange={e => setTextNum(e.target.value)} className={`text-gray-500 w-full border-[2px] outline-none py-[10px] px-[10px] text-[20px] h-[300px] overflow-auto max-h-[300px] min-h-[300px] ${textNum.length > 500 ? 'focus:border-red-400 border-red-400' : 'focus:border-blue-300'}`} placeholder='Описание...'/>
+          <textarea value={textNum} onChange={e => setTextNum(e.target.value)} className={`text-gray-500 w-full border-[2px] outline-none py-[10px] 
+          px-[10px] text-[20px] h-[300px] overflow-auto max-h-[300px] min-h-[300px] max-[540px]:max-h-[250px] max-[540px]:min-h-[250px] max-[540px]:text-[18px]
+          ${textNum.length > 500 ? 'focus:border-red-400 border-red-400' : 'focus:border-blue-300'}`} placeholder='Описание...'/>
           <p className={`${textNum.length > 500 && 'text-red-600'}`}>{textNum.length}/500 символов</p>
         </div>
       </div>
