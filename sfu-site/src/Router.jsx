@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom"
 import { Registration } from "./pages/Registration.tsx"
-import { Login } from "./pages/Login.tsx"
 import { Home } from "./pages/Home"
 import { About } from "./components/Tabs/About"
 import { Profile } from "./components/Profile/Profile"
 import { Question } from "./components/Question/Question"
+import { Login } from "./pages/Login/Login"
 
 const routes = [
   { path: '/register', element: <Registration /> },
