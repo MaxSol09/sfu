@@ -18,29 +18,27 @@ export const LoginMicrosoft: React.FC = () => {
     }, [])
 
     const handleLogin = async () => {
-        let response = null
-
-        try{
-            response = await instance.ssoSilent({
+        let response = null;
+    
+        try {
+            response = await instance.loginPopup({
                 scopes: ['User.Read']
-            })
+            });
+        } catch (err) {
+            console.log('Error during login >>> ', err);
         }
-        catch(err) {
-            console.log('оишбка >>> ', err)
+    
+        if (response?.account) {
+            console.log(response.account);
+            instance.setActiveAccount(response.account);
+            setIsLogged(true);
+            setUserName(response.account.name || 'none name');
+        } else {
+            setIsLogged(false);
+            alert('Failed to log in through Microsoft');
         }
-
-        if(response?.account){
-            console.log(response.account)
-
-            instance.setActiveAccount(response.account)
-            setIsLogged(true)
-            setUserName(response.account.name || 'none name')
-        }
-        else{
-            setIsLogged(false)
-            alert('не удалось войти через майрософт')
-        }
-    }
+    };
+    
 
     return (
         <>
