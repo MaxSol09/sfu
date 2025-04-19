@@ -12,10 +12,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const msalConfig = {
   auth: {
-      clientId: '6272c920-11c4-4fac-90bd-b6c673907586', // Replace with your client ID
-      authority: 'https://login.microsoftonline.com/053c3f43-8fd4-4bba-8a20-4889b1968e5f',
-      redirectUri: '/login', // Replace with your redirect URI
-      postLogoutRedirectUri: '/login'
+    clientId: 'a8f9a734-8c4c-4d69-8464-deece744f7dd', // Replace with your client ID
+    authority: 'https://login.microsoftonline.com/de36771e-2ded-41fc-b339-3d5fbcbc371d',
+    redirectUri: '/login', // Replace with your redirect URI
+    postLogoutRedirectUri: '/login'
   }
 };
 
