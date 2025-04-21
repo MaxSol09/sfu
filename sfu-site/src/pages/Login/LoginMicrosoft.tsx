@@ -46,7 +46,7 @@ export const LoginMicrosoft: React.FC = () => {
     const getUserEmail = async (idToken: string) => {
         const graphEndpoint = "https://graph.microsoft.com/v1.0/me";
         const accessTokenResponse = await instance.acquireTokenSilent({
-            scopes: ["User.Read"], // Включите необходимые привилегии
+            scopes: ["email"], // Включите необходимые привилегии
             account: instance.getAllAccounts()[0],
         });
 
