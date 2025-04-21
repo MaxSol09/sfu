@@ -31,6 +31,8 @@ export const LoginMicrosoft: React.FC = () => {
         }
 
         if (response?.account) {
+
+            console.log(response.account)
             instance.setActiveAccount(response.account);
             setIsLogged(true);
             setUserName(response.account.name || 'none name');
@@ -69,11 +71,9 @@ export const LoginMicrosoft: React.FC = () => {
     return (
         <>
             <div>LoginMicrosoft</div>
-            {!isLogged && (
                 <div>
                     <button onClick={handleLogin}>Entra Id </button>
                 </div>
-            )}
             {isLogged && (
                 <div>
                     <p>User: {userName}</p>
