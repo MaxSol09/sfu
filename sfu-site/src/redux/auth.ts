@@ -322,7 +322,7 @@ const authSlice = createSlice({
             state.state = action.payload
         })
         .addCase(registerMicrosoft.fulfilled, (state, action) => {
-            console.log('micro >>> ', action.payload)
+            state.state = action.payload
         })
     }
 })
