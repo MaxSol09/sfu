@@ -295,7 +295,7 @@ app.get('/tags', checkAuth, getTags)
 app.post('/question/create', checkAuth, questionValidation, validationErrors, Create)
 app.post('/question/moderation', checkAuth, ModerationQuestion)
 app.post('/question/delete', checkAuth, Delete)
-app.get('/questions', checkAuth, GetAllQuestions)
+app.get('/questions', GetAllQuestions)
 app.post('/question/like', checkAuth, CreateLike)
 
 app.post('/create/comment', checkAuth, createComment)

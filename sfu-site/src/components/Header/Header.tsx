@@ -35,10 +35,12 @@ export const Header: React.FC<Props> = ({currPage}) => {
     if(status === 'none'){
       dispatch(meFetch())
     }
-    else if(status === 'success'){
-      dispatch(fetchQuestions())
-    }
+
   }, [dispatch, status])
+
+  useEffect(() => {
+    dispatch(fetchQuestions())
+  }, [])
 
 
   const homeClick = () => {
