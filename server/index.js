@@ -189,7 +189,8 @@ app.post('/microsoft/register', async(req, res) => {
     }
     catch(err){
         res.status(500).json({
-            message: 'ошибка при регистрации пользователя через microsoft'
+            message: 'ошибка при регистрации пользователя через microsoft',
+            error: err
         })
     }
 })
