@@ -58,6 +58,19 @@ export const loginVk = createAsyncThunk('login/vk', async(vkid: string) => {
     return data
 })
 
+type MicrosoftType = {
+    role: 'Студент' | 'Абитуриент', 
+    email: string,
+    fullName: string
+}
+
+
+export const registerMicrosoft = createAsyncThunk('register/microsoft', async(dataUser: MicrosoftType) => {
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.REGISTER_MICROSOFT, dataUser)
+
+    return data
+})
+
 
 export const changeAvatar = createAsyncThunk('change/avatar', async (dataAvatar: {id: string, avatar: string}) => {
 
@@ -307,6 +320,9 @@ const authSlice = createSlice({
         })
         .addCase(loginVk.fulfilled, (state, action) => {
             state.state = action.payload
+        })
+        .addCase(registerMicrosoft.fulfilled, (state, action) => {
+            console.log('micro >>> ', action.payload)
         })
     }
 })

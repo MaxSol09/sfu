@@ -148,7 +148,51 @@ export function sendMail(to, sub, msg){
     });
 }
 
+app.post('microsoft/register', async(req, res) => {
+    try{
+        const {email, name, role} = req.body
 
+        const findUser = await UserModel.findOne({email: email})
+
+        if(findUser) {
+            res.status(500).json({
+                message: 'пользователь с таким email уже зарегистрирован'
+            })
+        }
+
+        const user = new UserModel({
+            email: email, 
+            fullName: name,
+            role: role
+        })
+
+        await user.save()
+
+        if(!user){
+            res.status(500).json({
+                message: 'не получилось создать пользователя'
+            })
+        }
+
+        const tokenUser = jwt.sign(
+            {
+                _id: user._id
+            },
+            'secretMax392',
+            {
+                expiresIn: '30d'
+            }
+        )
+
+        return res.json({...user._doc, token: tokenUser}); // Отправляем JSON
+
+    }
+    catch(err){
+        res.status(500).json({
+            message: 'ошибка при регистрации пользователя через microsoft'
+        })
+    }
+})
 
 app.post('/vk/user', async (req, res) => {
     try {
