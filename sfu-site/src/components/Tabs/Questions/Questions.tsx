@@ -17,8 +17,9 @@ export const Questions: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const statusQuestions = status === 'success'
+  console.log(questions)
 
-  console.log('render questions')
+  console.log(status)
 
   /*/
           <div className='flex gap-[20px] justify-center items-center'>

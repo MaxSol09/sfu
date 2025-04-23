@@ -49,13 +49,13 @@ export const UserPanel = () => {
 
   return (
     <>
-        {isUser(state) && state._id ? <aside className='bg-slate-100 py-[20px] px-[60px] flex flex-col justify-center items-center text-center'>
+        {<aside className='bg-slate-100 py-[20px] px-[60px] flex flex-col justify-center items-center text-center'>
         <div className='grid place-items-center break-all w-[150px]'>
             {status === 'loading' ? <SkeletAvatar variant="circular" width={130} height={130} /> 
             : <div className='relative flex flex-col justify-center items-center'>
                 <img
                   className='shadow-custom mt-2 w-[130px] h-[130px] rounded-full object-cover'
-                  src={state.avatarUrl ? state.avatarUrl : User}
+                  src={isUser(state) && state.avatarUrl ? state.avatarUrl : User}
                   alt='userLogo'
                   onMouseOver={() => setShowButton(true)}
                   onMouseOut={() => setShowButton(false)}
@@ -63,7 +63,7 @@ export const UserPanel = () => {
                 <button
                   onClick={() => ref.current?.click()}
                   className='absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-[15px] whitespace-nowrap'
-                  style={{ display: showButton && !state.ban ? 'block' : 'none' }}
+                  style={{ display: showButton && isUser(state) && !state.ban ? 'block' : 'none' }}
                   onMouseOver={() => setShowButton(true)}
                   onMouseOut={() => setShowButton(false)}
                 >
@@ -74,9 +74,9 @@ export const UserPanel = () => {
               <input onChange={e => changeImage(e)} ref={ref} className='hidden' type='file' accept='image/*,.png,.jpg,.gif,.web'/>
             </div>
             <h1 className='text-center pt-[5px] text-xl max-w-[150px] break-words text-ellipsis max-[1100px]:text-[18px]'>
-              {state.fullName}
+              {isUser(state) ? state.fullName : 'Гость'}
             </h1>
-        </aside> : <div className='bg-slate-100 w-full px-[20px] py-[20px]'><Skeleton active/></div>
+        </aside>
         }
         <Link to={`/profile/${isUser(state) && state._id}`} className='bg-slate-100 py-[10px] flex justify-center shadow-btn-shadow'>Профиль</Link>
     </>

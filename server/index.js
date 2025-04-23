@@ -290,7 +290,7 @@ app.post('/send/message', checkAuth, sendMsgSupport)
 
 app.post('/link', linkValidation, validationErrors, createLink) //пока что создано тестово. Идея заключается в том, чтобы пользователь мог добавлять ссылки в свой профиль
 
-app.get('/tags', checkAuth, getTags)
+app.get('/tags', getTags)
 
 app.post('/question/create', checkAuth, questionValidation, validationErrors, Create)
 app.post('/question/moderation', checkAuth, ModerationQuestion)

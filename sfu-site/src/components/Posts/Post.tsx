@@ -76,24 +76,24 @@ export const Post: React.FC<Props> = ({question}) => {
 
   return (
     <>
-        {isUser(state) && isPost(question) && 
+        {isPost(question) && 
             <div key={question._id} className={`bg-gray-200 py-[10px] px-[15px] grid rounded-md relative 
                  ${url === '/' ? 'w-full' : 'w-full'}`}>
                 <div className='absolute top-[10px] right-[15px] flex gap-[10px] max-[470px]:hidden'>
-                    <button onClick={() => dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
+                    {isUser(state) ? <button onClick={() => isUser(state) && dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
                         className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
                         style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
                         >
                         <img alt='like' className='w-[30px]' src={isUser(state) && checkTwoArrayId(question.likes, state._id) ? Like2 : Like}></img>
-                    </button>
-                    <button style={{display: question.user === null ? 'none' : state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s'}} 
+                    </button> : ''}
+                    <button style={{display: question.user === null ? 'none' : isUser(state) &&  state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s'}} 
                         className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full flex items-center hover:shadow-custom-hoverShadow' 
                         onClick={() => clickDelete(question._id)}>
                         <img alt='delete-btn' className='w-[25px] h-[25px]' src={Delete}></img>
                     </button>
                 </div>
                 <div className='absolute top-[10px] right-[15px] gap-[10px] hidden max-[470px]:flex'>
-                    <button onClick={() => dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
+                    <button onClick={() => isUser(state) && dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
                         className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
                         style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
                         >
@@ -123,14 +123,14 @@ export const Post: React.FC<Props> = ({question}) => {
                         </div>
                     </div>
                     <div className=' max-[450px]:flex hidden'>
-                        <button style={{display: question.user === null ? 'none' : state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s', background: "red"}} 
+                        <button style={{display: question.user === null ? 'none' : isUser(state) && state._id === question.user._id ? 'flex' : 'none', transition: 'all 0.9s', background: "red"}} 
                             className='p-[7px] px-[9.5px] button-hover' 
                             onClick={() => clickDelete(question._id)}>
                             удалить
                         </button>
                     </div>
                     <button className='button-hover max-[590px]:flex max-[590px]:ml-auto max-[590px]:mt-[5px]' onClick={() => openQuestion(question._id)}   
-                        >{state.role === 'Абитуриент' ? 'Перейти' : 'Ответить'}
+                        >{isUser(state) && state.role === 'Студент' ? 'Ответить' : 'Перейти'}
                     </button>
                 </div>
         </div>}
