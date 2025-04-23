@@ -148,7 +148,7 @@ export function sendMail(to, sub, msg){
     });
 }
 
-app.post('microsoft/register', async(req, res) => {
+app.post('/microsoft/register', async(req, res) => {
     try{
         const {email, name, role} = req.body
 
