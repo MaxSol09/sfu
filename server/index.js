@@ -150,7 +150,7 @@ export function sendMail(to, sub, msg){
 
 app.post('/microsoft/register', async(req, res) => {
     try{
-        const {email, name, role} = req.body
+        const {email, fullName, role} = req.body
 
         const findUser = await UserModel.findOne({email: email})
 
@@ -162,7 +162,7 @@ app.post('/microsoft/register', async(req, res) => {
 
         const user = new UserModel({
             email: email, 
-            fullName: name,
+            fullName: fullName,
             role: role
         })
 
