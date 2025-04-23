@@ -66,7 +66,7 @@ type MicrosoftType = {
 
 
 export const registerMicrosoft = createAsyncThunk('register/microsoft', async(dataUser: MicrosoftType) => {
-    const {data} = await axios.post(API_ENDPOINTS.AUTH.REGISTER_MICROSOFT, dataUser)
+    const {data} = await axios.post("https://sfu-4bm4.onrender.com/microsoft/register", dataUser)
 
     return data
 })
