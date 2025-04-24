@@ -336,7 +336,7 @@ const authSlice = createSlice({
             state.state = action.payload
         })
         .addCase(loginMicrosoft.fulfilled, (state, action) => {
-            console.log(action.payload)
+            state.state = action.payload
         })
     }
 })

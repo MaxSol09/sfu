@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useAppDispatch } from '../../redux/hooks';
 import { msalInstance } from '../..';
 import { registerMicrosoft } from '../../redux/auth';
+import LogoMicrosoft from '../../images/microsoftlogo.png'
 
 export const RegistrationMicrosoft:React.FC = () => {
 
@@ -30,13 +31,14 @@ export const RegistrationMicrosoft:React.FC = () => {
 
 
   return (
-    <div>
-      <h1>Microsoft Azure Authentication</h1>
-      {userEmail ? (
-        <p>Logged in as: {userEmail}</p>
-      ) : (
-        <button onClick={login}>Login with Microsoft</button>
-      )}
-    </div>
+    <button 
+        onClick={login} 
+        className="flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200"
+      >
+        <div className='text-[17px] font-normal flex gap-[10px] items-center'>
+          <img src={LogoMicrosoft} alt="microosftLogo" className='h-[20px]'/>
+          Вход для студентов
+        </div>
+    </button>
   );
 }

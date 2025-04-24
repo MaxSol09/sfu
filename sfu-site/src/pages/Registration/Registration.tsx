@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
  import { useForm } from 'react-hook-form'
 import { LoginMicrosoft } from '../Login/LoginMicrosoft'
 import { RegistrationVk } from './RegistrationVk'
+import { RegistrationMicrosoft } from './RegistrationMicrosoft'
 
  
  export const Registration: React.FC = () => {
@@ -51,8 +52,10 @@ import { RegistrationVk } from './RegistrationVk'
        <div className='flex flex-col justify-center w-1/2 items-center'>
          <img className='w-[200px]' src={Logo} alt="" />
          <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
-        <RegistrationVk />
-        <LoginMicrosoft/>
+         <div className='grid gap-[10px] w-full justify-center px-[50px]'>
+          <RegistrationVk />
+          <RegistrationMicrosoft/>
+         </div>
          <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
            <label className='grid text-[20px] justify-center gap-[5px]' >
                Электронная почта
