@@ -55,7 +55,7 @@ import { LoginMicrosoft } from './LoginMicrosoft'
        <div className='flex flex-col justify-center w-1/2 items-center'>
          <img className='w-[200px]' src={Logo} alt="" />
          <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
-         <div className='grid gap-[10px] w-full justify-center px-[50px]'>
+         <div className='flex flex-col gap-[10px] w-full items-center'>
           <LoginVk />
           <LoginMicrosoft />
          </div>

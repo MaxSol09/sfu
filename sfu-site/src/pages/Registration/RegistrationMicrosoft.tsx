@@ -33,7 +33,7 @@ export const RegistrationMicrosoft:React.FC = () => {
   return (
     <button 
         onClick={login} 
-        className="flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200"
+          className="flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 w-[70%]"
       >
         <div className='text-[17px] font-normal flex gap-[10px] items-center'>
           <img src={LogoMicrosoft} alt="microosftLogo" className='h-[20px]'/>
