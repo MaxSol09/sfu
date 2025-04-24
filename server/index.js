@@ -98,11 +98,13 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
 app.post('/microsoft/login', async (req, res) => {
     try{
         const {email} = req.body
+
+        console.log(req.body)
         
         const user = await UserModel.findOne({email: email})
 
         if(!user){ 
-            res.json({
+            res.status(404).json({
                 message: 'нет такого пользователя'
             })
         }
