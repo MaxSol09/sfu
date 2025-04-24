@@ -306,7 +306,7 @@ app.post('/auth/register', registerValidation, validationErrors, Register)
 app.post('/auth/login', loginValidation, validationErrors, Login)
 app.get('/auth/me', checkAuth, getMe)
 
-app.get('/question/:id', checkAuth, getOne)
+app.get('/question/:id', getOne)
 
 app.post('/user/img', checkAuth, avatarUser)
 app.post('/user/background', checkAuth, backgroundUser)
