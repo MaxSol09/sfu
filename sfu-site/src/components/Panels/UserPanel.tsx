@@ -73,7 +73,7 @@ export const UserPanel = () => {
             }
               <input onChange={e => changeImage(e)} ref={ref} className='hidden' type='file' accept='image/*,.png,.jpg,.gif,.web'/>
             </div>
-            <h1 className='text-center pt-[5px] text-xl max-w-[150px] break-words text-ellipsis max-[1100px]:text-[18px]'>
+            <h1 className='text-center pt-[5px] text-xl break-words max-w-[150px] max-[1100px]:text-[18px] overflow-hidden whitespace-nowrap overflow-ellipsis'>
               {isUser(state) ? state.fullName : 'Гость'}
             </h1>
         </aside>

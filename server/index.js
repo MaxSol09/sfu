@@ -95,6 +95,40 @@ app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     })
 })
 
+app.post('/microsoft/login', async (req, res) => {
+    try{
+        const {email} = req.body
+        
+        const user = await UserModel.findOne({email: email})
+
+        if(!user){ 
+            res.json({
+                message: 'нет такого пользователя'
+            })
+        }
+
+        const token = jwt.sign(
+            {
+                _id: user._id
+            },
+            'secretMax392',
+            {
+                expiresIn: '30d'
+            }
+        )
+
+        res.json({
+            ...user,
+            token
+        })
+    }
+    catch(err) {
+        res.status(500).json({
+            message: 'ошибка при входе в аккаунт'
+        })
+    }
+})
+
 app.post('/vk/login', async (req, res) => {
     try{
         const user = await UserModel.findOne({vkid: req.body.vkid})

@@ -72,6 +72,13 @@ export const registerMicrosoft = createAsyncThunk('register/microsoft', async(da
 })
 
 
+export const loginMicrosoft = createAsyncThunk('login/microsoft', async(email: string) => {
+    const {data} = await axios.post('https://sfu-4bm4.onrender.com/microsoft/login', email)
+
+    return data
+})
+
+
 export const changeAvatar = createAsyncThunk('change/avatar', async (dataAvatar: {id: string, avatar: string}) => {
 
     const {data} = await axios.post(API_ENDPOINTS.AUTH.CHANGE_AVATAR, dataAvatar)

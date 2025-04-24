@@ -106,7 +106,7 @@ export const Post: React.FC<Props> = ({question}) => {
                 <p className='text-[16px] pt-[2px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[80%]'>
                     Описание: {!question.text.length ? 'отсутствует' : question.text}
                 </p>
-                <div className='flex gap-[10px] pt-[5px]'>
+                <div className='flex gap-[10px] py-[5px]'>
                     {question.tags.length ? question.tags.map(t => (
                     <p key={t.id} className='text-[16px]'>#{t.tag}</p>
                     )) : <p>Тэги отсутствуют</p>}

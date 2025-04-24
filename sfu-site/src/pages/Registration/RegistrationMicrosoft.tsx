@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { msalInstance } from '../..';
+import React, { useState } from 'react'
 import { useAppDispatch } from '../../redux/hooks';
-import { loginMicrosoft, registerMicrosoft } from '../../redux/auth';
+import { msalInstance } from '../..';
+import { registerMicrosoft } from '../../redux/auth';
 
-export const LoginMicrosoft: React.FC = () => {
+export const RegistrationMicrosoft:React.FC = () => {
 
   const dispatch = useAppDispatch()
 
@@ -21,7 +21,7 @@ export const LoginMicrosoft: React.FC = () => {
         setUserEmail(email); // Сохраните Email пользователя+
         console.log("User email: ", email);
 
-        dispatch(loginMicrosoft(email))
+        dispatch(registerMicrosoft({email: email, role: 'Абитуриент', fullName: response.account.name || 'отсутствует'}))
       })
       .catch(error => {
         console.error(error);

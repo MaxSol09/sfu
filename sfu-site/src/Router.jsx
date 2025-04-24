@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom"
-import { Registration } from "./pages/Registration.tsx"
 import { Home } from "./pages/Home"
 import { About } from "./components/Tabs/About"
 import { Profile } from "./components/Profile/Profile"
 import { Question } from "./components/Question/Question"
 import { Login } from "./pages/Login/Login"
+import { Registration } from "./pages/Registration/Registration"
 
 const routes = [
-  { path: '/register', element: <Registration /> },
+  { path: '/register', element:  <Registration />},
   { path: '/login', element: <Login /> },
   { path: '/question/:id', element: <Question /> },
   { path: '/about', element: <About /> },
