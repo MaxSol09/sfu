@@ -72,8 +72,12 @@ export const registerMicrosoft = createAsyncThunk('register/microsoft', async(da
 })
 
 
-export const loginMicrosoft = createAsyncThunk('login/microsoft', async(email: string) => {
-    const {data} = await axios.post('https://sfu-4bm4.onrender.com/microsoft/login', email)
+type DataMicrosoft = {
+    email: string
+}
+
+export const loginMicrosoft = createAsyncThunk('login/microsoft', async(dataMicrosoft: DataMicrosoft) => {
+    const {data} = await axios.post('https://sfu-4bm4.onrender.com/microsoft/login', dataMicrosoft)
 
     return data
 })

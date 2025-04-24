@@ -21,7 +21,7 @@ export const LoginMicrosoft: React.FC = () => {
         setUserEmail(email); // Сохраните Email пользователя+
         console.log("User email: ", email);
 
-        dispatch(loginMicrosoft(email))
+        dispatch(loginMicrosoft({email: email}))
       })
       .catch(error => {
         console.error(error);
