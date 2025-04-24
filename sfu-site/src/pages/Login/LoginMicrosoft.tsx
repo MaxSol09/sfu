@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { msalInstance } from '../..';
 import { useAppDispatch } from '../../redux/hooks';
-import { loginMicrosoft, registerMicrosoft } from '../../redux/auth';
+import { loginMicrosoft } from '../../redux/auth';
 
 export const LoginMicrosoft: React.FC = () => {
 

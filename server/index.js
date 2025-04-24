@@ -120,7 +120,7 @@ app.post('/microsoft/login', async (req, res) => {
         )
 
         res.json({
-            ...user,
+            ...user._doc,
             token
         })
     }
