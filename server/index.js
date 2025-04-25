@@ -109,6 +109,12 @@ app.post('/microsoft/login', async (req, res) => {
             })
         }
 
+        if(user.role !== 'Студент') {
+            res.status(500).json({
+                message: 'Нет доступа, так как вы не студент'
+            })
+        }
+
         const token = jwt.sign(
             {
                 _id: user._id
