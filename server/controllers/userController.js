@@ -66,10 +66,6 @@ export const Register = async(req, res) => {
             return res.status(400).json({ message: 'Необходимо заполнить все обязательные поля' });
         }
 
-        const password = req.body.password;
-        const salt = await bcrypt.genSalt(10);
-        const hash = await bcrypt.hash(password, salt);
-
         let user; // Declare user variable outside the if/else block
 
         if(req.body.speciality){
@@ -90,8 +86,7 @@ export const Register = async(req, res) => {
             const doc = new UserModel({
                 fullName: req.body.fullName,
                 email: req.body.email,
-                role: req.body.role,
-                passwordHash: hash
+                role: req.body.role
             });
 
             user = await doc.save();
@@ -107,8 +102,6 @@ export const Register = async(req, res) => {
             }
         );
 
-        const {passwordHash, ...result} = user._doc;
-
         // Moved WebSocket logic here, after successful registration
         wss.clients.forEach(client => {
             clientsMap.forEach(registeredUser => { // Renamed 'user' to 'registeredUser'
@@ -119,7 +112,7 @@ export const Register = async(req, res) => {
         });
 
         res.json({
-            ...result,
+            ...user,
             token
         });
 
