@@ -52,9 +52,8 @@ import { RegistrationMicrosoft } from './RegistrationMicrosoft'
     <div className='flex flex-col justify-center w-1/2 items-center'>
       <img className='w-[200px]' src={Logo} alt="" />
       <h1 className='my-[20px] text-[30px] text-slate-500'>Регистрация</h1>
-      <div className='flex flex-col gap-[10px] w-full items-center'>
+      <div className='flex flex-col gap-[10px] w-full min-[1100px]:w-[80%] items-center'>
           <RegistrationVk />
-          <RegistrationMicrosoft />
       </div>
       <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
         <label className='grid text-[20px] justify-center gap-[5px]'>

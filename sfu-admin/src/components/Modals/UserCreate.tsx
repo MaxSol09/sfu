@@ -13,7 +13,6 @@ type Props = {
 export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
 
     const [isStudent, setIsStudent] = useState<boolean>(false)
-    const [password, setPassword] = useState<string>('')
     const [speciality, setSpeciality] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [fullName, setFullName] = useState<string>('')
@@ -32,7 +31,7 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
     }, [isSuccess])
 
     const createUser = () => {
-        if(!fullName || !email || !password){
+        if(!fullName || !email){
             return alert('Заполни поля')
         }
         
@@ -40,7 +39,6 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
             fullName,
             speciality,
             email,
-            password,
             role: isStudent ? 'Студент' : 'Абитуриент'
         })
     }
@@ -63,9 +61,8 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
                 >Студент</button>
                 <div className='grid gap-[10px] pt-[10px]'>
                     <input onChange={e => setFullName(e.target.value)} className='outline-none p-[3px]' type="text" placeholder='имя'/>
-                    <input onChange={e => setSpeciality(e.target.value)} className='outline-none p-[3px]' type="text" placeholder='специальность'/>
+                    <input onChange={e => setSpeciality(e.target.value)} className={`outline-none p-[3px] ${isStudent ? 'flex' : 'hidden'}`} type="text" placeholder='специальность'/>
                     <input onChange={e => setEmail(e.target.value)}  className='outline-none p-[3px]' type="text" placeholder='почта'/>
-                    <input onChange={e => setPassword(e.target.value)}  className='outline-none p-[3px]' type="text" placeholder='пароль'/>
                 </div>
                 <div className='flex justify-end pt-[10px]'>
                     <Button onClick={() => createUser()}>создать</Button>

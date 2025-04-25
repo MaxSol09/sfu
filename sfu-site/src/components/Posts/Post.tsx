@@ -101,7 +101,7 @@ export const Post: React.FC<Props> = ({question}) => {
                     </button>
                 </div>
                 <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis break-words max-w-[80%]'>
-                    Название:{title}
+                    Название: {title}
                 </h1>
                 <p className='text-[16px] pt-[2px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[80%]'>
                     Описание: {!question.text.length ? 'отсутствует' : question.text}

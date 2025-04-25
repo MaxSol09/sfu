@@ -6,8 +6,7 @@ interface DataRegister {
     fullName: string,
     role: 'Студент' | 'Абитуриент',
     email: string,
-    speciality: string,
-    password: string
+    speciality: string
 }
 
 interface DataBan {
