@@ -62,7 +62,7 @@ export const Register = async(req, res) => {
         }
 
         // Validate required fields
-        if (!req.body.fullName || !req.body.email || !req.body.password || !req.body.role) {
+        if (!req.body.fullName || !req.body.email || !req.body.role) {
             return res.status(400).json({ message: 'Необходимо заполнить все обязательные поля' });
         }
 
