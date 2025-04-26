@@ -12,6 +12,7 @@ import { questionValidation } from './validations/QuestionValidation.js'
 import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
+import * as sharp from 'sharp'
 import jwt from 'jsonwebtoken'
 import * as nodemailer from 'nodemailer'
 
@@ -86,13 +87,25 @@ const storage = multer.diskStorage(
     }
 )
 
-const upload = multer({storage})
+const upload = multer({ storage })
 
-app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
-    res.json({
-        url: req.file.originalname,
-        path: `http://sfu-1.onrender.com/upload/${req.file.originalname}`
-    })
+app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
+    try {
+        const fileName = Date.now() + '-' + req.file.originalname
+        const outputPath = path.join('images', fileName)
+
+        await sharp(req.file.buffer)
+            .resize({ width: 1024 }) // изменение размера (если нужно)
+            .jpeg({ quality: 70 }) // сжатие JPEG с качеством 70%
+            .toFile(outputPath)
+
+        res.json({
+            url: fileName,
+            path: `http://sfu-1.onrender.com/upload/${fileName}`
+        })
+    } catch (err) {
+        res.status(500).json({ error: 'Ошибка при обработке изображения' })
+    }
 })
 
 app.post('/microsoft/login', async (req, res) => {
