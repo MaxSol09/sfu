@@ -75,7 +75,7 @@ app.use(cors(corsConfig))
 app.options("", cors(corsConfig))
 
 
-app.use('/upload', express.static('images'))
+app.use('/upload', express.static(path.join(__dirname, 'images')))
 
 const storage = multer.diskStorage(
     {
@@ -94,6 +94,8 @@ app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
     try {
         const fileName = Date.now() + '-' + req.file.originalname
         const outputPath = path.join('images', fileName)
+
+        console.log(outputPath)
 
         await sharp(req.file.buffer)
             .resize({ width: 1024 }) // можно настроить ширину
