@@ -146,7 +146,8 @@ app.post('/microsoft/login', async (req, res) => {
     }
     catch(err) {
         res.status(500).json({
-            message: 'ошибка при входе в аккаунт'
+            message: 'ошибка при входе в аккаунт',
+            error: err
         })
     }
 })
