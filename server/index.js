@@ -77,17 +77,6 @@ app.options("", cors(corsConfig))
 
 app.use('/upload', express.static(path.join(__dirname, 'images')))
 
-const storage = multer.diskStorage(
-    {
-        destination: (_, __, cb) => {
-            cb(null, 'images')
-        },
-        filename: (_, file, cb) => {
-            cb(null, file.originalname)
-        }
-    }
-)
-
 const upload = multer({ storage: multer.memoryStorage() }) // сохраняем файл в память
 
 app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
