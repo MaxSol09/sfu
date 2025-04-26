@@ -13,6 +13,7 @@ import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
 import * as sharp from 'sharp'
+import * as path from 'path'
 import jwt from 'jsonwebtoken'
 import * as nodemailer from 'nodemailer'
 
