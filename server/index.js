@@ -87,7 +87,7 @@ const storage = multer.diskStorage(
     }
 )
 
-const upload = multer({ storage })
+const upload = multer({ storage: multer.memoryStorage() }) // сохраняем файл в память
 
 app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
     try {
@@ -95,8 +95,8 @@ app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
         const outputPath = path.join('images', fileName)
 
         await sharp(req.file.buffer)
-            .resize({ width: 1024 }) // изменение размера (если нужно)
-            .jpeg({ quality: 70 }) // сжатие JPEG с качеством 70%
+            .resize({ width: 1024 }) // можно настроить ширину
+            .jpeg({ quality: 70 })   // или .png({ quality: 80 }) если PNG
             .toFile(outputPath)
 
         res.json({
@@ -104,6 +104,7 @@ app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
             path: `http://sfu-1.onrender.com/upload/${fileName}`
         })
     } catch (err) {
+        console.error(err)
         res.status(500).json({ error: 'Ошибка при обработке изображения' })
     }
 })
