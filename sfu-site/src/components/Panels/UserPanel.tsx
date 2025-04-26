@@ -57,7 +57,7 @@ export const UserPanel = () => {
             {status === 'loading' ? <SkeletAvatar variant="circular" width={130} height={130} /> 
             : <div className='relative flex flex-col justify-center items-center'>
                 {meStatus === 'loading' ? <SkeletAvatar variant="circular" width={130} height={130} /> : <img
-                  className='shadow-custom mt-2 w-[130px] h-[130px] rounded-full object-cover'
+                  className='shadow-custom mt-2 rounded-full object-cover' width={130} height={130}
                   src={isUser(state) && state.avatarUrl ? state.avatarUrl : User}
                   alt='userLogo'
                   onMouseOver={() => setShowButton(true)}
