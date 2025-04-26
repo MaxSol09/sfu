@@ -9,6 +9,7 @@ import Delete from '../../images/del.png'
 import { isPost, isUser } from '../../utils/checkValue'
 import { Box, Modal } from '@mui/material'
 import { checkTwoArrayId } from '../../utils/checkTwoArrayId'
+import { getUserEnding } from '../../utils/getUserEnd'
 
 type Props = {
     question: TypePost
@@ -26,18 +27,15 @@ const style = {
     outline: 'none',
     boxShadow: 24,
     padding: '15px 25px'
-  };
+};
 
 export const Post: React.FC<Props> = ({question}) => {
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const state = useAppSelector(el => el.auth.state)
-    const [title, setTitle] = useState<String>('')
-
-    const navigate = useNavigate()
     const [modal, setModal] = useState<boolean>(false)
-
     const [id, setId] = useState<string>('')
 
     const openQuestion = (id: string) => {
@@ -53,24 +51,6 @@ export const Post: React.FC<Props> = ({question}) => {
         setModal(true)
         setId(ID)
     }
-
-    //функция которая возвращает нужное склонение слова пользователь
-    function getUserEnding(count: number) {
-        const lastDigit = count % 10;
-        const lastTwoDigits = count % 100;
-    
-        if (lastDigit === 1 && lastTwoDigits !== 11) {
-            return " пользователь";
-        } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
-            return " пользователя";
-        } else {
-            return " пользователей";
-        }
-    }
-
-    useEffect(() => {
-        setTitle(question.title)
-    }, [question.title])
 
     const url = window.location.pathname
 
@@ -101,7 +81,7 @@ export const Post: React.FC<Props> = ({question}) => {
                     </button>
                 </div>
                 <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis break-words max-w-[80%]'>
-                    Название: {title}
+                    Название: {question.title}
                 </h1>
                 <p className='text-[16px] pt-[2px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[80%]'>
                     Описание: {!question.text.length ? 'отсутствует' : question.text}

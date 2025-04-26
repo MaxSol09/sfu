@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { useAppSelector } from '../../redux/hooks'
-import { isUser } from '../../utils/checkValue'
+import React, { useEffect, useState } from 'react'
+import { useAppSelector } from '../../../redux/hooks'
+import { isUser } from '../../../utils/checkValue'
 import { Skeleton } from 'antd'
 import * as Progress from "@radix-ui/react-progress";
 import { Tooltip } from '@mui/joy';
+import { getAnswerEnding } from '../../../utils/getAnswerEnding';
+import { Achievement } from './Achievement';
 
-export const Achievements = () => {
+export const Achievements: React.FC = () => {
 
     const [progress, setProgress] = useState<number>(0)
     const user = useAppSelector(el => el.auth.user.value)
@@ -13,7 +15,7 @@ export const Achievements = () => {
     const [nextCount, setNextCount] = useState<number>(0)
     const [lastCount, setLastCount] = useState(0)
 
-    const achievements = useMemo(() => [
+    const achievements = [
         {
             count: 5,
             id: 1,
@@ -44,21 +46,9 @@ export const Achievements = () => {
             id: 6,
             title: `достижение за ответы на 1000 вопросов`
         }
-    ], [])
+    ]
 
     //функция которая возвращает нужное склонение слова пользователь
-    function getAnswerEnding(count: number) {
-        const lastDigit = count % 10;
-        const lastTwoDigits = count % 100;
-    
-        if (lastDigit === 1 && lastTwoDigits !== 11) {
-            return `${count} ответ`;
-        } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
-            return `${count} ответа`;
-        } else {
-            return `${count} ответов`;
-        }
-    }
 
     useEffect(() => {
 
@@ -83,8 +73,6 @@ export const Achievements = () => {
 
 	}, [achievements, user]);
 
-    console.log(lastCount)
-
 
   return (
     <div className='grid gap-[30px]'>
@@ -94,12 +82,8 @@ export const Achievements = () => {
                 Достижения
             </p>
             <div className='grid grid-cols-2 gap-[20px] pt-[15px]'>
-                {isUser(user) && achievements.map(el => (
-                    <div title={el.title} key={el.id} className='w-[80px] h-[80px] bg-white flex items-center justify-center' style={{background:  user.answer >= el.count ? 'white' : 'rgba(0, 0, 0, 0.1)'}}>
-                        <div className='w-[50px] h-[50px] text-[18px] flex items-center justify-center text-gray-100 bg-red-400 rounded-full'>
-                            {el.count}
-                        </div>
-                    </div>
+                {isUser(user) && achievements.map(a => (
+                    <Achievement a={a}/>
                 ))}
             </div>
         </div>

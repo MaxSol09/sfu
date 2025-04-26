@@ -17,23 +17,8 @@ export const Questions: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const statusQuestions = status === 'success'
-  console.log(questions)
-
-  console.log(status)
-
-  /*/
-          <div className='flex gap-[20px] justify-center items-center'>
-            <img className='w-[70px]' src={Land} alt="рука" />
-            <div className='w-[500px] space-y-[3px]'>
-              <h1 className='text-[20px] leading-6'>Добро пожаловать в ИКТИБ советник, Максим!</h1>
-              <p className='break-words text-[17px] leading-5 text-gray-400'>Здесь ты можешь задавать вопросы связанные с институтом, а также помогать другим.</p>
-            </div>
-            <Button className='ml-[10px] text-[17px]'>Задать вопрос</Button>
-        </div>
-        /*/
 
   const formopen = () => {
-    console.log('qg32222222S')
     dispatch(changePage({type: 'FORM_CREATE'}))
   }
 
