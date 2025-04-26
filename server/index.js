@@ -12,8 +12,8 @@ import { questionValidation } from './validations/QuestionValidation.js'
 import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
-import * as sharp from 'sharp'
-import * as path from 'path'
+import sharp from 'sharp'
+import path from 'path'
 import jwt from 'jsonwebtoken'
 import * as nodemailer from 'nodemailer'
 
@@ -106,7 +106,7 @@ app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
         })
     } catch (err) {
         console.error(err)
-        res.status(500).json({ error: 'Ошибка при обработке изображения' })
+        res.status(500).json({ error: 'Ошибка при обработке изображения', error: err })
     }
 })
 
