@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { getUser, resetUser } from '../../redux/auth'
-import { isUser } from '../../utils/checkValue'
-import { getMyAnswer, getMyFavorite, getMyModerationQuestions, getMyQuestions } from '../../redux/questions'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { getUser, resetUser } from '../redux/auth'
+import { isUser } from '../utils/checkValue'
+import { getMyAnswer, getMyFavorite, getMyModerationQuestions, getMyQuestions } from '../redux/questions'
 
 export const useGetUser = (id: string) => {
 

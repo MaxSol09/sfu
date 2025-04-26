@@ -10,9 +10,8 @@ import { TypePage } from '../../types/types'
 import { Chat } from '../Chat/Chat'
 import { Logout } from './Logout'
 import { SearchPosts } from './SearchPosts'
-import Menu from '../../images/menu.png'
-import { Button, Drawer } from 'antd'
-import User from '../../images/user.jpg'
+import MenuImg from '../../images/menu.png'
+import { Menu } from './Menu'
 
 
 type Props = {
@@ -76,37 +75,9 @@ export const Header: React.FC<Props> = ({currPage}) => {
     navigate('/about')
   }
 
-  const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
-
-  const showLoading = () => {
-    setOpen(true);
-    setLoading(true);
-    // Simple loading mock. You should add cleanup logic in real world.
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  };
-
   console.log('render header')
 
-  const [drawerWidth, setDrawerWidth] = useState<string>('25%')
-
-  const handleResize = () => {
-    if (window.innerWidth < 800) {
-      setDrawerWidth('30%'); // Установите ширину на 75%, если ширина экрана меньше 800px
-    } else {
-      setDrawerWidth('25%'); // В противном случае 25%
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Установить начальную ширину
-    return () => {
-      window.removeEventListener('resize', handleResize); // Убрать событие при размонтировании компонента
-    };
-  }, []);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <>
@@ -123,26 +94,10 @@ export const Header: React.FC<Props> = ({currPage}) => {
           Выйти
         </button>
         : <Link className='py-[9px] px-[40px] max-[1130px]:hidden' to={'/login'} style={{backgroundColor: '#4CAF50', color: 'white'}}>Войти</Link>}
-        <img onClick={() => showLoading()} className='hidden w-[40px] max-[1130px]:flex' src={Menu} alt='menu'></img>
+        <img onClick={() => setOpen(true)} className='hidden w-[40px] max-[1130px]:flex' src={MenuImg} alt='menu'></img>
       </header>
       <Logout modal={modal} setModal={setModal}/>
-      <Drawer
-          closable
-          destroyOnClose
-          title={<p>Боковое меню</p>}
-          placement="right"
-          open={open}
-          onClose={() => setOpen(false)}
-          width={drawerWidth}
-        >
-          {isUser(state) ? <div className='flex items-center gap-[10px] justify-center'>
-            <img src={state.avatarUrl ? state.avatarUrl : User} className='w-[30%] rounded-full' alt="avatar" />
-            <div>
-              <p className='text-[25px] break-words text-ellipsis max-[1100px]:text-[20px]'>{state.fullName}</p>
-              <p className='text-[17px] text-gray-700  max-[1100px]:text-[15px]'>{state.role}</p>
-            </div>
-          </div> : <p>Загрузка....</p>}
-        </Drawer>
+      <Menu open={open} setOpen={setOpen} />
       <Chat />
     </>
   )

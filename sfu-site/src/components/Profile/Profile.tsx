@@ -19,7 +19,7 @@ import { Ban } from './Ban'
 import { NotificationComplaint } from '../Notifications/NotificationComplaint'
 import { EditUser } from './EditUser/EditUser'
 import { Variants } from './Variants'
-import { useGetUser } from './useGetUser'
+import { useGetUser } from '../../hooks/useGetUser'
 
 const MemoHeader = React.memo(Header)
 

@@ -37,9 +37,9 @@ export const SendMessage: React.FC = () => {
             />
             <div
                 onClick={() => send()}
-                className="flex w-[58px] justify-center items-center px-2 mb-1 rounded-[50%] bg-slate-200 shadow-custom-rounded hover:bg-blue-400 duration-200"
+                className="flex w-[58px] justify-center items-center px-2 mb-1 rounded-[50%] bg-slate-200 shadow-custom-rounded hover:bg-slate-300 duration-200"
             >
-                <img src={Send} alt="Send"></img>
+                <img className='w-[27px]' src={Send} alt="Send"></img>
             </div>
         </div>
     )
