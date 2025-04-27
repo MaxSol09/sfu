@@ -16,7 +16,7 @@ export const Panel: React.FC<Props> = ({currPage}) => {
   const navigate = useNavigate()
 
   const usersClick = () => {
-    navigate('/users')
+    navigate('/')
   }
 
   const questionsClick = () => {

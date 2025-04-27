@@ -1,7 +1,11 @@
 import { create } from "zustand";
-import { Message, Messages, UserData } from "../types/types";
+import { Message, Messages, TypeStatus, UserData } from "../types/types";
 
 interface UserStore {
+    state: {
+        state: UserData | {},
+        status: TypeStatus
+    }
     users: UserData[] | [],
     user: {
         value: UserData | {}
@@ -41,6 +45,10 @@ interface UserStore {
 }
 
 export const useUserStore = create<UserStore>((set) => ({
+    state: {
+        state: {},
+        status: 'none'
+    },
     users: [],
     usersArr: [],
     user: {

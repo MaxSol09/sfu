@@ -16,6 +16,11 @@ interface DataBan {
     text?: string
 }
 
+interface DataLogin {
+    password: string,
+    email: string
+}
+
 class UsersService {
 
     getAllUsers() {
@@ -26,6 +31,12 @@ class UsersService {
 
     registerUser(DataRegister: DataRegister) {
         const data = axios.post(API_ENDPOINTS_REAL.AUTH.REGISTER, DataRegister)
+
+        return data
+    }
+
+    loginUser(dataLogin: DataLogin){
+        const data = axios.post(API_ENDPOINTS_REAL.AUTH.LOGIN, dataLogin)
 
         return data
     }

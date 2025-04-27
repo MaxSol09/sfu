@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {Layout} from 'antd'
-import { useQuestionsStore } from '../../zustand/questions'
+import { useQuestionsStore } from '../zustand/questions'
 import { useQuery } from 'react-query'
-import { questionsService } from '../../service/questionsService'
+import { questionsService } from '../service/questionsService'
 import Sider from 'antd/es/layout/Sider'
-import { Panel } from '../Panel'
+import { Panel } from '../components/Panel'
 import { Content } from 'antd/es/layout/layout'
-import { Posts } from '../Posts/Posts'
-import { FilterQuestions } from './FilterQuestions'
-import { SearchQuestions } from './SearchQuestions'
+import { Posts } from '../components/Posts/Posts'
+import { FilterQuestions } from '../components/Questions/FilterQuestions'
+import { SearchQuestions } from '../components/Questions/SearchQuestions'
 
 export const Questions: React.FC = () => {
 

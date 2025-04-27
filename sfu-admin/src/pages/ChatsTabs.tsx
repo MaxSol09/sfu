@@ -3,13 +3,13 @@ import Sider from 'antd/es/layout/Sider';
 import React, { useEffect, useLayoutEffect, useRef, useState} from 'react';
 import { Content } from 'antd/es/layout/layout';
 import { useQuery } from 'react-query';
-import { usersService } from '../../../service/usersService';
-import { useUserStore } from '../../../zustand/auth';
-import { ChatsPosts } from '../Chat/Chat';
-import { SkeletonChat } from './SkeletonChat';
-import { SearchChat } from './SearchChat';
+import { usersService } from '../service/usersService';
+import { useUserStore } from '../zustand/auth';
+import { ChatsPosts } from '../components/Chats/Chat/Chat';
+import { SkeletonChat } from '../components/Chats/ChatTabs/SkeletonChat';
+import { SearchChat } from '../components/Chats/ChatTabs/SearchChat';
 import { CardHeader } from '@mui/material';
-import User from '../../../images/user.jpg' 
+import User from '../images/user.jpg' 
 
 const layoutStyle: React.CSSProperties = {
     overflow: 'hidden',

@@ -3,7 +3,7 @@ import Sider from 'antd/es/layout/Sider'
 import React from 'react'
 import { Panel } from '../Panel'
 import { Content } from 'antd/es/layout/layout'
-import { ChatsTabs } from './ChatTabs/ChatsTabs'
+import { ChatsTabs } from '../../pages/ChatsTabs'
 
   const layoutStyle: React.CSSProperties = {
     overflow: 'hidden',
