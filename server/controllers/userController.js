@@ -43,7 +43,8 @@ export const Login = async(req, res) => {
     }
     catch(error){
         return res.status(500).json({
-            message: 'авторизация не пройдена'
+            message: 'авторизация не пройдена',
+            err: error
         })
     }
 } 
