@@ -9,7 +9,7 @@ export const Login = async(req, res) => {
         
         const user = await UserModel.findOne({email: req.body.email})
 
-        if(!user || user.role !== 'Админ'){
+        if(!user){
             return res.status(404).json({
                 message: 'неверный email'
             })
