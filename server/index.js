@@ -92,7 +92,7 @@ const upload = multer({storage})
 app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     res.json({
         url: req.file.originalname,
-        path: `http://sfu-1.onrender.com/upload/${req.file.originalname}`
+        path: `https://sfu-server-yx7u.onrender.com/upload/${req.file.originalname}`
     })
 })
 
