@@ -13,6 +13,8 @@ export const Login = async(req, res) => {
             throw new Error('Ошибка при обращении к базе данных'); // Бросаем ошибку, чтобы поймать ее в catch
         });
 
+        console.log(user)
+
         if(!user){
             return res.status(404).json({
                 message: 'неверный email'
@@ -134,6 +136,8 @@ export const Register = async(req, res) => {
                 }
             });
         });
+
+        console.log('reg', user._doc)
 
         res.json({
             ...user._doc,
