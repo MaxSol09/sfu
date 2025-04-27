@@ -27,7 +27,7 @@ export const Login = async(req, res) => {
             {
                 _id: user._id
             },
-            'secretMax392',
+            process.env.SECRET_TOKEN,
             {
                 expiresIn: '30d'
             }
@@ -66,6 +66,12 @@ export const Register = async(req, res) => {
             return res.status(400).json({ message: 'Необходимо заполнить все обязательные поля' });
         }
 
+        if(req.body.role === 'Админ' && req.body.password.length < 6) {
+            return res.status(500).json({
+                message: 'ошибка валидации'
+            })
+        }
+
         let user; // Declare user variable outside the if/else block
 
         if(req.body.speciality){
@@ -74,12 +80,25 @@ export const Register = async(req, res) => {
                 fullName: req.body.fullName,
                 email: req.body.email,
                 role: req.body.role,
-                passwordHash: hash,
                 speciality: req.body.speciality
             });
 
             user = await student.save();
 
+        }
+        else if(req.body.role = 'Админ'){
+            const password = req.body.password;
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(password, salt);
+
+            const admin = new UserModel({
+                fullName: req.body.fullName,
+                email: req.body.email,
+                role: req.body.role, 
+                passwordHash: hash
+            });
+
+            user = await admin.save();
         }
         else{
             // Create regular user
@@ -96,7 +115,7 @@ export const Register = async(req, res) => {
             {
                 _id: user._id
             },
-            'secretMax392',
+            process.env.SECRET_TOKEN,
             {
                 expiresIn: '30d'
             }

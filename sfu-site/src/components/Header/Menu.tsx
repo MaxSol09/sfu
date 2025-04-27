@@ -39,6 +39,7 @@ export const Menu: React.FC<typeProps> = ({open, setOpen}) => {
             open={open}
             onClose={() => setOpen(false)}
             width={drawerWidth}
+            style={{padding: '0px'}}
         >
             {isUser(state) ? <div className='flex items-center gap-[10px] justify-center'>
                 <img src={state.avatarUrl ? state.avatarUrl : User} className='w-[30%] rounded-full' alt="avatar" />
@@ -46,7 +47,13 @@ export const Menu: React.FC<typeProps> = ({open, setOpen}) => {
                     <p className='text-[25px] break-words text-ellipsis max-[1100px]:text-[20px] leading-[20px]'>{state.fullName}</p>
                     <p className='text-[16px] text-gray-700  max-[1100px]:text-[15px]'>{state.role}</p>
                 </div>
-            </div> : <p>Загрузка....</p>}
-        </Drawer>
+              </div> : <p>Загрузка....</p>}
+              <div className='grid gap-[30px] mt-[100px] justify-center text-[23px] text-center w-full'>
+                <p className='bg-blue-200 w-full'>Профиль</p>
+                <p>Вопросы</p>
+                <p>Об институте</p>
+                <p>Поддержка</p>
+              </div>
+          </Drawer>
     )
     }

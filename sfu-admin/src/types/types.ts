@@ -39,7 +39,7 @@ export type UserData = {
     _id: string,
     token: string,
     chat: Message[],
-    role: 'Студент' | 'Абитуриент',
+    role: 'Студент' | 'Абитуриент' | 'Админ',
     ban: boolean,
     speciality: string,
     banText: string,

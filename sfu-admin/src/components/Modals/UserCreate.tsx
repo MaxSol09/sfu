@@ -12,9 +12,10 @@ type Props = {
 
 export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
 
-    const [isStudent, setIsStudent] = useState<boolean>(false)
+    const [role, setRole] = useState<'Студент' | 'Абитуриент' | 'Админ'>('Абитуриент')
     const [speciality, setSpeciality] = useState<string>('')
     const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     const [fullName, setFullName] = useState<string>('')
 
     const addUser = useUserStore(el => el.addUser)
@@ -31,7 +32,7 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
     }, [isSuccess])
 
     const createUser = () => {
-        if(!fullName || !email){
+        if(!fullName || !email || (role === 'Админ' && password.length < 6)){
             return alert('Заполни поля')
         }
         
@@ -39,7 +40,8 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
             fullName,
             speciality,
             email,
-            role: isStudent ? 'Студент' : 'Абитуриент'
+            role,
+            password
         })
     }
 
@@ -54,15 +56,20 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
             >
             <div className='w-[400px] bg-slate-200 p-[15px]'>
                 <h2 className='pb-[10px]'>Добавление пользователя</h2>
-                <button className={`${!isStudent ? 'bg-white' : 'bg-slate-200'} py-[6px] border-[2px] border-white w-[100px]`}
-                onClick={() => setIsStudent(false)}>Абитуриент</button>
-                <button onClick={() => setIsStudent(true)}  
-                className={`${isStudent ? 'bg-white' : 'bg-slate-200'} py-[6px] border-[2px] border-white w-[100px]`}
-                >Студент</button>
+                <button className={`${role === 'Абитуриент' ? 'bg-white' : 'bg-slate-200'} py-[6px] border-[2px] border-white w-[100px]`}
+                    onClick={() => setRole('Абитуриент')}>Абитуриент
+                </button>
+                <button className={`${role === 'Студент' ? 'bg-white' : 'bg-slate-200'} py-[6px] border-[2px] border-white w-[100px]`}    
+                    onClick={() => setRole('Студент')}>Студент
+                </button>
+                <button className={`${role === 'Админ' ? 'bg-white' : 'bg-slate-200'} py-[6px] border-[2px] border-white w-[100px]`}    
+                    onClick={() => setRole('Админ')}>Админ
+                </button>
                 <div className='grid gap-[10px] pt-[10px]'>
                     <input onChange={e => setFullName(e.target.value)} className='outline-none p-[3px]' type="text" placeholder='имя'/>
-                    <input onChange={e => setSpeciality(e.target.value)} className={`outline-none p-[3px] ${isStudent ? 'flex' : 'hidden'}`} type="text" placeholder='специальность'/>
+                    <input onChange={e => setSpeciality(e.target.value)} className={`outline-none p-[3px] ${role === 'Студент' ? 'flex' : 'hidden'}`} type="text" placeholder='специальность'/>
                     <input onChange={e => setEmail(e.target.value)}  className='outline-none p-[3px]' type="text" placeholder='почта'/>
+                    <input onChange={e => setPassword(e.target.value)}  className={`outline-none p-[3px] ${role === 'Админ' ? 'flex' : 'hidden'}`} type="text" placeholder='пароль'/>
                 </div>
                 <div className='flex justify-end pt-[10px]'>
                     <Button onClick={() => createUser()}>создать</Button>

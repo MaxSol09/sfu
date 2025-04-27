@@ -4,9 +4,10 @@ import { MessageSubmit } from "../types/types"
 
 interface DataRegister {
     fullName: string,
-    role: 'Студент' | 'Абитуриент',
+    role: 'Студент' | 'Абитуриент' | 'Админ',
     email: string,
-    speciality: string
+    speciality: string,
+    password: string
 }
 
 interface DataBan {
