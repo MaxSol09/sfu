@@ -5,6 +5,7 @@ import { WebSocket } from 'ws'
 import { clientsMap, wss } from '../index.js'
 
 export const Login = async(req, res) => {
+    console.log(req.body)
     try{
         
         const user = await UserModel.findOne({email: req.body.email})
