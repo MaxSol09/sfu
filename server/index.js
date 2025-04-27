@@ -74,32 +74,28 @@ app.use(express.json())
 app.use(cors(corsConfig))
 app.options("", cors(corsConfig))
 
+app.use('/upload', express.static('images'))
 
-app.use('/upload', express.static(path.join(__dirname, 'images')))
-
-const upload = multer({ storage: multer.memoryStorage() }) // сохраняем файл в память
-
-app.post('/upload', checkAuth, upload.single('file'), async (req, res) => {
-    try {
-        const fileName = Date.now() + '-' + req.file.originalname
-        const outputPath = path.join('images', fileName)
-
-        console.log(outputPath)
-
-        await sharp(req.file.buffer)
-            .resize({ width: 1024 }) // можно настроить ширину
-            .jpeg({ quality: 70 })   // или .png({ quality: 80 }) если PNG
-            .toFile(outputPath)
-
-        res.json({
-            url: fileName,
-            path: `http://sfu-1.onrender.com/upload/${fileName}`
-        })
-    } catch (err) {
-        console.error(err)
-        res.status(500).json({ error: 'Ошибка при обработке изображения', error: err })
+const storage = multer.diskStorage(
+    {
+        destination: (_, __, cb) => {
+            cb(null, 'images')
+        },
+        filename: (_, file, cb) => {
+            cb(null, file.originalname)
+        }
     }
+)
+
+const upload = multer({storage})
+
+app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
+    res.json({
+        url: req.file.originalname,
+        path: `http://sfu-1.onrender.com/upload/${req.file.originalname}`
+    })
 })
+
 
 app.post('/microsoft/login', async (req, res) => {
     try{
