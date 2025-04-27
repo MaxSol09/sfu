@@ -131,7 +131,7 @@ export const Register = async(req, res) => {
         });
 
         res.json({
-            ...user,
+            ...user._doc,
             token
         });
 
