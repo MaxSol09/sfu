@@ -1,4 +1,4 @@
-const BASE_URL = 'https://sfu-4bm4.onrender.com'
+const BASE_URL = 'https://sfu-server-yx7u.onrender.com'
 const BASE_URL_LOCAL = 'http://localhost:4444'
 
 export const API_ENDPOINTS_REAL = {
