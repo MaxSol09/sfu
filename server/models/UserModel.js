@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    passwordHash: String,
     email: {
         type: String,
         required: true,
