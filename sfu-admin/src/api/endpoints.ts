@@ -27,7 +27,8 @@ export const API_ENDPOINTS_REAL = {
         COMPLAINTS: `${BASE_URL}/complaints`,
         COMPLAINT_CREATE: `${BASE_URL}/complaint/create`,
         COMPLAINT_DELETE: `${BASE_URL}/complaint/delete`,
-        SEND_MESSAGE: `${BASE_URL}/send/message`
+        SEND_MESSAGE: `${BASE_URL}/send/message`,
+        CHANGE_ROLE: `${BASE_URL}/user/role`
     }
 }
 

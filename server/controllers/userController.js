@@ -15,7 +15,7 @@ export const Login = async(req, res) => {
 
         console.log(user)
 
-        if(!user){
+        if(!user || req.body.role !== 'Студент'){
             return res.status(404).json({
                 message: 'неверный email'
             })
@@ -404,8 +404,31 @@ export const banUser = async(req, res) => {
     }
 }
 
-
 export const userRole = async(req, res) => {
+    try{
+        const {role, userID} = req.body
+
+        const user = await UserModel.findByIdAndUpdate(userID, {
+            role: role
+        }, {new: true})
+
+        if(!user){
+            res.status(404).json({
+                message: 'пользователь не найден или произошла ошибка'
+            })
+        }
+
+        return res.json(user)
+    }
+    catch(err){
+        return res.status(500).json({
+            message: 'не получилось сменить роль'
+        })
+    }
+}
+
+
+export const userSpeciality = async(req, res) => {
     try{
 
         if(!req.body.speciality || !req.body.userID){

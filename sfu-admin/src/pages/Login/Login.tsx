@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
- import Sfu from '../images/sfu.jpeg'
- import Logo from '../images/logo.png'
+ import Sfu from '../../images/sfu.jpeg'
+ import Logo from '../../images/logo.png'
  import axios from 'axios'
  import { Link, useNavigate } from 'react-router-dom'
-import { isUser } from '../utils/checkValue'
-import { useUserStore } from '../zustand/auth'
+import { isUser } from '../../utils/checkValue'
+import { useUserStore } from '../../zustand/auth'
 import { useMutation } from 'react-query'
-import { usersService } from '../service/usersService'
+import { usersService } from '../../service/usersService'
 import {useForm} from 'react-hook-form'
 
-
- 
  export const Login: React.FC = () => {
  
    const navigate = useNavigate()
@@ -19,13 +17,17 @@ import {useForm} from 'react-hook-form'
     mutationKey: ['loginAdmin']
    })
 
+   const loginAdmin = useUserStore(el => el.loginAdmin)
+
    useEffect(() => {
       if(isSuccess){
         console.log(data.data)
+        loginAdmin(data.data)
+        console.log(state)
       }
    }, [isSuccess, data])
 
-   const {state, status} = useUserStore(el => el.state)
+   const state = useUserStore(el => el.state)
 
    console.log(state)
  
@@ -59,9 +61,9 @@ import {useForm} from 'react-hook-form'
  
    return (
      <div className='h-[100vh] flex w-full'>
-       <img alt='sfu-logo' className='w-1/2 bg-img' src={Sfu}/>
+       <img alt='sfu-logo' className='bg-img w-1/2 h-full object-cover' src={Sfu}/>
        <div className='flex flex-col justify-center w-1/2 items-center'>
-         <img className='w-[200px] object-fill' src={Logo} alt="sfu" />
+         <img className='w-[200px]' src={Logo} alt="sfu" />
          <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
          <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
            <label className='grid text-[20px] justify-center gap-[5px]' >

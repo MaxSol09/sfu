@@ -57,7 +57,7 @@ export const Post: React.FC<Props> = ({question}) => {
   return (
     <>
         {isPost(question) && 
-            <div key={question._id} className={`bg-gray-200 py-[10px] px-[15px] grid rounded-md relative 
+            <div key={question._id} className={`bg-slate-100 py-[10px] px-[15px] grid rounded-md relative 
                  ${url === '/' ? 'w-full' : 'w-full'}`}>
                 <div className='absolute top-[10px] right-[15px] flex gap-[10px] max-[470px]:hidden'>
                     {isUser(state) ? <button onClick={() => isUser(state) && dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 

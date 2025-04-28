@@ -19,8 +19,8 @@ export default (req, res, next) => {
                     message: 'октазано в доступе'
                 })
             }
-
-            console.log(decoded)
+            
+            
 
             req.userId = decoded._id
 

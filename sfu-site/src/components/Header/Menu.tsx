@@ -49,7 +49,7 @@ export const Menu: React.FC<typeProps> = ({open, setOpen}) => {
                 </div>
               </div> : <p>Загрузка....</p>}
               <div className='grid gap-[30px] mt-[100px] justify-center text-[23px] text-center w-full'>
-                <p className='bg-blue-200 w-full'>Профиль</p>
+                <p className='w-full'>Профиль</p>
                 <p>Вопросы</p>
                 <p>Об институте</p>
                 <p>Поддержка</p>

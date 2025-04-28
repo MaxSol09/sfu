@@ -5,7 +5,7 @@ import { loginValidation, registerValidation } from './validations/AuthValidator
 import multer from 'multer'
 import checkAuth from './utils/checkAuth.js'
 import { Create, createComment, CreateLike, Delete, GetAllQuestions, getOne, getTags, ModerationQuestion, removeComment } from './controllers/QuestionsController.js'
-import { avatarUser, backgroundUser, banUser, changeLastChat, changeText, createComplaint, createLink, deleteComplaint, deleteUser, getAllComplaints, getAllUsers, getMe, getUser, Login, Register, sendMsgSupport, userRole } from './controllers/userController.js'
+import { avatarUser, backgroundUser, banUser, changeLastChat, changeText, createComplaint, createLink, deleteComplaint, deleteUser, getAllComplaints, getAllUsers, getMe, getUser, Login, Register, sendMsgSupport, userRole, userSpeciality} from './controllers/userController.js'
 import { linkValidation } from './validations/LinkValidators.js'
 import { validationErrors } from './validations/ErorrsValidation.js'
 import { questionValidation } from './validations/QuestionValidation.js'
@@ -329,7 +329,8 @@ app.post('/complaint/delete', checkAuth, deleteComplaint)
 app.get('/users', checkAuth, getAllUsers)
 app.post('/user/delete', checkAuth, deleteUser)
 app.post('/user/ban', checkAuth, banUser)
-app.post('/user/speciality', checkAuth, userRole)
+app.post('/user/speciality', checkAuth, userSpeciality)
+app.post('/user/role', checkAuth, userRole)
 
 app.post('/send/message', checkAuth, sendMsgSupport)
 

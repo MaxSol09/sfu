@@ -21,12 +21,31 @@ interface DataLogin {
     email: string
 }
 
+interface DataChangeRole {
+    role: 'Студент' | 'Админ' | 'Абитуриент',
+    userID: string
+}
+
 class UsersService {
 
     getAllUsers() {
         const data = axios.get(API_ENDPOINTS_REAL.AUTH.GET_ALL_USERS)
     
         return data
+    }
+
+    changeUserRole(changeRoleData: DataChangeRole){
+        const data = axios.post(API_ENDPOINTS_REAL.AUTH.CHANGE_ROLE, changeRoleData)
+        
+        return data
+    }
+
+    getMe() {
+        
+        const data = axios.get(API_ENDPOINTS_REAL.AUTH.GET_ME)
+
+        return data
+
     }
 
     registerUser(DataRegister: DataRegister) {

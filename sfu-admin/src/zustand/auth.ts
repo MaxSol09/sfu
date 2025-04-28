@@ -1,11 +1,8 @@
 import { create } from "zustand";
-import { Message, Messages, TypeStatus, UserData } from "../types/types";
+import { Message, Messages, UserData } from "../types/types";
 
 interface UserStore {
-    state: {
-        state: UserData | {},
-        status: TypeStatus
-    }
+    state: UserData | {},
     users: UserData[] | [],
     user: {
         value: UserData | {}
@@ -41,14 +38,13 @@ interface UserStore {
     getMessages: (data: UserData[]) => void,
     selectChatFn: (id: string, chat: Message[]) => void,
     sendMessage: (user: UserData) => void,
-    findUserMessages: (name: string) => void
+    findUserMessages: (name: string) => void,
+    loginAdmin: (data: UserData) => void,
+    getMe: (data: UserData) => void
 }
 
 export const useUserStore = create<UserStore>((set) => ({
-    state: {
-        state: {},
-        status: 'none'
-    },
+    state: {},
     users: [],
     usersArr: [],
     user: {
@@ -69,6 +65,7 @@ export const useUserStore = create<UserStore>((set) => ({
         chat: []
     },
     resetUser: () => set({user: {value: {}}}),
+    loginAdmin: (data: UserData) => set({state: data}),
     getUsers: (data: UserData[] | []) => set(() => ({
         users: data,
         usersArr: data
@@ -80,6 +77,9 @@ export const useUserStore = create<UserStore>((set) => ({
             }
         }
     }),
+    getMe: (data: UserData) => set({
+        state: data
+    }), 
     getStudents: () => set(state => ({
         users: [...state.usersArr].filter(el => el.role === 'Студент')
     })),

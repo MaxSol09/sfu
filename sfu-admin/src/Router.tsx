@@ -5,7 +5,7 @@ import { Questions } from "./pages/Questions"
 import { Chats } from "./components/Chats/Chats"
 import { Complaints } from "./components/Complaints/Complaints"
 import { Users } from "./pages/Users"
-import { Login } from "./pages/Login"
+import { Login } from "./pages/Login/Login"
 
 export const Router = () => {
     return (
