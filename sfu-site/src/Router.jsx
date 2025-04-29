@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom"
 import { Home } from "./pages/Home"
-import { About } from "./components/Tabs/About"
-import { Profile } from "./components/Profile/Profile"
-import { Question } from "./components/Question/Question"
+import { About } from "./pages/About"
+import { Question } from "./pages/Question/Question"
 import { Login } from "./pages/Login/Login"
 import { Registration } from "./pages/Registration/Registration"
+import { Profile } from "./pages/Profile/Profile"
 
 const routes = [
   { path: '/register', element:  <Registration />},

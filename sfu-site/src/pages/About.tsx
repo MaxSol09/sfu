@@ -1,7 +1,7 @@
 import React from 'react'
-import { Header } from '../Header/Header'
-import { Panel } from '../Panels/Panel'
-import { Chat } from '../Chat/Chat'
+import { Header } from '../components/Header/Header'
+import { Panel } from '../components/Panels/Panel'
+import { Chat } from '../components/Chat/Chat'
 
 export const About: React.FC = () => {
 

@@ -2,7 +2,8 @@ import { Button } from 'antd'
 import React, { useState } from 'react'
 import { useAppSelector } from '../../redux/hooks'
 import { isUser } from '../../utils/checkValue'
-import { ModalBan } from '../Modals/ModalBan'
+import { ModalBan } from '../../components/Modals/ModalBan'
+
 
 export const Ban: React.FC = () => {
     const user = useAppSelector(el => el.auth.user.value)

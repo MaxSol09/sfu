@@ -5,7 +5,7 @@ import { changeAvatar, sendAvatar } from '../../redux/auth';
 import { Skeleton as SkeletAvatar } from '@mui/joy'; 
 import User from '../../images/user.jpg'
 import Delete from '../../images/del.png'
-import { DeleteAvatar } from '../Modals/DeleteAvatar';
+import { DeleteAvatar } from '../../components/Modals/DeleteAvatar';
 
 export const AvatarProfile: React.FC = () => {
 

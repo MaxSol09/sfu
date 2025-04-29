@@ -12,13 +12,13 @@ type Props = {
 
 export const ChangeRole: React.FC<Props> = ({modal, setModal, role, userID}) => {
 
-    const {data, isSuccess, mutate} = useMutation(usersService.changeUserRole, {
+    const {isSuccess, mutate} = useMutation(usersService.changeUserRole, {
         mutationKey: ['changeRole']
     })
 
     useEffect(() => {
         if(isSuccess){
-            console.log(data.data)
+            setModal(false)
         }
     }, [isSuccess])
 

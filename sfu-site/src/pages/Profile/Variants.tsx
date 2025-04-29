@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAppSelector } from '../../redux/hooks'
-import { Posts } from '../Posts/Posts'
+import { Posts } from '../../components/Posts/Posts'
 import { isUser } from '../../utils/checkValue'
 
 type TypeVariants = 'вопросы' | 'модерация' | 'понравившиеся'

@@ -1,9 +1,9 @@
 import React from 'react'
 import {Button, Tooltip} from 'antd'
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
-import { changePage } from '../../../redux/page'
-import { isUser } from '../../../utils/checkValue'
-import { Posts } from '../../Posts/Posts'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { changePage } from '../../redux/page'
+import { isUser } from '../../utils/checkValue'
+import { Posts } from '../../components/Posts/Posts'
 import { FilterQuestions } from './FilterQuestions'
 
 

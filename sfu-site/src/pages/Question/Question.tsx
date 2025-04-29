@@ -5,9 +5,9 @@ import Eyes from '../../images/eyes.svg'
 import Comment from '../../images/comment.svg'
 import { Comments } from './Comments'
 import { isPost } from '../../utils/checkValue'
-import { Header } from '../Header/Header'
+import { Header } from '../../components/Header/Header'
 import { useParams } from 'react-router-dom'
-import { Panel } from '../Panels/Panel'
+import { Panel } from '../../components/Panels/Panel'
 import { meFetch } from '../../redux/auth'
 import {Skeleton } from 'antd';
 

@@ -3,7 +3,7 @@ import { Header } from '../components/Header/Header'
 import { Panel } from '../components/Panels/Panel'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { CreateQuestion } from '../components/Modals/CreateQuestion'
-import { Questions } from '../components/Tabs/Questions/Questions'
+import { Questions } from './Questions/Questions'
 import { NotificationQuestion } from '../components/Notifications/NotificationQuestion'
 
 const MemoHeader = React.memo(Header)

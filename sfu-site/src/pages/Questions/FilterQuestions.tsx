@@ -1,7 +1,7 @@
 import React from 'react'
-import { fetchQuestions, newQuestion, oldQuestions, popularQuestions } from '../../../redux/questions'
+import { fetchQuestions, newQuestion, oldQuestions, popularQuestions } from '../../redux/questions'
 import { Button } from 'antd'
-import { useAppDispatch } from '../../../redux/hooks'
+import { useAppDispatch } from '../../redux/hooks'
 
 export const FilterQuestions: React.FC = () => {
 

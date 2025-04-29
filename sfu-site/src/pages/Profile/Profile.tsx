@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from '../../redux/hooks'
-import { Header } from '../Header/Header'
+import { Header } from '../../components/Header/Header'
 import { isSendBan, isUser } from '../../utils/checkValue'
 import { Skeleton } from 'antd'
-import { Achievements } from '../Panels/Achievements/Achievements'
+import { Achievements } from '../../components/Panels/Achievements/Achievements'
 import { Skeleton as SkeletonText} from '@mui/joy'
-import { Tags } from '../Panels/Tags/Tags'
-import {Chat} from '../Chat/Chat'
+import { Tags } from '../../components/Panels/Tags/Tags'
+import {Chat} from '../../components/Chat/Chat'
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { SkeletonBlock } from '../SkeletonBlock'
-import { AvatarProfile } from './AvatarProfile'
-import { BackgroundProfile } from './BackgroundProfile'
-import { Ban } from './Ban'
-import { NotificationComplaint } from '../Notifications/NotificationComplaint'
-import { EditUser } from './EditUser/EditUser'
+import { SkeletonBlock } from '../../components/SkeletonBlock'
+import { NotificationComplaint } from '../../components/Notifications/NotificationComplaint'
+import { EditUser } from '../../pages/Profile/EditUser/EditUser'
 import { Variants } from './Variants'
 import { useGetUser } from '../../hooks/useGetUser'
+import { BackgroundProfile } from './BackgroundProfile'
+import { Ban } from './Ban'
+import { AvatarProfile } from './AvatarProfile'
 
 const MemoHeader = React.memo(Header)
 
@@ -29,8 +29,6 @@ export const Profile: React.FC = () => {
 
   const state = useAppSelector(el => el.auth.state)
   const user = useGetUser(id as string)
-
-  console.log('render profile')
 
   return (
     <>

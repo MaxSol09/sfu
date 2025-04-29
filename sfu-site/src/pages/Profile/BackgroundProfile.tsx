@@ -3,9 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { isUser } from '../../utils/checkValue'
 import { changeBackground, sendBackground } from '../../redux/auth'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { DeleteBg } from '../Modals/DeleteBg'
 import Sfu from '../../images/sfu-bg.webp'
 import Delete from '../../images/del.png'
+import { DeleteBg } from '../../components/Modals/DeleteBg'
 
 export const BackgroundProfile = () => {
 
@@ -52,19 +52,19 @@ export const BackgroundProfile = () => {
 
   return (
     <>
-        {isUser(user) && isUser(state) && <>
-        <img alt='bg-image' className='w-full h-[200px] object-cover' src={state._id === user._id && state.backgroundProfile ? state.backgroundProfile : user.backgroundProfile ? user.backgroundProfile : Sfu}></img>
-        <div className='absolute right-[15px] top-[15px] flex gap-[10px]'>
-            <Button onClick={() => bgRef.current?.click()} style={{display: isUser(state) && state._id === user._id && !user.ban ? 'flex' : 'none'}}>
-              Смена фона
-            </Button>
-            <Button style={{display: isUser(state) && state._id === user._id && !user.ban ? 'flex' : 'none'}} onClick={() => setModalDeleteBg(true)}>
-                <img alt='image-delete' className='w-[23px]' src={Delete}></img>
-            </Button>
-        </div> 
-        <input onChange={e => changeBg(e)} ref={bgRef} className='hidden' type='file' accept='image/*,.png,.jpg,.gif,.web'/>
-        <DeleteBg modal={modalDeleteBg} setModal={setModalDeleteBg}/>
-        </>}
+      {isUser(user) && isUser(state) && <>
+      <img alt='bg-image' className='w-full h-[200px] object-cover' src={state._id === user._id && state.backgroundProfile ? state.backgroundProfile : user.backgroundProfile ? user.backgroundProfile : Sfu}></img>
+      <div className='absolute right-[15px] top-[15px] flex gap-[10px]'>
+          <Button onClick={() => bgRef.current?.click()} style={{display: isUser(state) && state._id === user._id && !user.ban ? 'flex' : 'none'}}>
+            Смена фона
+          </Button>
+          <Button style={{display: isUser(state) && state._id === user._id && !user.ban ? 'flex' : 'none'}} onClick={() => setModalDeleteBg(true)}>
+              <img alt='image-delete' className='w-[23px]' src={Delete}></img>
+          </Button>
+      </div> 
+      <input onChange={e => changeBg(e)} ref={bgRef} className='hidden' type='file' accept='image/*,.png,.jpg,.gif,.web'/>
+      <DeleteBg modal={modalDeleteBg} setModal={setModalDeleteBg}/>
+      </>}
     </>
   )
 }
