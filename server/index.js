@@ -4,18 +4,15 @@ import mongoose from 'mongoose'
 import { loginValidation, registerValidation } from './validations/AuthValidators.js'
 import multer from 'multer'
 import checkAuth from './utils/checkAuth.js'
-import { Create, createComment, CreateLike, Delete, GetAllQuestions, getOne, getTags, ModerationQuestion, removeComment } from './controllers/QuestionsController.js'
-import { avatarUser, backgroundUser, banUser, changeLastChat, changeText, createComplaint, createLink, deleteComplaint, deleteUser, getAllComplaints, getAllUsers, getMe, getUser, Login, Register, sendMsgSupport, userRole, userSpeciality} from './controllers/userController.js'
 import { linkValidation } from './validations/LinkValidators.js'
 import { validationErrors } from './validations/ErorrsValidation.js'
 import { questionValidation } from './validations/QuestionValidation.js'
 import { WebSocketServer } from 'ws'
 import { configDotenv } from 'dotenv'
 import UserModel from './models/UserModel.js'
-import sharp from 'sharp'
-import path from 'path'
 import jwt from 'jsonwebtoken'
 import * as nodemailer from 'nodemailer'
+import { QuestionsController, userController } from './controllers/index.js'
 
 configDotenv()
 
@@ -295,7 +292,7 @@ app.post('/vk/user', async (req, res) => {
             {
                 _id: user._id
             },
-            'secretMax392',
+            process.env.SECRET_TOKEN,
             {
                 expiresIn: '30d'
             }
@@ -311,43 +308,43 @@ app.post('/vk/user', async (req, res) => {
     }
 });
 
-app.post('/auth/register', registerValidation, validationErrors, Register)
-app.post('/auth/login', loginValidation, validationErrors, Login)
-app.get('/auth/me', checkAuth, getMe)
+app.post('/auth/register', registerValidation, validationErrors, userController.Register)
+app.post('/auth/login', loginValidation, validationErrors, userController.Login)
+app.get('/auth/me', checkAuth, userController.getMe)
 
-app.get('/question/:id', getOne)
+app.get('/question/:id', QuestionsController.getOne)
 
-app.post('/user/img', checkAuth, avatarUser)
-app.post('/user/background', checkAuth, backgroundUser)
-app.post('/user/text', checkAuth, changeText)
-app.get('/user/:id', checkAuth, getUser)
+app.post('/user/img', checkAuth, userController.avatarUser)
+app.post('/user/background', checkAuth, userController.backgroundUser)
+app.post('/user/text', checkAuth, userController.changeText)
+app.get('/user/:id', checkAuth, userController.getUser)
 
-app.get('/complaints', checkAuth, getAllComplaints)
-app.post('/complaint/create', checkAuth, createComplaint)
-app.post('/complaint/delete', checkAuth, deleteComplaint)
+app.get('/complaints', checkAuth, userController.getAllComplaints)
+app.post('/complaint/create', checkAuth, userController.createComplaint)
+app.post('/complaint/delete', checkAuth, userController.deleteComplaint)
 
-app.get('/users', checkAuth, getAllUsers)
-app.post('/user/delete', checkAuth, deleteUser)
-app.post('/user/ban', checkAuth, banUser)
-app.post('/user/speciality', checkAuth, userSpeciality)
-app.post('/user/role', checkAuth, userRole)
+app.get('/users', checkAuth, userController.getAllUsers)
+app.post('/user/delete', checkAuth, userController.deleteUser)
+app.post('/user/ban', checkAuth, userController.banUser)
+app.post('/user/speciality', checkAuth, userController.userSpeciality)
+app.post('/user/role', checkAuth, userController.userRole)
 
-app.post('/send/message', checkAuth, sendMsgSupport)
+app.post('/send/message', checkAuth, userController.sendMsgSupport)
 
-app.post('/link', linkValidation, validationErrors, createLink) //пока что создано тестово. Идея заключается в том, чтобы пользователь мог добавлять ссылки в свой профиль
+app.post('/link', linkValidation, validationErrors, userController.createLink) //пока что создано тестово. Идея заключается в том, чтобы пользователь мог добавлять ссылки в свой профиль
 
-app.get('/tags', getTags)
+app.get('/tags', QuestionsController.getTags)
 
-app.post('/question/create', checkAuth, questionValidation, validationErrors, Create)
-app.post('/question/moderation', checkAuth, ModerationQuestion)
-app.post('/question/delete', checkAuth, Delete)
-app.get('/questions', GetAllQuestions)
-app.post('/question/like', checkAuth, CreateLike)
+app.post('/question/create', checkAuth, questionValidation, validationErrors, QuestionsController.Create)
+app.post('/question/moderation', checkAuth, QuestionsController.ModerationQuestion)
+app.post('/question/delete', checkAuth, QuestionsController.Delete)
+app.get('/questions', QuestionsController.GetAllQuestions)
+app.post('/question/like', checkAuth, QuestionsController.CreateLike)
 
-app.post('/create/comment', checkAuth, createComment)
-app.delete('/delete/comment', removeComment) //пока что не используется
+app.post('/create/comment', checkAuth, QuestionsController.createComment)
+app.delete('/delete/comment', QuestionsController.removeComment) //пока что не используется
 
-app.post('/change/lastchat', checkAuth, changeLastChat)
+app.post('/change/lastchat', checkAuth, userController.changeLastChat)
 
 app.listen(process.env.PORT || 4444, (err) => {
     if(err){
