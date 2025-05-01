@@ -61,10 +61,14 @@ export const Post: React.FC<Props> = ({question}) => {
             dispatch(createLikeFn({result: {name: "Максим",
                 _id: state._id,
                 status: !checkTwoArrayId(question.likes, state._id) ? "like" : 'dislike',
-                postID: question._id
+                postID: question._id,
+                fullName: state.fullName
             }}))
+
+            dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))
         }
-        
+    
+
     }
 
   return (

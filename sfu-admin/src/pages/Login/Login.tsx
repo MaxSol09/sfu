@@ -23,7 +23,7 @@ import {useForm} from 'react-hook-form'
       if(isSuccess){
         console.log(data.data)
         loginAdmin(data.data)
-        console.log(state)
+        console.log('nice')
       }
    }, [isSuccess, data])
 
@@ -32,16 +32,11 @@ import {useForm} from 'react-hook-form'
    console.log(state)
  
    useEffect(() => {
-       if (isUser(state)) {
-           if(state.token){
-              localStorage.setItem('JWTtoken', state.token)
-              console.log(state.token)
-              axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
-              navigate('/');
-           }
-           else{
-               return
-           }
+       if (isUser(state) && state.token) {
+          localStorage.setItem('JWTtoken', state.token)
+          console.log(state.token)
+          axios.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
+          navigate('/');
        }
    }, [state, navigate]);
  

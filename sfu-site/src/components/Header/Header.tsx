@@ -94,7 +94,7 @@ export const Header: React.FC<Props> = ({currPage}) => {
         <img onClick={() => setOpen(true)} className='hidden w-[40px] max-[1130px]:flex' src={MenuImg} alt='menu'></img>
       </header>
       <Logout modal={modal} setModal={setModal}/>
-      <Menu open={open} setOpen={setOpen} />
+      <Menu open={open} setOpen={setOpen} currPage={currPage}/>
       <Chat />
     </>
   )

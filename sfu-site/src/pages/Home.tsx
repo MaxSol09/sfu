@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { CreateQuestion } from '../components/Modals/CreateQuestion'
 import { Questions } from './Questions/Questions'
 import { NotificationQuestion } from '../components/Notifications/NotificationQuestion'
+import { meFetch } from '../redux/auth'
 
 const MemoHeader = React.memo(Header)
 
@@ -28,6 +29,10 @@ export const Home: React.FC = () => {
             window.onpopstate = null
         }
     }, [dispatch])
+
+    useEffect(() => {
+      dispatch(meFetch())
+    }, [])
 
   return (
     <>
