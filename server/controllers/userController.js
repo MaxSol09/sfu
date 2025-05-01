@@ -15,7 +15,7 @@ export const Login = async(req, res) => {
 
         console.log(user)
 
-        if(!user || req.body.role !== 'Админ'){
+        if(!user || user.role !== 'Админ'){
             return res.status(404).json({
                 message: 'неверный email'
             })
