@@ -151,7 +151,7 @@ app.post('/vk/login', async (req, res) => {
             {
                 _id: user._id
             },
-            'secretMax392',
+            process.env.SECRET_TOKEN,
             {
                 expiresIn: '30d'
             }

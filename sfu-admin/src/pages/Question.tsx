@@ -1,13 +1,14 @@
-import Eyes from '../../images/eyes.svg'
-import Comment from '../../images/comments.svg'
+import Eyes from '../images/eyes.svg'
+import Comment from '../images/comments.svg'
 import { Skeleton } from 'antd'
-import { useQuestionsStore } from '../../zustand/questions'
-import { isPost } from '../../utils/checkValue'
-import { Comments } from '../Question/Comments'
+import { useQuestionsStore } from '../zustand/questions'
 import { useParams } from 'react-router-dom'
-import { Panel } from '../Panel'
-import { useGetQuestion } from '../../hooks/hooks'
-import { LayoutPage } from '../Layout'
+import { useGetQuestion } from '../hooks/hooks'
+import { LayoutPage } from '../components/Layout'
+import { Panel } from '../components/Panel'
+import { isPost } from '../utils/checkValue'
+import { Comments } from '../components/Question/Comments'
+
 
 export const Question = () => {
 

@@ -34,8 +34,8 @@ export const Question: React.FC = () => {
     <>
     <Header currPage={'question'}/>
     <Panel />
-      <main className='z-0 pt-[130px] ml-[27%] pr-[100px] max-[1130px]:ml-[0%] max-[1130px]:px-[100px] max-[950px]:px-[50px] max-[520px]:px-[20px]'>
-        {!loadingQuestion ? (
+    <main className='z-0 pt-[130px] ml-[27%] pr-[100px] max-[1130px]:ml-[0%] max-[1130px]:px-[100px] max-[950px]:px-[50px] max-[520px]:px-[20px]'>
+      {!loadingQuestion ? (
         <Skeleton paragraph={{rows: 6}} className='pb-[60px] pt-[10px] w-full'/>
       ) : isPost(question) ? <div>
           <div className='px-[20px] pt-[10px] pb-[10px] bg-gray-200'>

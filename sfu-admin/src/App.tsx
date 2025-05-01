@@ -2,7 +2,6 @@ import axios from 'axios';
 import './index.css'
 import { WebSocketActions } from './components/WebSocketActions';
 import { Loading } from './pages/Login/Loading';
-import { Router } from './Router';
 
 function App() {
 
@@ -13,7 +12,7 @@ function App() {
   return (
     <div className='w-full h-full'>
       <WebSocketActions />
-      <Router/> 
+      <Loading />
     </div>
   )
 }

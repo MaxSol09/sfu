@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom"
 import { Profile } from "./pages/Profile"
-import { Question } from "./components/Question/Question"
 import { Questions } from "./pages/Questions"
-import { Complaints } from "./components/Complaints/Complaints"
+import { Complaints } from "./pages/Complaints"
 import { Users } from "./pages/Users"
 import { Login } from "./pages/Login/Login"
 import { Chats } from "./pages/Chats"
+import { Question } from "./pages/Question"
 
 export const Router = () => {
     return (

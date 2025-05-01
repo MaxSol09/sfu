@@ -263,7 +263,7 @@ export const useAvatar = (id: string) => {
 export const useGetMe = () => {
     const getMeFn = useUserStore(el => el.getMe)
   
-    const {isSuccess, isLoading, data} = useQuery({
+    const {isSuccess, isError, isLoading, data, refetch} = useQuery({
       queryKey: ['userKey'],
       select: data =>  data.data,
       queryFn: usersService.getMe
@@ -278,7 +278,7 @@ export const useGetMe = () => {
     }, [isLoading, isSuccess])
 
 
-    return {isLoading}
+    return {isLoading, isError, data, isSuccess, refetch}
 }
 
 

@@ -1,27 +1,31 @@
 import React from 'react'
 import { isUser } from '../../utils/checkValue'
-import { useUserStore } from '../../zustand/auth'
 import { Router } from '../../Router'
-import { Spin } from 'antd'
 import Warn from '../../images/warn.png'
 import { useGetMe } from '../../hooks/hooks'
+import { Login } from './Login'
+import { Link } from 'react-router-dom'
 
 export const Loading: React.FC = () => {
-
-    const {state} = useUserStore(el => el)
 
     const url = document.location.href
     const check = url === 'http://localhost:5173/login'
 
-    const {isLoading} = useGetMe()
+    const {isLoading, isError, isSuccess, data} = useGetMe()
 
     return (
-        <div className='w-full min-h-screen flex flex-col items-center justify-center space-y-4 pb-[30%]'>
-            <h1 className='text-xl font-semibold'>Проверка доступа</h1>
-            {isLoading && !check ? <Spin /> : <img className='w-[100px]' src={Warn} alt='внимание'></img>}
-                {isUser(state) && state.role === 'Админ' ? <Router /> : <p className={`${isLoading ? 'text-gray-400' : 'text-red-600'} `}> 
-                    {isLoading ? 'Загрузка...' : 'У вас нет доступа'}
-                </p>}
-        </div>
+        <>
+            {!check ? <>{isSuccess && isUser(data) && data.role === 'Админ' ? <Router /> :         
+                <div className='w-full min-h-screen flex flex-col items-center justify-center space-y-4 pb-[30%]'>
+                    <h1 className='text-xl font-semibold'>Проверка доступа</h1>
+                    {isLoading && <p>Загрузка...</p>}
+                    {isError && <div className='grid items-center place-items-center'>
+                        <img className='w-[50px]' src={Warn}/>
+                        <p>У вас нет доступа</p>
+                    </div>}
+                    <Link className='text-blue-500' to={'/login'}>Перейти на страницу с входом</Link>
+                </div>
+            }</> : <Login />}
+        </>
     )
 }
