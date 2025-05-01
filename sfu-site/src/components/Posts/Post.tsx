@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TypePost } from '../../types/types'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { createLike, deleteQuestion } from '../../redux/questions'
+import { createLike, createLikeFn, deleteQuestion } from '../../redux/questions'
 import Like2 from '../../images/Like2.png'
 import Like from '../../images/Like.png'
 import Delete from '../../images/del.png'
@@ -54,13 +54,26 @@ export const Post: React.FC<Props> = ({question}) => {
 
     const url = window.location.pathname
 
+
+    const handleLike = () => {
+
+        if(isUser(state)){
+            dispatch(createLikeFn({result: {name: "Максим",
+                _id: state._id,
+                status: !checkTwoArrayId(question.likes, state._id) ? "like" : 'dislike',
+                postID: question._id
+            }}))
+        }
+        
+    }
+
   return (
     <>
         {isPost(question) && 
             <div key={question._id} className={`bg-slate-100 py-[10px] px-[15px] grid rounded-md relative 
                  ${url === '/' ? 'w-full' : 'w-full'}`}>
                 <div className='absolute top-[10px] right-[15px] flex gap-[10px] max-[470px]:hidden'>
-                    {isUser(state) ? <button onClick={() => isUser(state) && dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
+                    {isUser(state) ? <button onClick={() => handleLike()} 
                         className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
                         style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
                         >

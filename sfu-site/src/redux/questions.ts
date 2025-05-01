@@ -302,6 +302,83 @@ const questionsSlice = createSlice({
 
                 state.comments = action.payload.comments
             }
+        },
+        createLikeFn: (state, action) => {
+            state.questions.items = state.questions.items.filter(el => {
+
+
+                if(el._id === action.payload.result.postID){
+
+                    console.log('wqf')
+                    console.log(action.payload.result)
+
+                    if(action.payload.result.status === 'like'){
+                        console.log('sss')
+                        return el.likes.push(action.payload.result)
+                    }   
+                    else{
+                        el.likes = el.likes.filter(el => el._id !== action.payload.result._id)
+                    }
+                }       
+
+                return el
+                
+            })
+
+            state.questionsArr.items = state.questionsArr.items.filter(el => {
+
+                if(el._id === action.payload.result.postID){
+                    console.log('YEAH')
+
+                    if(action.payload.result.status === 'like'){
+                        console.log(action.payload.result)
+                        el.likes.push(action.payload.result)
+                    }   
+                    else{
+                        el.likes = el.likes.filter(el => el._id !== action.payload.result._id)
+                    }
+                }       
+
+                return el
+                
+            })
+
+
+            state.myAnswer.value = state.questions.items.filter(el => {
+                return el.comments.some(i => i.user === action.payload.result._id)
+            })
+
+          
+            state.myQuestions.items = state.questionsArr.items.filter(el => {
+
+                if(el.user === null) return null
+                
+                return el.user._id === action.payload.question.user
+                
+            })
+            
+
+            const filteredPosts = state.questions.items.filter(el => {
+                return el.likes.some(l => l._id === action.payload.result._id)
+            })
+            const sortedPosts = filteredPosts.sort((a, b) => {
+                // Находим лайк текущего пользователя в каждом посте (или null, если его нет)
+                const userLikeA = a.likes.find(like => like._id === action.payload.result._id)
+                const userLikeB = b.likes.find(like => like._id === action.payload.result._id)
+        
+                // Если лайка нет, оставляем порядок без изменений
+                 if (!userLikeA) return 1
+                 if (!userLikeB) return -1
+        
+                // Преобразуем даты лайков в таймстемпы
+                const dateA = new Date(userLikeA.date).getTime()
+                const dateB = new Date(userLikeB.date).getTime()
+        
+                // Сортируем от новых к старым
+                return dateB - dateA
+            })
+        
+            state.favorite = sortedPosts
         }
     },
     extraReducers: (build) => {
@@ -451,5 +528,5 @@ const questionsSlice = createSlice({
 export const questionsReducer = questionsSlice.reducer
 export const {createTag, deleteTag, getMyQuestions, deleteQuestionFn, addQuestion, getMyModerationQuestions, getMyAnswer, 
     getMyFavorite, resetPost, getQuestionPage, resetPostStatus, popularQuestions, oldQuestions, 
-    newQuestion, searchQuestion, resetUserPosts, createCommentFn} = questionsSlice.actions
+    newQuestion, searchQuestion, resetUserPosts, createCommentFn, createLikeFn} = questionsSlice.actions
 

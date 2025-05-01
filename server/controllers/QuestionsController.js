@@ -352,7 +352,7 @@ export const removeComment = async (req, res) => {
 export const CreateLike = async(req, res) => {
     try{
         console.log(req.body.userID)
-        const {postID, userID, fullName} = req.body
+        const {postID, userID} = req.body
 
 
         console.log(postID)
@@ -390,21 +390,21 @@ export const CreateLike = async(req, res) => {
 
 
             if(updateQuestion){
-                return res.json({result: {name: user.fullName, _id: userID, email: user.email, status: 'dislike', postID}, question})
+                return res.json({result: {name: user.fullName, _id: userID, status: 'dislike', postID}, question})
             }
         }
         else{
 
             const updateQuestion = await QuestionModel.findByIdAndUpdate(
                 postID,
-                {$push: {'likes': {name: user.fullName, _id: userID, email: user.email, date: new Date()}}},
+                {$push: {'likes': {name: user.fullName, _id: userID, date: new Date()}}},
                 {new: true}
             )
 
             console.log('2 b')
 
             if(updateQuestion){
-                return res.json({result: {name: user.fullName, _id: userID, email: user.email, status: 'like', postID, date: new Date()}, question})
+                return res.json({result: {name: user.fullName, _id: userID, status: 'like', postID, date: new Date()}, question})
             }
         }
 
