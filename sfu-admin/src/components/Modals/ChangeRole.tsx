@@ -1,7 +1,6 @@
 import { Modal } from 'antd'
-import React, { useEffect } from 'react'
-import { useMutation } from 'react-query'
-import { usersService } from '../../service/usersService'
+import React from 'react'
+import { useChangeRole } from '../../hooks/hooks'
 
 type Props = { 
     setModal: any,
@@ -12,15 +11,7 @@ type Props = {
 
 export const ChangeRole: React.FC<Props> = ({modal, setModal, role, userID}) => {
 
-    const {isSuccess, mutate} = useMutation(usersService.changeUserRole, {
-        mutationKey: ['changeRole']
-    })
-
-    useEffect(() => {
-        if(isSuccess){
-            setModal(false)
-        }
-    }, [isSuccess])
+    const {mutate} = useChangeRole(setModal)
 
     return (
         <Modal open={modal} onOk={() => mutate({role, userID})} cancelText={'Нет'} okText={"Да"} onCancel={() => setModal(false)} onClose={() => setModal(false)}>

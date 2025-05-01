@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Edit from '../../../images/edit.svg'
 import Back from '../../../images/back.svg'
 import Check from '../../../images/check.svg'
-import { useMutation } from 'react-query'
-import { usersService } from '../../../service/usersService'
-import { useUserStore } from '../../../zustand/auth'
 import { isUser } from '../../../utils/checkValue'
 import { useParams } from 'react-router-dom'
+import { useEditSpeciality } from '../../../hooks/hooks'
 
 type Props = {
     changeText: boolean
@@ -14,33 +12,9 @@ type Props = {
 
 export const EditSpeciality: React.FC<Props> = ({changeText}) => {
 
-    const user = useUserStore(el => el.user.value)
     const {id} = useParams()
 
-    const [changeSpeciality, setChangeSpeciality] = useState<boolean>(false)
-    const [speciality, setSpeciality] = useState<string>('')
-
-    const {changeStudentSpeciality} = useUserStore(el => el)
-
-    const mutateSpeciality = useMutation(usersService.changeUserSpeciality, {
-        mutationKey: ['changeSpeciality', id]
-    })
-
-    useEffect(() => {
-        if(mutateSpeciality.isSuccess){
-            changeStudentSpeciality(mutateSpeciality.data.data.speciality)
-        }
-    }, [mutateSpeciality.isSuccess])
-
-    const handleSpeciality = () => {
-    if(!speciality) return 
-
-    if(isUser(user)){
-        mutateSpeciality.mutate({userID: user._id, speciality: speciality})
-    }
-
-    setChangeSpeciality(false)
-    }
+    const {user, setSpeciality, setChangeSpeciality, changeSpeciality, handleSpeciality} = useEditSpeciality(id as string)
 
     return (
         <>

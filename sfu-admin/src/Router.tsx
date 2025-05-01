@@ -1,16 +1,16 @@
 import { Route, Routes } from "react-router-dom"
-import { UserProfile } from "./pages/UserProfile"
+import { Profile } from "./pages/Profile"
 import { Question } from "./components/Question/Question"
 import { Questions } from "./pages/Questions"
-import { Chats } from "./components/Chats/Chats"
 import { Complaints } from "./components/Complaints/Complaints"
 import { Users } from "./pages/Users"
 import { Login } from "./pages/Login/Login"
+import { Chats } from "./pages/Chats"
 
 export const Router = () => {
     return (
       <Routes> 
-          <Route path="/profile/:id" element={<UserProfile />}></Route>
+          <Route path="/profile/:id" element={<Profile />}></Route>
           <Route path='/question/:id' element={<Question />}></Route>
           <Route path='/questions' element={<Questions />}></Route>
           <Route path='/complaints' element={<Complaints />}></Route>

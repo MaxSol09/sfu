@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { Message } from '../../../types/types'
 import { ChatMessage } from './ChatMessage';
 import { SendMessage } from './SendMessage';
+import { useTopMessage } from '../../../hooks/hooks';
 
 type Props = {
     messages: Message[]
@@ -9,14 +10,7 @@ type Props = {
 
 export const ChatsPosts: React.FC<Props> = ({ messages }) => {
 
-    const messageRef = useRef<HTMLDivElement>(null); 
-
-    useEffect(() => {
-        if (messageRef.current) {
-            messageRef.current.scrollTop = messageRef.current.scrollHeight
-        }
-    }, [messages])
-
+    const {messageRef} = useTopMessage(messages)
 
     return (
         <>

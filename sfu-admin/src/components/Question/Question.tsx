@@ -1,22 +1,13 @@
-import { useEffect } from 'react'
 import Eyes from '../../images/eyes.svg'
 import Comment from '../../images/comments.svg'
-import { Layout, Skeleton } from 'antd'
+import { Skeleton } from 'antd'
 import { useQuestionsStore } from '../../zustand/questions'
-import { useQuery } from 'react-query'
-import { questionsService } from '../../service/questionsService'
 import { isPost } from '../../utils/checkValue'
 import { Comments } from '../Question/Comments'
 import { useParams } from 'react-router-dom'
-import { Content } from 'antd/es/layout/layout'
-import Sider from 'antd/es/layout/Sider'
 import { Panel } from '../Panel'
-
-const layoutStyle: React.CSSProperties = {
-  overflow: 'hidden',
-  width: '100%',
-  height: '100vh',
-};
+import { useGetQuestion } from '../../hooks/hooks'
+import { LayoutPage } from '../Layout'
 
 export const Question = () => {
 
@@ -24,29 +15,12 @@ export const Question = () => {
 
   const {id} = useParams()
 
-  const getQuestionFn = useQuestionsStore(el => el.getQuestion)
-
-  const getQuestion = useQuery({
-    queryFn: () => questionsService.getQuestion(id as string),
-    queryKey: ['getQuestion', id],
-    select: data => data.data
-  })
-
-  useEffect(() => {
-    if(getQuestion.isSuccess){
-      getQuestionFn(getQuestion.data)
-    }
-  }, [getQuestion.isSuccess])
+  const {isLoading} = useGetQuestion(id as string)
 
   return (
     <>
-      <Layout style={layoutStyle}>
-        <Sider width='18%' className="bg-gray-200">
-          <Panel currPage='question'></Panel>
-        </Sider>
-        <Content>
-        <main className='z-0 pt-[50px] grid place-items-center'>
-          {getQuestion.isLoading ? (
+      <LayoutPage sider={<Panel currPage='question'/>} content={<main className='z-0 pt-[50px] grid place-items-center'>
+          {isLoading ? (
           <Skeleton paragraph={{rows: 6}} className='pb-[60px] pt-[10px] w-2/3'/>
         ) : isPost(question) ? <div className='px-[20px] pt-[10px] pb-[10px] w-2/3 bg-gray-200'>
               <h1 className='text-[20px] break-all'>Название: {question.title}</h1>
@@ -73,11 +47,9 @@ export const Question = () => {
               </div>
             </div>
             : <p>Вопрос не найден</p>}
-            {getQuestion.isLoading ? <Skeleton title={false} className='w-2/3' paragraph={{rows: 2}} avatar/> 
+            {isLoading ? <Skeleton title={false} className='w-2/3' paragraph={{rows: 2}} avatar/> 
             : 'comments' in question && <Comments comments={question.comments}/> }
-          </main>
-        </Content >
-      </Layout>
+          </main>}/>
     </>
   )
 }

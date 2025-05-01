@@ -75,7 +75,7 @@ class UsersService {
     }
 
     getUser(id: string){
-        const data = axios.get(`https://sfu-4bm4.onrender.com/user/${id}`)
+        const data = axios.get(`https://sfu-server-yx7u.onrender.com/user/${id}`)
 
         return data
     }

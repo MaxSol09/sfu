@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Skeleton as SkeletAvatar } from '@mui/joy'; 
 import User from '../../images/user.jpg'
-import { useUserStore } from '../../zustand/auth';
-import { useMutation } from 'react-query';
-import { usersService } from '../../service/usersService';
 import { isUser } from '../../utils/checkValue';
 import { useParams } from 'react-router-dom';
 import { DeleteAvatar } from '../Modals/DeleteAvatar';
 import Delete from '../../images/delete.png'
+import { useAvatar } from '../../hooks/hooks';
 
 type Props = {
     loadingQuestions: boolean
@@ -15,68 +13,19 @@ type Props = {
 
 export const Avatar: React.FC<Props> = ({loadingQuestions}) => {
 
-  const sendAvatar = useUserStore(el => el.sendAvatar)
+  const {id} = useParams() 
 
   const [showButton, setShowButton] = useState<boolean>(false);
   const ref = useRef<null | HTMLInputElement>(null)
-
-  const {id} = useParams()
-  const user = useUserStore(el => el.user.value)
-
   const [modalDeleteAvatar, setModalDeleteAvatar] = useState<boolean>(false)
 
-  const mutateAvatar = useMutation(usersService.changeAvatar, {
-    mutationKey: ['changeAvatarkey', id]
-  })
-
-  const [previousValuePath, setPreviousValuePath] = useState<null | string>(null);
-  const value = useUserStore(el => el.userAvatar.value)
-
-  useEffect(() => {
-      if (value !== null && value !== previousValuePath && isUser(user)) {
-          console.log(value)
-          mutateAvatar.mutate({ id: user._id, avatar: value });
-
-          setPreviousValuePath(value);
-      }
-  }, [value, previousValuePath, user]) 
-
-  const mutateSendAvatar = useMutation(usersService.sendAvatar, {
-    mutationKey: ['sendAvatar']
-  })
-
-  useEffect(() => {
-    if(mutateSendAvatar.isSuccess){
-      console.log('qwqgwv')
-      sendAvatar(mutateSendAvatar.data.data.path)
-    }
-  }, [mutateSendAvatar.isSuccess])
-
-  const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    const input = e.target as HTMLInputElement;
-  
-    if (!input.files || input.files.length === 0) {
-      console.log('Загрузите, пожалуйста, картинку');
-      return;
-    }
-  
-    const file = input.files[0]; // Получаем первый файл из объекта
-  
-    // Замените `object` на `FormData`
-    const formData = new FormData();
-    formData.append('file', file); // Добавляем файл, а не input
-
-    mutateSendAvatar.mutate((formData));
-
-  }
-
+  const {user, changeAvatar, sendLoading, changeLoading} = useAvatar(id as string)
 
   return (
     <>
-        {loadingQuestions ? <SkeletAvatar variant="circular" width={140} height={140}/> 
+        {loadingQuestions ? <SkeletAvatar variant="circular" width={130} height={130}/> 
             : isUser(user) && <div className='relative bg-white rounded-full'>
-                {mutateSendAvatar.isLoading || mutateAvatar.isLoading ? <SkeletAvatar variant="circular" width={130} height={130}/> : 
+                {sendLoading || changeLoading ? <SkeletAvatar variant="circular" width={130} height={130}/> : 
                     <img src={user.avatarUrl ? user.avatarUrl : User} alt="avatar" 
                       className='rounded-full w-[130px] h-[130px] object-cover border-gray-300 border-[3px] max-[1050px]:w-[100px] max-[1050px]:h-[100px]' 
                       onMouseOver={() => setShowButton(true)}

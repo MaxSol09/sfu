@@ -1,8 +1,7 @@
 import { Modal } from '@mui/material'
 import { Button } from 'antd'
-import React, { useEffect } from 'react'
-import { useMutation } from 'react-query'
-import { questionsService } from '../../service/questionsService'
+import React from 'react'
+import { useDeleteQuestion } from '../../hooks/hooks'
 
 type Props = {
     modal: boolean,
@@ -13,20 +12,7 @@ type Props = {
 
 export const DeleteQuestion: React.FC<Props> = ({modal, setModal, postId, setPostId}) => {
     
-    const mutateDelete = useMutation(questionsService.deleteQuestion, {
-        mutationKey: ['deleteQuestion']
-    })
-
-    const deleteFn = () => {
-        mutateDelete.mutate(postId)
-        setModal(false)
-      }
-
-    useEffect(() => {
-        if(mutateDelete.isSuccess){
-          setPostId('')
-        }
-    }, [mutateDelete.isSuccess])
+    const {deleteQuestion} = useDeleteQuestion(setModal, postId, setPostId)
 
     return (
         <>
@@ -40,7 +26,7 @@ export const DeleteQuestion: React.FC<Props> = ({modal, setModal, postId, setPos
                     <h2 className='pb-[10px]'>Вы уверены, что хотите удалить вопрос?</h2>
                     <div className='flex justify-end gap-[10px]'>
                     <Button onClick={() => setModal(false)}>нет</Button>
-                    <Button onClick={() => deleteFn()}>да</Button>
+                    <Button onClick={() => deleteQuestion()}>да</Button>
                     </div>
                 </div>
             </Modal>   

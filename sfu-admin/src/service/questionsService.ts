@@ -15,7 +15,7 @@ class QuestionsService {
     }
 
     getQuestion(id: string){
-        const data = axios.get(`http://localhost:4444/question/${id}`)
+        const data = axios.get(`https://sfu-server-yx7u.onrender.com/question/${id}`)
 
         return data
     }

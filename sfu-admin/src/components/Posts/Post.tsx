@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { TypePost } from '../../types/types'
 import { DeleteQuestion } from '../Modals/DeleteQuestion'
 import Delete from '../../images/delete.png'
-import { useMutation } from 'react-query'
-import { questionsService } from '../../service/questionsService'
-import { useQuestionsStore } from '../../zustand/questions'
 import { useNavigate } from 'react-router-dom'
+import { getUserEnding } from '../../utils/getUserEnding'
+import { useModerationQuestion } from '../../hooks/hooks'
 
 type Props = {
     question: TypePost
 }
 
 export const Post: React.FC<Props> = ({question}) => {
-
-    const {mutate, data, isSuccess} = useMutation(questionsService.moderationQuestion, {
-        mutationKey: ['mutateModeration']
-    })
-
-    const moderationQuestion = useQuestionsStore(el => el.moderationQuestion)
-
-    useEffect(() => {
-        if(isSuccess){
-            moderationQuestion(data.data)
-        }
-    }, [isSuccess])
 
     const [modal, setModal] = useState<boolean>(false)
     const [postId, setPostId] = useState<string>('')
@@ -39,19 +26,7 @@ export const Post: React.FC<Props> = ({question}) => {
         navigate(`/question/${id}`)
     }
 
-    //функция которая возвращает нужное склонение слова пользователь
-    function getUserEnding(count: number) {
-        const lastDigit = count % 10;
-        const lastTwoDigits = count % 100;
-    
-        if (lastDigit === 1 && lastTwoDigits !== 11) {
-            return " пользователь";
-        } else if ((lastDigit >= 2 && lastDigit <= 4) && (lastTwoDigits < 12 || lastTwoDigits > 14)) {
-            return " пользователя";
-        } else {
-            return " пользователей";
-        }
-    }
+    const {mutate} = useModerationQuestion()
 
     return (
         <>

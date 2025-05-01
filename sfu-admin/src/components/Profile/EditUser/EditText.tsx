@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { isUser } from '../../../utils/checkValue'
-import { useUserStore } from '../../../zustand/auth'
-import { useMutation } from 'react-query'
-import { usersService } from '../../../service/usersService'
+import React from 'react'
+import { useChangeText } from '../../../hooks/hooks'
 
 type Props = {
     setChangeText: any,
@@ -11,37 +8,7 @@ type Props = {
 
 export const EditText: React.FC<Props> = ({setChangeText, changeText}) => {
 
-    const [text, setText] = useState<string>('')
-
-    const user = useUserStore(el => el.user.value)
-
-    const {getUser} = useUserStore(el => el)
-
-    useEffect(() => {
-        if(isUser(user)){
-        setText(user.text)
-        }
-    }, [user])
-
-    const mutateText = useMutation(usersService.changeTextFun, {
-        mutationKey: ['changeText']
-    })
-
-    useEffect(() => {
-        if(mutateText.isSuccess){
-            getUser(mutateText.data.data)
-        }
-    }, [mutateText.isSuccess])
-
-    const submit = () => {
-        if(!text || text.length > 300) return 
-        
-        if(isUser(user)){
-        mutateText.mutate({userID: user._id, text}) // меняем текст в профиле
-        }
-
-        setChangeText(false)
-    }
+    const {text, setText, submit} = useChangeText(setChangeText)
 
     return (
         <>

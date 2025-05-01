@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState} from 'react'
 import { Complaint } from '../../types/types'
 import { Spin } from 'antd'
 import { Link } from 'react-router-dom'
-import { useMutation } from 'react-query'
-import { usersService } from '../../service/usersService'
-import { useComplaintsStore } from '../../zustand/complaints'
 import { UserBan } from '../Modals/UserBan'
 import { isUser } from '../../utils/checkValue'
+import { useDeleteComplaint } from '../../hooks/hooks'
 
 type Props = {
     complaints: Complaint[],
@@ -19,21 +17,7 @@ export const ComplaintsPosts: React.FC<Props> = ({complaints, loading}) => {
   const [idUser, setIdUser] = useState<string>('')
   const [autherId, setAutherId] = useState<string>('')
 
-  const deleteComplaintFn = useComplaintsStore(el => el.deleteComplaint)
-
-  const mutateDeleteComplaint = useMutation(usersService.deleteComplaint, {
-    mutationKey: ['deleteComplaint', idUser, autherId]
-  })
-
-  useEffect(() => {
-    if(mutateDeleteComplaint.isSuccess){
-      deleteComplaintFn(mutateDeleteComplaint.data.data)
-    }
-  }, [mutateDeleteComplaint.isSuccess])
-
-  const deleteComplaint = (userID: string, autherID: string) => {
-    mutateDeleteComplaint.mutate({userID, autherID})
-  }
+  const {deleteComplaint} = useDeleteComplaint(idUser, autherId)
 
   const banUser = (userID: string, autherID: string) => {
     setIdUser(userID)

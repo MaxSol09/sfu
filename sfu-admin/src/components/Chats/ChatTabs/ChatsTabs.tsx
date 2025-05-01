@@ -1,15 +1,14 @@
 import { Layout  } from 'antd';
 import Sider from 'antd/es/layout/Sider';
-import React, { useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React from 'react';
 import { Content } from 'antd/es/layout/layout';
-import { useQuery } from 'react-query';
-import { usersService } from '../service/usersService';
-import { useUserStore } from '../zustand/auth';
-import { ChatsPosts } from '../components/Chats/Chat/Chat';
-import { SkeletonChat } from '../components/Chats/ChatTabs/SkeletonChat';
-import { SearchChat } from '../components/Chats/ChatTabs/SearchChat';
+import { useUserStore } from '../../../zustand/auth';
+import { ChatsPosts } from '../Chat/Chat';
+import { SkeletonChat } from './SkeletonChat';
+import { SearchChat } from './SearchChat';
 import { CardHeader } from '@mui/material';
-import User from '../images/user.jpg' 
+import User from '../../../images/user.jpg'
+import { useGetChats, useSiderWidth } from '../../../hooks/hooks';
 
 const layoutStyle: React.CSSProperties = {
     overflow: 'hidden',
@@ -21,45 +20,17 @@ export const ChatsTabs = () => {
 
     const {selectChat} = useUserStore(el => el)
 
-    const {getMessages, getUsers, messagesArr} = useUserStore(el => el)
-
-    const chatsFetch = useQuery({
-        queryKey: ['usersKey'],
-        queryFn:  usersService.getAllUsers,
-        select: data => data.data
-    })
-
-    useEffect(() => {
-        if(chatsFetch.isSuccess){
-            getUsers(chatsFetch.data)
-            getMessages(chatsFetch.data)
-        }
-    }, [chatsFetch.isSuccess])
-    
-    const [siderWidth, setSiderWidth] = useState(0);
-
-    useLayoutEffect(() => {
-        const measureSider = () => {
-            if (siderRef.current) {
-                setSiderWidth(siderRef.current.offsetWidth);
-            }
-        };
-
-        measureSider();
-        window.addEventListener('resize', measureSider);
-
-        return () => window.removeEventListener('resize', measureSider);
-    }, []);
-
     const {selectChatFn} = useUserStore(el => el)
 
-    const siderRef = useRef<HTMLDivElement>(null);
+    const {siderRef, siderWidth} = useSiderWidth()
+
+    const {isSuccess, messagesArr} = useGetChats()
 
     return (
         <Layout style={layoutStyle}>
             <Sider ref={siderRef} width='25%' className="bg-gray-100 border-r-[1px] cursor-pointer" style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
                 <SearchChat />
-                {chatsFetch.isSuccess ? messagesArr.length ?
+                {isSuccess ? messagesArr.length ?
                     messagesArr.map(chat => <CardHeader key={chat.userID} onClick={() => selectChatFn(chat.userID, chat.chat)}
                         avatar={
                             <div>
