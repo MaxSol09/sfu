@@ -253,6 +253,8 @@ app.post('/vk/user', async (req, res) => {
         
         const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
 
+        console.log(data)
+
         if (!data.ok) {
             console.error(`VK API error: ${data.status} ${data.statusText}`);
             return res.status(data.status).json({
