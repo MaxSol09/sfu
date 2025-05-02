@@ -121,7 +121,7 @@ export const Menu: React.FC<typeProps> = ({open, setOpen, currPage}) => {
                       <p onClick={aboutClick}>Об институте</p>
                       <p>Поддержка</p>
               </div>
-              <p className='text-[23px] text-center mt-auto'>Выйти</p>
+              <p style={{display: isUser(state) ? 'block' : 'none'}} className='text-[23px] text-center mt-auto'>Выйти</p>
               </div>
           </Drawer>
     )
