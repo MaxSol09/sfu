@@ -56,7 +56,7 @@ import {useForm} from 'react-hook-form'
  
    return (
      <div className='h-[100vh] flex w-full'>
-       <img alt='sfu-logo' className='bg-img w-1/2 h-full object-cover' src={Sfu}/>
+       <img alt='sfu-logo' className='bg-img w-1/2 h-[100vh] object-cover' src={Sfu}/>
        <div className='flex flex-col justify-center w-1/2 items-center'>
          <img className='w-[200px]' src={Logo} alt="sfu" />
          <h1 className='my-[20px] text-[30px] text-slate-500'>С возвращением!</h1>
