@@ -11,6 +11,9 @@ type Props = {
 
 export const DeleteUser: React.FC<Props> = ({modal, setModal, setDeleteId, deleteId}) => {
 
+    console.log(deleteId)
+
+
     const {deleteUser} = useDeleteUser(setModal, setDeleteId, deleteId)
 
     return (

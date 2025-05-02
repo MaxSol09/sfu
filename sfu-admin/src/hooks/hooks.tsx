@@ -703,7 +703,7 @@ export const useDeleteQuestion = (setModal: any, postId: string, setPostId: any)
     return {deleteQuestion: deleteFn}
 }
 
-export const useDeleteUser = (setModal: any, deleteId: string, setDeleteId: any) => {
+export const useDeleteUser = (setModal: any, setDeleteId: any, deleteId: string) => {
     const mutateDelete = useMutation(usersService.deleteUser, {
         mutationKey: ['deleteUser']
     })
