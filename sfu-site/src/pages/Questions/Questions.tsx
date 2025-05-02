@@ -5,6 +5,7 @@ import { changePage } from '../../redux/page'
 import { isUser } from '../../utils/checkValue'
 import { Posts } from '../../components/Posts/Posts'
 import { FilterQuestions } from './FilterQuestions'
+import { Tags } from './Tags'
 
 
 const MemoFilterQuestions = React.memo(FilterQuestions)
@@ -24,6 +25,7 @@ export const Questions: React.FC = () => {
 
   return (
     <div className='grid w-full'>
+        <Tags />
         <div className='flex justify-between items-center'>
             <div className='space-y-[3px]'>
               <h1 className='text-[20px]'>Вопросы</h1>
