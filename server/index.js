@@ -241,6 +241,8 @@ app.post('/vk/user', async (req, res) => {
     try {
         const { vkID, token, email } = req.body;
 
+        console.log(req.body)
+
         const checkUser = await UserModel.findOne({vkid: vkID})
 
         if(checkUser){
@@ -249,7 +251,7 @@ app.post('/vk/user', async (req, res) => {
             })
         }
 
-        console.log(req.body)
+        console.log('wvbwbqvboobwv')
         
         const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
 
