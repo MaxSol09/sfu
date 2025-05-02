@@ -7,6 +7,7 @@ import { changePage } from '../../redux/page';
 import { fetchQuestions, fetchTags } from '../../redux/questions';
 import { useNavigate } from 'react-router-dom';
 import { TypePage } from '../../types/types';
+import { Skeleton } from '@mui/material';
 
 type typeProps = {
     open: boolean, 
@@ -21,7 +22,7 @@ export const Menu: React.FC<typeProps> = ({open, setOpen, currPage}) => {
 
    const questionLink = useAppSelector(el => el.page.questionOpen.link)
 
-    const state = useAppSelector(el => el.auth.state)
+    const {state, status} = useAppSelector(el => el.auth)
     const [drawerWidth, setDrawerWidth] = useState<string>('25%')
 
     const handleResize = () => {
@@ -102,24 +103,22 @@ export const Menu: React.FC<typeProps> = ({open, setOpen, currPage}) => {
               style={{ padding: '0px' }}  
           >
               <div className='flex flex-col h-full'>
-                  {isUser(state) ? (
                       <div className='flex items-center gap-[10px] justify-center'>
-                          <img src={state.avatarUrl ? state.avatarUrl : User} className='max-[1130px]:w-[70px] max-[1130px]:h-[70px] max-[1000px]:w-[60px]
+                          {status === 'loading' ? <Skeleton variant="circular" className='w-[70px] h-[70px]' /> : 
+                          <img src={isUser(state) && state.avatarUrl ? state.avatarUrl : User} className='max-[1130px]:w-[70px] max-[1130px]:h-[70px] max-[1000px]:w-[60px]
                            max-[1000px]:h-[60px] w-[45px] h-[45px] rounded-full object-cover max-[950px]:w-[50px] max-[950px]:h-[50px]' alt="avatar" />
+                          }
                           <div>
                               <p className='text-[25px] whitespace-nowrap overflow-hidden text-ellipsis w-[150px] max-[1100px]:text-[23px] 
-                              max-[1000px]:text-[21px] max-[950px]:text-[20px] max-[950px]:w-[130px]'>{state.fullName}</p>
-                              <p className='text-[16px] text-gray-700  max-[1100px]:text-[18px] max-[1000px]:text-[17px] max-[950px]:text-[16px]'>{state.role}</p>
+                              max-[1000px]:text-[21px] max-[950px]:text-[20px] max-[950px]:w-[130px]'>{isUser(state) && state.fullName}</p>
+                              <p className='text-[16px] text-gray-700  max-[1100px]:text-[18px] max-[1000px]:text-[17px] max-[950px]:text-[16px]'>{isUser(state) && state.role}</p>
                           </div>
                       </div>
-                  ) : (
-                      <p>Загрузка....</p>
-                  )}
                   <div className='grid gap-[25px] mt-[40px] justify-center text-[23px] text-center w-full cursor-pointer'>
                       <p onClick={profileClick} className='w-full'>Профиль</p>
                       <p onClick={homeClick}>Вопросы</p>
                       <p onClick={aboutClick}>Об институте</p>
-                      <p>Поддержка</p>
+                      <p className={`${!isUser(state) && 'hidden'}`}>Поддержка</p>
               </div>
               <p style={{display: isUser(state) ? 'block' : 'none'}} className='text-[23px] text-center mt-auto'>Выйти</p>
               </div>
