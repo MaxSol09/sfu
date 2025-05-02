@@ -108,7 +108,7 @@ export const Menu: React.FC<typeProps> = ({open, setOpen, currPage}) => {
                            max-[1000px]:h-[60px] w-[45px] h-[45px] rounded-full object-cover max-[950px]:w-[50px] max-[950px]:h-[50px]' alt="avatar" />
                           <div>
                               <p className='text-[25px] whitespace-nowrap overflow-hidden text-ellipsis w-[150px] max-[1100px]:text-[23px] 
-                              max-[1000px]:text-[21px] max-[950px]:text-[20px] max-[950px]:w-[130px]'>bwavsbusubvsvbuuvbub</p>
+                              max-[1000px]:text-[21px] max-[950px]:text-[20px] max-[950px]:w-[130px]'>{state.fullName}</p>
                               <p className='text-[16px] text-gray-700  max-[1100px]:text-[18px] max-[1000px]:text-[17px] max-[950px]:text-[16px]'>{state.role}</p>
                           </div>
                       </div>

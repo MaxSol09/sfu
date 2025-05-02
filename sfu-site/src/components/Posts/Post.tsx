@@ -92,7 +92,7 @@ export const Post: React.FC<Props> = ({question}) => {
                 <div className='absolute top-[10px] right-[15px] gap-[10px] hidden max-[470px]:flex'>
                     <button onClick={() => isUser(state) && dispatch(createLike({ postID: question._id, userID: state._id, fullName: state.fullName}))} 
                         className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
-                        style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
+                        style={{transition: 'all 0.9s', display: isUser(state) && question.moderation ? 'flex' : 'none'}}
                         >
                         <img alt='like' className='w-[30px]' src={isUser(state) && checkTwoArrayId(question.likes, state._id) ? Like2 : Like}></img>
                     </button>
