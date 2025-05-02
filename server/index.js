@@ -241,12 +241,6 @@ app.post('/vk/user', async (req, res) => {
     try {
         const { vkID, token, email } = req.body;
 
-        console.log(req.body)
-
-        return res.json({
-            message: 'test'
-        })
-
         const checkUser = await UserModel.findOne({vkid: vkID})
 
         if(checkUser){
@@ -254,11 +248,8 @@ app.post('/vk/user', async (req, res) => {
                 message: 'такой пользователь уже зарегистрирован'
             })
         }
-
-        console.log('wvbwbqvboobwv')
         
         const data = await fetch(`https://api.vk.com/method/users.get?user_id=${vkID}&fields=bdate,city,music,sex&access_token=${token}&v=5.199`);
-
 
         console.log(data)
 
