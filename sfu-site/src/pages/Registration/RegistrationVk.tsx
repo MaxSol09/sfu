@@ -49,7 +49,7 @@ export const RegistrationVk = () => {
 
 
   return (
-    <button onClick={() => handleLogin()} id="VKIDSDKAuthButton" className="VkIdWebSdk__button VkIdWebSdk__button_reset">
+    <button onClick={() => handleLogin()} id="VKIDSDKAuthButton" className="VkIdWebSdk__button VkIdWebSdk__button_reset max-[470px]:w-[80%]">
         <div className="VkIdWebSdk__button_container">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M4.54648 4.54648C3 6.09295 3 8.58197 3 13.56V14.44C3 19.418 3 21.907 4.54648 23.4535C6.09295 25 8.58197 25 13.56 25H14.44C19.418 25 21.907 25 23.4535 23.4535C25 21.907 25
