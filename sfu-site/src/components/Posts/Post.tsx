@@ -79,7 +79,7 @@ export const Post: React.FC<Props> = ({question}) => {
                 <div className='absolute top-[10px] right-[15px] flex gap-[10px] max-[470px]:hidden'>
                     {isUser(state) ? <button onClick={() => handleLike()} 
                         className='bg-slate-100 shadow-custom-rounded p-[7px] rounded-full flex items-center hover:shadow-custom-hoverShadow'
-                        style={{transition: 'all 0.9s', display: question.moderation ? 'flex' : 'none'}}
+                        style={{transition: 'all 0.9s', display: question.moderation && isUser(state) ? 'flex' : 'none'}}
                         >
                         <img alt='like' className='w-[30px]' src={isUser(state) && checkTwoArrayId(question.likes, state._id) ? Like2 : Like}></img>
                     </button> : ''}
@@ -98,7 +98,7 @@ export const Post: React.FC<Props> = ({question}) => {
                     </button>
                 </div>
                 <h1 className='text-[21px] max-[500px]:text-[19px] overflow-hidden text-ellipsis break-words max-w-[80%]'>
-                    Название: {question.title}
+                    Название:<span className='pl-[5px]'>{question.title}</span>
                 </h1>
                 <p className='text-[16px] pt-[2px] overflow-hidden text-ellipsis whitespace-nowrap break-words max-w-[80%]'>
                     Описание: {!question.text.length ? 'отсутствует' : question.text}

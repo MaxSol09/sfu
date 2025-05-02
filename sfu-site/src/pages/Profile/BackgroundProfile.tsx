@@ -58,7 +58,7 @@ export const BackgroundProfile = () => {
           <Button onClick={() => bgRef.current?.click()} style={{display: isUser(state) && state._id === user._id && !user.ban ? 'flex' : 'none'}}>
             Смена фона
           </Button>
-          <Button style={{display: isUser(state) && state._id === user._id && !user.ban ? 'flex' : 'none'}} onClick={() => setModalDeleteBg(true)}>
+          <Button style={{display: isUser(state) && state._id === user._id && !user.ban && state.backgroundProfile ? 'flex' : 'none'}} onClick={() => setModalDeleteBg(true)}>
               <img alt='image-delete' className='w-[23px]' src={Delete}></img>
           </Button>
       </div> 
