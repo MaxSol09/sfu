@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Drawer } from 'antd'
+import { Button, Drawer, Skeleton } from 'antd'
 import User from '../../images/user.jpg'
 import { isUser } from '../../utils/checkValue';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { changePage } from '../../redux/page';
 import { fetchQuestions, fetchTags } from '../../redux/questions';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TypePage } from '../../types/types';
-import { Skeleton } from '@mui/material';
+import { Skeleton as SkeletonAvatar } from '@mui/material';
+import { logout } from '../../redux/auth';
+import { Logout } from './Logout';
 
 type typeProps = {
     open: boolean, 
@@ -90,7 +92,10 @@ export const Menu: React.FC<typeProps> = ({open, setOpen, currPage}) => {
             navigate(`/profile/${state._id}`)
           }
         }
-      
+
+
+        const [modal, setModal] = useState<boolean>(false)
+  
 
         return (
           <Drawer
@@ -103,15 +108,21 @@ export const Menu: React.FC<typeProps> = ({open, setOpen, currPage}) => {
               style={{ padding: '0px' }}  
           >
               <div className='flex flex-col h-full'>
-                      <div className='flex items-center gap-[10px] justify-center'>
-                          {status === 'loading' ? <Skeleton variant="circular" className='w-[70px] h-[70px]' /> : 
+                      <div className='flex pl-[20px] items-center gap-[10px] justify-center'>
+                          {status === 'loading' ? <div style={{ width: '60px', height: '60px' }}>
+                            <SkeletonAvatar variant="circular" width={60} height={60} />
+                        </div> : 
                           <img src={isUser(state) && state.avatarUrl ? state.avatarUrl : User} className='max-[1130px]:w-[70px] max-[1130px]:h-[70px] max-[1000px]:w-[60px]
                            max-[1000px]:h-[60px] w-[45px] h-[45px] rounded-full object-cover max-[950px]:w-[50px] max-[950px]:h-[50px]' alt="avatar" />
                           }
-                          <div>
+                          <div> 
                               <p className='text-[25px] whitespace-nowrap overflow-hidden text-ellipsis w-[150px] max-[1100px]:text-[23px] 
-                              max-[1000px]:text-[21px] max-[950px]:text-[20px] max-[950px]:w-[130px]'>{isUser(state) && state.fullName}</p>
-                              <p className='text-[16px] text-gray-700  max-[1100px]:text-[18px] max-[1000px]:text-[17px] max-[950px]:text-[16px]'>{isUser(state) && state.role}</p>
+                              max-[1000px]:text-[21px] max-[950px]:text-[20px] max-[950px]:w-[130px]'>
+                                {isUser(state) ? state.fullName : 'Гость'}
+                              </p>
+                              <p className='text-[16px] text-gray-700  max-[1100px]:text-[18px] max-[1000px]:text-[17px] max-[950px]:text-[16px]'>
+                                {isUser(state) ? state.role : 'Абитуриент'}
+                              </p>
                           </div>
                       </div>
                   <div className='grid gap-[25px] mt-[40px] justify-center text-[23px] text-center w-full cursor-pointer'>
@@ -120,8 +131,10 @@ export const Menu: React.FC<typeProps> = ({open, setOpen, currPage}) => {
                       <p onClick={aboutClick}>Об институте</p>
                       <p className={`${!isUser(state) && 'hidden'}`}>Поддержка</p>
               </div>
-              <p style={{display: isUser(state) ? 'block' : 'none'}} className='text-[23px] text-center mt-auto'>Выйти</p>
+                <p onClick={() => setModal(true)} style={{display: isUser(state) ? 'block' : 'none'}} className='text-[23px] text-center mt-auto'>Выйти</p>
+                <Link style={{display: isUser(state) ? 'none' : 'block'}} to={'/login'} className='text-[23px] text-center mt-auto'>Войти</Link>
               </div>
+              <Logout modal={modal} setModal={setModal}/>
           </Drawer>
     )
 }
