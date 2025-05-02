@@ -8,6 +8,7 @@ import { isUser } from '../../utils/checkValue'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { LoginVk } from './LoginVk'
 import { LoginMicrosoft } from './LoginMicrosoft'
+import { NotificationsLogin } from '../../components/Notifications/NotificationsLogin'
 
  
  export const Login: React.FC = () => {
@@ -50,6 +51,7 @@ import { LoginMicrosoft } from './LoginMicrosoft'
             </div>
           </div>
         </div>
+        <NotificationsLogin />
      </div>
    )
  }
