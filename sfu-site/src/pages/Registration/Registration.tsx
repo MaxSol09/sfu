@@ -3,13 +3,9 @@ import React, { useEffect, useState } from 'react'
  import Logo from '../../images/logo.png'
  import axios from 'axios'
  import { Link, useNavigate } from 'react-router-dom'
- import { getVkUser, loginFetch } from '../../redux/auth'
  import { isUser } from '../../utils/checkValue'
  import { useAppDispatch, useAppSelector } from '../../redux/hooks'
- import { useForm } from 'react-hook-form'
-import { LoginMicrosoft } from '../Login/LoginMicrosoft'
 import { RegistrationVk } from './RegistrationVk'
-import { RegistrationMicrosoft } from './RegistrationMicrosoft'
 
  
  export const Registration: React.FC = () => {
@@ -17,7 +13,7 @@ import { RegistrationMicrosoft } from './RegistrationMicrosoft'
    const navigate = useNavigate()
  
    const dispatch = useAppDispatch()
-   const {state, status} = useAppSelector(el => el.auth)
+   const {state} = useAppSelector(el => el.auth)
  
    useEffect(() => {
        if (isUser(state)) {
@@ -33,54 +29,24 @@ import { RegistrationMicrosoft } from './RegistrationMicrosoft'
  
    }, [state, dispatch, navigate]); 
  
-   const {
-       register, 
-       handleSubmit, 
-       formState: {errors}
-   } = useForm<{email: string, password: string}>()
- 
-   const submit = (data: {email: string, password: string}) => {
-       dispatch(loginFetch(data))
-   }
- 
  
    console.log('vercel dayn')
  
    return (
     <div className='h-[100vh] flex w-full'>
-    <img alt='sfu-logo' className='w-1/2 bg-img' src={Sfu} />
-    <div className='flex flex-col justify-center w-1/2 items-center'>
-      <img className='w-[200px]' src={Logo} alt="" />
-      <h1 className='my-[20px] text-[30px] text-slate-500'>Регистрация</h1>
-      <div className='flex flex-col gap-[10px] w-full min-[1100px]:w-[80%] items-center'>
-          <RegistrationVk />
-      </div>
-      <form onSubmit={handleSubmit(submit)} className='flex flex-col items-center space-y-[20px]'>
-        <label className='grid text-[20px] justify-center gap-[5px]'>
-          Электронная почта
-          <input {...register('email', {
-            required: 'поле обязательно'
-          })} type="text" className='rounded-md px-[10px] w-[380px] py-[10px] text-[18px] text-blue-500 border-gray-400 outline-none border-2 focus:border-blue-600'/>
-          {errors?.email && <p className='text-lg text-rose-600'>Поле обязательно!</p>}
-        </label>
-        <label className='grid text-[20px] justify-center gap-[5px] pb-[10px]'>
-          Пароль
-          <input {...register('password', {
-            required: 'Поле обязательно!',
-            minLength: {
-              value: 5,
-              message: 'Минимум 5 символов!'
-            }
-          })} type="password" className='rounded-md px-[10px] w-[380px] py-[10px] text-[18px] text-blue-500 border-gray-400 outline-none border-2 focus:border-blue-600'/>
-          {errors?.password && <p className='text-lg text-rose-600'>{errors?.password?.message || 'Ошибка!'}</p>}
-          {status === 'errors' && <p className='text-lg text-rose-600'>Ошибка при вводе пароля или почты</p>}
-        </label>
-        <button className='px-[90px] py-[10px] text-[23px] bg-blue-500 rounded-xl text-white hover:bg-lime-500 hover:shadow-md transition-all delay-75 flex justify-center m-auto' type='submit'>Войти</button>
-        <div className='flex gap-[8px] items-center justify-center'>
-          <h2 className='text-center text-[16px]'>Есть аккаунт?</h2>
-          <Link to={'/login'} className='text-center text-blue-600 text-[18px]'>Вход</Link>
+    <img alt='sfu-logo' className='w-1/2 bg-img max-[700px]:hidden' src={Sfu} />
+    <div className='flex flex-col mt-[20vh] w-1/2 items-center max-[700px]:w-full'>
+      <div className='w-full flex flex-col justify-center items-center max-[700px]:shadow-custom-rounded max-[700px]:w-[70%] max-[700px]:py-[30px]'>
+        <img className='w-[200px] max-[700px]:w-[150px]' src={Logo} alt="логотип" />
+        <h1 className='my-[20px] text-[30px] text-slate-500 max-[700px]:text-[25px]'>Регистрация</h1>
+        <div className='flex flex-col gap-[10px] w-full min-[1100px]:w-[80%] items-center'>
+            <RegistrationVk />
         </div>
-      </form>
+        <div className='flex gap-[8px] items-center justify-center mt-[20px]'>
+            <h2 className='text-center text-[16px]'>Есть аккаунт?</h2>
+            <Link to={'/login'} className='text-center text-blue-600 text-[18px]'>Вход</Link>
+        </div>
+      </div>
     </div>
   </div>
    )

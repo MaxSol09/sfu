@@ -44,7 +44,7 @@ export const meFetch = createAsyncThunk(
 
 export const getVkUser = createAsyncThunk('user/vk', async (user: {token: string, vkID: string, email: string | null}) => {
         console.log("data >>> ", user)
-        const {data} = await axios.post('https://sfu-4bm4.onrender.com/vk/user', user)
+        const {data} = await axios.post(API_ENDPOINTS.AUTH.GET_VK_USER, user)
 
         console.log(data)
 
@@ -53,31 +53,17 @@ export const getVkUser = createAsyncThunk('user/vk', async (user: {token: string
 )
 
 export const loginVk = createAsyncThunk('login/vk', async(vkid: string) => {
-    const {data} = await axios.post('https://sfu-4bm4.onrender.com/vk/login', {vkid: vkid})
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.LOGIN_VK, {vkid: vkid})
 
     return data
 })
-
-type MicrosoftType = {
-    role: 'Студент' | 'Абитуриент', 
-    email: string,
-    fullName: string
-}
-
-
-export const registerMicrosoft = createAsyncThunk('register/microsoft', async(dataUser: MicrosoftType) => {
-    const {data} = await axios.post("https://sfu-4bm4.onrender.com/microsoft/register", dataUser)
-
-    return data
-})
-
 
 type DataMicrosoft = {
     email: string
 }
 
 export const loginMicrosoft = createAsyncThunk('login/microsoft', async(dataMicrosoft: DataMicrosoft) => {
-    const {data} = await axios.post('https://sfu-4bm4.onrender.com/microsoft/login', dataMicrosoft)
+    const {data} = await axios.post(API_ENDPOINTS.AUTH.LOGIN_MICROSOFT, dataMicrosoft)
 
     return data
 })
@@ -330,9 +316,6 @@ const authSlice = createSlice({
             state.vkAuth.status = 'errors'
         })
         .addCase(loginVk.fulfilled, (state, action) => {
-            state.state = action.payload
-        })
-        .addCase(registerMicrosoft.fulfilled, (state, action) => {
             state.state = action.payload
         })
         .addCase(loginMicrosoft.fulfilled, (state, action) => {
