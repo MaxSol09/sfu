@@ -305,15 +305,18 @@ const authSlice = createSlice({
         })
         .addCase(getVkUser.pending, (state) => {
             state.vkAuth.status = 'loading'
+            state.status = 'loading'
         })
         .addCase(getVkUser.fulfilled, (state, action) => {
             state.vkAuth.status = 'success'
+            state.status = 'success'
 
             console.log(action.payload)
             state.state = action.payload
         })
         .addCase(getVkUser.rejected, (state) => {
             state.vkAuth.status = 'errors'
+            state.status = 'errors'
         })
         .addCase(loginVk.fulfilled, (state, action) => {
             state.state = action.payload
