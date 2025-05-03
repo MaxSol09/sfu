@@ -8,7 +8,7 @@ const Context = React.createContext({
 });
 
 export const NotificationRegistration = () => {
-    const status = useAppSelector(el => el.auth.status);
+    const status = useAppSelector(el => el.auth.vkAuth.status);
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = useCallback((type: 'success' | 'errors' | 'loading') => {
@@ -21,6 +21,7 @@ export const NotificationRegistration = () => {
 
     useEffect(() => {
         if(status !== 'none') {
+            console.log(status)
             openNotification(status)
         }
     }, [status, openNotification])

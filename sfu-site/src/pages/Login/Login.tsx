@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { LoginVk } from './LoginVk'
 import { LoginMicrosoft } from './LoginMicrosoft'
 import { NotificationsLogin } from '../../components/Notifications/NotificationsLogin'
+import { resetStatusLogin } from '../../redux/auth'
 
  
  export const Login: React.FC = () => {
@@ -16,7 +17,11 @@ import { NotificationsLogin } from '../../components/Notifications/Notifications
    const navigate = useNavigate()
  
    const dispatch = useAppDispatch()
-   const {state, status} = useAppSelector(el => el.auth)
+   const {state} = useAppSelector(el => el.auth)
+
+   useEffect(() => {
+    dispatch(resetStatusLogin())
+   }, [])
  
    useEffect(() => {
        if (isUser(state)) {

@@ -154,6 +154,7 @@ export const changeLastChat = createAsyncThunk('change/lastChat', async (dataMes
 const initialState: StateAuth = {
     state: {},
     status: 'none',
+    statusLogin: 'none',
     user: {
         value: {},
         status: 'loading'
@@ -201,6 +202,12 @@ const authSlice = createSlice({
         },
         banUser: (state, action) => {
             state.state = action.payload
+        },
+        resetStatusLogin: (state) => {
+            state.status = 'none'
+        },
+        resetStatusRegister: (state) => {
+            state.status = 'none'
         }
     },
     extraReducers: (builder) => {
@@ -320,13 +327,24 @@ const authSlice = createSlice({
         })
         .addCase(loginVk.fulfilled, (state, action) => {
             state.state = action.payload
+            state.statusLogin = 'success'
+        })
+        .addCase(loginVk.rejected, (state, action) => {
+            state.statusLogin = 'errors'
+        })
+        .addCase(loginMicrosoft.pending, (state, action) => {
+            state.statusLogin = 'loading'
         })
         .addCase(loginMicrosoft.fulfilled, (state, action) => {
             state.state = action.payload
+            state.statusLogin = 'success'
+        })
+        .addCase(loginMicrosoft.rejected, (state, action) => {
+            state.statusLogin = 'errors'
         })
     }
 })
 
 
-export const {logout, resetUser, sendMessageChat, banUser}  = authSlice.actions
+export const {logout, resetUser, sendMessageChat, banUser, resetStatusLogin, resetStatusRegister}  = authSlice.actions
 export const authReducer = authSlice.reducer

@@ -7,7 +7,7 @@ const Context = React.createContext({
 });
 
 export const NotificationsLogin = () => {
-    const status = useAppSelector(el => el.auth.status);
+    const status = useAppSelector(el => el.auth.statusLogin);
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = useCallback((type: 'success' | 'errors' | 'loading') => {
@@ -23,6 +23,7 @@ export const NotificationsLogin = () => {
             openNotification(status)
         }
     }, [status, openNotification])
+
 
     return (
         <>{contextHolder}</>

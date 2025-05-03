@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
- import Sfu from '../../images/sfu.jpeg'
- import Sfu2 from '../../images/sfu2.jpeg'
- import Logo from '../../images/logo.png'
- import axios from 'axios'
- import { Link, useNavigate } from 'react-router-dom'
- import { isUser } from '../../utils/checkValue'
- import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import Sfu from '../../images/sfu.jpeg'
+import Sfu2 from '../../images/sfu2.jpeg'
+import Logo from '../../images/logo.png'
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import { isUser } from '../../utils/checkValue'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { RegistrationVk } from './RegistrationVk'
 import { NotificationRegistration } from '../../components/Notifications/NotificationRegistration'
+import { resetStatusRegister } from '../../redux/auth'
 
  
  export const Registration: React.FC = () => {
@@ -16,6 +17,10 @@ import { NotificationRegistration } from '../../components/Notifications/Notific
  
    const dispatch = useAppDispatch()
    const {state} = useAppSelector(el => el.auth)
+
+   useEffect(() => {
+    dispatch(resetStatusRegister())
+   }, [])
  
    useEffect(() => {
        if (isUser(state)) {
