@@ -33,9 +33,10 @@ export const EditUser: React.FC = () => {
             </Tooltip>
           </div>
           <EditText changeText={changeText} setChangeText={setChangeText}/>
-          <div className='flex gap-[30px]'>
+          <div className='flex gap-[30px] max-[600px]:gap-[10px] max-[430px]:text-[15px]'>
             <p style={{display: changeText ? 'none' : 'block'}} className='pt-[10px]'>Роль: {user.role}</p>
-            <p style={{display: !changeText && user.role === 'Студент' ? 'block' : 'none'}} className='pt-[10px]'>Специальность: {user.speciality ? user.speciality : 'отсутствует'}</p>
+            <p style={{display: !changeText && user.role === 'Студент' ? 'block' : 'none'}} className='pt-[10px]'>
+              Специальность: {user.speciality ? user.speciality : 'отсутствует'}</p>
           </div>
         </div>}
       </>

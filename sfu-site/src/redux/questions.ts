@@ -351,9 +351,9 @@ const questionsSlice = createSlice({
           
             state.myQuestions.items = state.questionsArr.items.filter(el => {
 
-                if(el.user === null) return null
+                if(el.user === null || el.user === undefined) return null
                 
-                return el.user._id === action.payload.question.user
+                return el.user
                 
             })
             
