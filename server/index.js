@@ -71,6 +71,7 @@ app.use(express.json())
 app.use(cors(corsConfig))
 app.options("", cors(corsConfig))
 
+
 app.use('/upload', express.static('images'))
 
 const storage = multer.diskStorage(
@@ -89,10 +90,9 @@ const upload = multer({storage})
 app.post('/upload', checkAuth, upload.single('file'), (req, res) => {
     res.json({
         url: req.file.originalname,
-        path: `https://sfu-server-yx7u.onrender.com/upload/${req.file.originalname}`
+        path: `http://sfu-server-yx7u.onrender.com/upload/${req.file.originalname}`
     })
 })
-
 
 app.post('/microsoft/login', async (req, res) => {
     try{
