@@ -22,13 +22,13 @@ export const EditSpeciality: React.FC<Props> = ({changeText}) => {
                 <span>Специальность: {!changeSpeciality ? user.speciality ? user.speciality : 'отсутствует' : ''}</span>
                 <input onChange={e => setSpeciality(e.target.value)} className='outline-none' placeholder='специальность' style={{display: !changeSpeciality ? 'none' : 'flex'}}/>
                 <button onClick={() => setChangeSpeciality(!changeSpeciality)} className='bg-white shadow-xl p-[3px] flex justify-center items-center w-[23px] h-[23px]' style={{display: changeSpeciality ? 'none' : 'flex'}}>
-                <img className='w-[17px]' src={Edit}></img>
+                    <img className='w-[17px]' src={Edit}></img>
                 </button>
                 <button onClick={() => setChangeSpeciality(false)} className='bg-white shadow-xl p-[3px] flex justify-center items-center w-[23px] h-[23px]' style={{display: !changeSpeciality ? 'none' : 'flex'}}>
-                <img className='w-[17px]' src={Back}></img>
+                    <img className='w-[17px]' src={Back}></img>
                 </button>
                 <button onClick={() => handleSpeciality()} className='bg-white shadow-xl p-[3px] flex justify-center items-center w-[23px] h-[23px]' style={{display: !changeSpeciality ? 'none' : 'flex'}}>
-                <img className='w-[17px]' src={Check}></img>
+                    <img className='w-[17px]' src={Check}></img>
                 </button>
             </p>
             }

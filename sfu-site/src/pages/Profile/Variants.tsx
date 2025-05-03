@@ -25,11 +25,36 @@ export const Variants: React.FC = () => {
 
     return (
         <>
-            {isUser(user) && isUser(state) && <div className='text-[18px] pt-[20px] text-slate-800 flex justify-center gap-[30px] cursor-pointer'>
-                <p onClick={() => setVariant('вопросы')} className='px-[5px]' style={{borderBottom: variant === 'вопросы' ? '2px solid gray' : '2px solid white', transition: 'all 0.2s'}}>{user.role === 'Студент' ? 'Ответы' : 'Вопросы'}</p>
-                <p onClick={() => setVariant('модерация')} className={`px-[5px] ${user.role === 'Абитуриент' && user._id === state._id ? 'flex' : 'hidden'}`} style={{borderBottom: variant === 'модерация' ? '2px solid gray' : '2px solid white', transition: 'all 0.2s'}}>На модерации</p>
-                <p onClick={() => setVariant('понравившиеся')} className='px-[5px]' style={{borderBottom: variant === 'понравившиеся' ? '2px solid gray' : '2px solid white', transition: 'all 0.2s'}}>Понравившиеся</p>
-            </div>}
+            {isUser(user) && isUser(state) && (
+                <div className='text-[18px] pt-[20px] text-slate-800 flex justify-center gap-[30px] cursor-pointer max-[750px]:gap-[20px] max-[700px]:text-[16px] max-[500px]:gap-[10px] max-[700px]:text-[15px] max-[490px]:overflow-hidden overflow-hidden'>
+                    <p onClick={() => setVariant('вопросы')} 
+                        className='px-[5px]' 
+                        style={{
+                            borderBottom: variant === 'вопросы' ? '2px solid gray' : '2px solid white', 
+                            transition: 'all 0.2s', 
+                            whiteSpace: 'nowrap' // Prevents text from wrapping
+                        }}>
+                        {user.role === 'Студент' ? 'Ответы' : 'Вопросы'}
+                    </p>
+                    <p onClick={() => setVariant('модерация')} 
+                        className={`px-[5px] ${user.role === 'Абитуриент' && user._id === state._id ? 'flex' : 'hidden'}`} 
+                        style={{ 
+                            borderBottom: variant === 'модерация' ? '2px solid gray' : '2px solid white', 
+                            transition: 'all 0.2s', 
+                            whiteSpace: 'nowrap' // Prevents text from wrapping
+                        }}>
+                        На модерации
+                    </p>
+                    <p onClick={() => setVariant('понравившиеся')} 
+                        className='px-[5px]' 
+                        style={{
+                            borderBottom: variant === 'понравившиеся' ? '2px solid gray' : '2px solid white', 
+                            transition: 'all 0.2s'
+                        }}>
+                        Понравившиеся
+                    </p>
+                </div>
+            )}
             <Posts loadingQuestions={loadingQuestions} questions={variant === 'вопросы' ? isUser(user) && user.role === 'Студент' ? myAnswers : myQuestions : variant === 'модерация' ? myModerationQuestions : myFavorite} />
         </>
     )

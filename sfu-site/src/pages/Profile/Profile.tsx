@@ -36,7 +36,7 @@ export const Profile: React.FC = () => {
       <aside className='grid fixed left-[100px] top-[110px] py-[20px] gap-[20px] w-[250px] max-[1300px]:hidden'>
         {isUser(user) ? user.role === 'Студент' ? <Achievements /> : <Tags /> : <SkeletonBlock />}
       </aside>
-      <main className='pt-[130px] pl-[35px] ml-[25%] mr-[100px] max-[1300px]:w-full max-[1300px]:ml-[0%] max-[1300px]:px-[8%]'>
+      <main className='pt-[130px] pl-[35px] ml-[25%] mr-[100px] max-[1300px]:w-full max-[1300px]:ml-[0%] max-[1300px]:px-[8%] max-[600px]:px-[4%]'>
         {isUser(state) && isUser(user) ?      
           <div className='w-full h-[200px] bg-gray-200 relative'>
             <BackgroundProfile />
@@ -61,7 +61,7 @@ export const Profile: React.FC = () => {
                   </IconButton>
               }
               title={
-                <Skeleton style={{width: '400px'}} title={false} paragraph={{rows: 2}}></Skeleton>
+                <Skeleton style={{maxWidth: '400px'}} title={false} paragraph={{rows: 2}}></Skeleton>
               }
             />
             <SkeletonText sx={{ height: 300 }} animation="wave" variant="rectangular" />

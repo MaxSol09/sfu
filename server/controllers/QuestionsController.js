@@ -45,7 +45,7 @@ export const ModerationQuestion = async(req, res) => {
                 
                     if (el.role === 'Студент') {
                         console.log('отправленно на ', el.email)
-                        sendMail('alekstook68@gmail.com', `новый вопрос по вашей тематике`, 'tyest messsage'); // Добавлена await и try/catch
+                        sendMail(el.email, `новый вопрос по вашей тематике`, 'tyest messsage'); // Добавлена await и try/catch
                         console.log(`Письмо отправлено студенту ${el.fullName}`);
                     }
                 

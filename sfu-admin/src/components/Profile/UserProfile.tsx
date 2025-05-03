@@ -17,8 +17,14 @@ export const UserProfile: React.FC = () => {
 
   const {id} = useParams()
 
+  useEffect(() => {
+    resetUser()
+  }, [])
+
   useChangeSpeciality(id as string)
-  useGetUser(id as string)
+  const getUser = useGetUser(id as string)
+
+  console.log(getUser)
 
   const {user, isLoading, isSuccess} = useUserProfile(id as string)
 
@@ -28,9 +34,7 @@ export const UserProfile: React.FC = () => {
 
   const {resetUser} = useUserStore(el => el)
 
-  useEffect(() => {
-    resetUser()
-  }, [])
+  console.log(user)
 
   const [variant, setVariant] = useState<boolean>(false)
 
