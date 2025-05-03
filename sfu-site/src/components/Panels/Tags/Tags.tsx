@@ -20,7 +20,7 @@ export const Tags = () => {
       <h1 className='text-[18px] mb-[10px]'>Популярные темы</h1>
       {tags.length ? tags.map(tag => (
         <Tag key={tag.tag} tag={tag}/>
-        )) : statusTags === 'loading' ? <Skeleton active title={false} paragraph={{rows: 5}} className='w-full pb-[10px] pr-[50px]'/> 
+        )) : statusTags === 'loading' ? <Skeleton active title={false} paragraph={{rows: 5}} className='w-full pb-[10px] pr-[30px]'/> 
         : <p>Темы отсутствуют</p>
       }
     </div>

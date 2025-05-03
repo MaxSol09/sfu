@@ -54,26 +54,26 @@ export type Complaint = {
 
 export type StateAuth = {
     state: UserData | {},
-    status: 'loading' | 'success' | 'errors' | 'none',
+    status:  TypeStatus,
     statusLogin: TypeStatus,
     vkAuth: {
         status: TypeStatus
     }, 
     user: {
         value: UserData | {},
-        status: 'loading' | 'success' | 'errors'
+        status:  TypeStatus
     },
     userAvatar: {
-        status: 'loading' | 'success' | 'errors' | 'none',
+        status:  TypeStatus,
         img: {
-            status: 'loading' | 'success' | 'errors' | 'none',
+            status:  TypeStatus,
             value: string | null 
         }
     }
     userBackground: {
-        status: 'none' | 'loading' | 'success' | 'errors',
+        status:  TypeStatus,
         img: {
-            status: 'none' | 'loading' | 'success' | 'errors',
+            status:  TypeStatus,
             value: string | null
         }
     },

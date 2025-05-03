@@ -192,7 +192,7 @@ const authSlice = createSlice({
         },
         resetUser: (state) => {
             state.user.value = []
-            state.status = 'loading'
+            state.user.status = 'none'
         },
         sendMessageChat: (state, action) => {
             console.log(action.payload)

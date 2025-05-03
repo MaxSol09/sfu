@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppSelector } from '../../redux/hooks'
 
-export const Tags = () => {
+export const Tags: React.FC = () => {
 
     const tags = useAppSelector(el => el.questions.tags.items)
 
