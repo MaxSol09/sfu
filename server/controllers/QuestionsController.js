@@ -83,7 +83,8 @@ export const Create = async(req, res) => {
             title: req.body.title,
             text: req.body.text,
             tags: req.body.tags,
-            user: req.body.userId
+            user: req.body.userId,
+            createdAt: new Date().toLocaleString("en-US", {timeZone: "Europe/Moscow"})
         });
 
         await doc.save();

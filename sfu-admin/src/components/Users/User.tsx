@@ -11,6 +11,7 @@ import Ban2 from '../../images/ban2.png'
 import { Select, Space } from 'antd'
 import { ChangeRole } from '../Modals/ChangeRole'
 import { useChangeUser } from '../../hooks/hooks'
+import Edit from '../../images/edit.svg'
 
 type Props = {
     user: UserData
@@ -45,7 +46,12 @@ export const User: React.FC<Props> = ({user}) => {
                 </Space>
                 </TableCell>
                 <TableCell className='break-all'>{user.email}</TableCell>
-                <TableCell>{user.speciality ? user.speciality :'отсутствует'}</TableCell>
+                <TableCell>{user.speciality ? <span className='flex gap-[5px] items-center'>
+                    {user.speciality}
+                    <button className='bg-white shadow-xl p-[3px] flex justify-center items-center w-[23px] h-[23px]'>
+                        <img className='w-[17px]' src={Edit}></img>
+                    </button>
+                </span> :'отсутствует'}</TableCell>
                 <TableCell>{user.ban ? 'да' : 'нет'}</TableCell>
                 <TableCell>
                     <div className='flex items-center mr-auto'>
