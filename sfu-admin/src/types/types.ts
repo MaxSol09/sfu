@@ -41,7 +41,7 @@ export type UserData = {
     chat: Message[],
     role: 'Студент' | 'Абитуриент' | 'Админ',
     ban: boolean,
-    speciality: string,
+    speciality: Array<string>,
     banText: string,
     favorite: [],
     answer: number,

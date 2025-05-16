@@ -60,7 +60,7 @@ export const Question: React.FC = () => {
                 </div>
               </div>
               <p className='max-[520px]:pt-[10px]'>Дата: {question.createdAt.slice(0, 10)} 
-                <span className='pl-[15px]'>Время публикации: {+question.createdAt.slice(11, 13) + 3}
+                <span className='pl-[15px]'>Время публикации: {+question.createdAt.slice(11, 13)}
                 {question.createdAt.slice(13, 16)}</span>
               </p>
             </div>

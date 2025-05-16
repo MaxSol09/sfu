@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     speciality: {
-        type: String,
-        default: ''
+        type: Array,
+        default: []
     },
     text: {
         type: String,

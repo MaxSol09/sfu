@@ -12,7 +12,7 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
 
     const [role, setRole] = useState<'Студент' | 'Абитуриент' | 'Админ'>('Абитуриент')
 
-    const {createUser, setEmail, setFullName, setSpeciality, setPassword} = useCreateUser(setModal, role)
+    const {createUser, setEmail, setFullName, setPassword} = useCreateUser(setModal, role)
 
     return (
         <Modal
@@ -35,7 +35,6 @@ export const UserCreate: React.FC<Props> = ({modal, setModal}) => {
                 </button>
                 <div className='grid gap-[10px] pt-[10px]'>
                     <input onChange={e => setFullName(e.target.value)} className='outline-none p-[3px]' type="text" placeholder='имя'/>
-                    <input onChange={e => setSpeciality(e.target.value)} className={`outline-none p-[3px] ${role === 'Студент' ? 'flex' : 'hidden'}`} type="text" placeholder='специальность'/>
                     <input onChange={e => setEmail(e.target.value)}  className='outline-none p-[3px]' type="text" placeholder='почта'/>
                     <input onChange={e => setPassword(e.target.value)}  className={`outline-none p-[3px] ${role === 'Админ' ? 'flex' : 'hidden'}`} type="text" placeholder='пароль'/>
                 </div>

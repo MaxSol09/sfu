@@ -6,7 +6,6 @@ interface DataRegister {
     fullName: string,
     role: 'Студент' | 'Абитуриент' | 'Админ',
     email: string,
-    speciality: string,
     password: string
 }
 
