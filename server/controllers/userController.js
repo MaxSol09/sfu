@@ -288,7 +288,7 @@ export const changeText = async (req, res) => {
     console.log(req.body)
 
     try{
-        if(!req.body.text || !req.body.userID || req.body.text.length > 300){
+        if(!req.body.userID || req.body.text.length > 300){
             res.status(400).json({
                 message: 'поля для запроса не указаны'
             })
