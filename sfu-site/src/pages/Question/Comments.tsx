@@ -28,8 +28,7 @@ export const Comments: React.FC = () => {
           fullName: state.fullName,
           text,
           commentId: uniqid(),
-          avatar: state.avatarUrl,
-          user: state._id,
+          user: state,
           url: window.location.href
         };
 

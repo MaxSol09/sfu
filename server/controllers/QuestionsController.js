@@ -240,8 +240,13 @@ export const createComment = async (req, res) => {
             })
         }
 
-        const userComment = await UserModel.findById(req.body.user)
+
+        console.log('проверка данных', req.body)
+
+        const userComment = await UserModel.findById(req.body.user._id)
         const question = await QuestionModel.findById(req.body.postId).populate({ path: 'user'});
+
+        console.log('ПРОВЕРКА ПОСТА', question)
 
 
         if(userComment && question){
@@ -294,6 +299,12 @@ export const createComment = async (req, res) => {
                 `;
 
                 console.log('test log')
+
+                if(question.user.email && question.user._id !== comment.user._id){
+                    console.log('тест условие')
+                    console.log(question.user)
+                    sendMail(question.user.email, `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, message)
+                }
     
                 return res.json(comment)
             }

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, current, PayloadAction } from "@reduxjs/toolkit"
 import axios from 'axios'
-import { TypePost, TypeQuestions, TypeTags } from "../types/types"
+import { TypePost, TypeQuestions, TypeTags, UserData } from "../types/types"
 import { API_ENDPOINTS } from "../api/endpoints"
 
 
@@ -67,7 +67,7 @@ interface TypeCommentData {
     text: string,
     commentId: string,
     avatar?: string,
-    user: string,
+    user: UserData,
 }
 
 export const createComment = createAsyncThunk('createComment/fetch', async (commentData: TypeCommentData) => {
