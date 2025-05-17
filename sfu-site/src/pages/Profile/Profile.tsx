@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from '../../redux/hooks'
 import { Header } from '../../components/Header/Header'
@@ -30,6 +30,8 @@ export const Profile: React.FC = () => {
   const state = useAppSelector(el => el.auth.state)
   const user = useGetUser(id as string)
 
+  console.log(user)
+
   return (
     <>
       <MemoHeader currPage={'home'}/>
@@ -37,10 +39,10 @@ export const Profile: React.FC = () => {
         {isUser(user) ? user.role === 'Студент' ? <Achievements /> : <Tags /> : <SkeletonBlock />}
       </aside>
       <main className='pt-[130px] pl-[35px] ml-[25%] mr-[100px] max-[1300px]:w-full max-[1300px]:ml-[0%] max-[1300px]:px-[8%] max-[600px]:px-[4%]'>
-        {isUser(state) && isUser(user) ?      
+        {isUser(user) ?      
           <div className='w-full h-[200px] bg-gray-200 relative'>
             <BackgroundProfile />
-            {!isSendBan(user, state._id) && <Ban />}
+            {!isSendBan(user, '') && <Ban />}
             <div className='absolute left-[30px] bottom-[-50px] flex items-end'>
               <div className='flex pl-[5px] flex-col items-center'>
                 <AvatarProfile />

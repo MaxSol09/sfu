@@ -319,7 +319,7 @@ app.get('/question/:id', QuestionsController.getOne)
 app.post('/user/img', checkAuth, userController.avatarUser)
 app.post('/user/background', checkAuth, userController.backgroundUser)
 app.post('/user/text', checkAuth, userController.changeText)
-app.get('/user/:id', checkAuth, userController.getUser)
+app.get('/user/:id', userController.getUser)
 
 app.get('/complaints', checkAuth, userController.getAllComplaints)
 app.post('/complaint/create', checkAuth, userController.createComplaint)
