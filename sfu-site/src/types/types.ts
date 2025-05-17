@@ -42,7 +42,7 @@ export type UserData = {
     ban: boolean,
     banText: string,
     answer: number,
-    speciality: string,
+    speciality: Array<string>,
     complaints: Complaint[]
 }
 

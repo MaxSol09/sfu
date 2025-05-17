@@ -765,7 +765,6 @@ export const useBan = (setModal: any, userID: string, autherID: string, page: st
 
 
 export const useCreateUser = (setModal: any, role: 'Студент' | 'Абитуриент' | 'Админ') => {
-    const [speciality, setSpeciality] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [fullName, setFullName] = useState<string>('')
@@ -790,7 +789,6 @@ export const useCreateUser = (setModal: any, role: 'Студент' | 'Абит�
         
         mutate({
             fullName,
-            speciality,
             email,
             role,
             password
@@ -801,7 +799,6 @@ export const useCreateUser = (setModal: any, role: 'Студент' | 'Абит�
         createUser,
         setEmail,
         setFullName,
-        setSpeciality,
         setPassword
     }
 }

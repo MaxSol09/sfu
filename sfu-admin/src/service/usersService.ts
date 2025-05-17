@@ -116,7 +116,7 @@ class UsersService {
         return data
     }
 
-    changeUserSpeciality (userData: {userID: string, speciality: string}) {
+    changeUserSpeciality (userData: {userID: string, speciality: Array<string>}) {
         const data = axios.post(API_ENDPOINTS_REAL.AUTH.USER_SPECIALITY, userData)
 
         return data

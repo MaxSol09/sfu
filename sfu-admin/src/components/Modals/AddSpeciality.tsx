@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd'; // Replace with your actual modal import
 import { UserData } from '../../types/types';
+import { useMutation } from 'react-query';
+import { usersService } from '../../service/usersService';
+import { useUserStore } from '../../zustand/auth';
 
 type Props = {
     modal: boolean, 
@@ -23,6 +26,23 @@ export const AddSpeciality: React.FC<Props> = ({ modal, setModal, user }) => {
         {value: 'Другое', id: 9},
     ]
 
+    const {mutate, data, isSuccess} = useMutation(usersService.changeUserSpeciality, {
+        mutationKey: ['muatateSpecilityKey'] 
+    })
+
+    const {changeStudentSpeciality} = useUserStore(el => el)
+
+    useEffect(() => {
+        if(isSuccess){
+            changeStudentSpeciality(user._id, data.data.speciality)
+            setModal(false)
+        }
+    }, [isSuccess])
+
+    useEffect(() => {
+        setSelectedSpecialities(user.speciality)
+    }, [user])
+
 
     console.log(selectedSpecialities)
 
@@ -33,7 +53,7 @@ export const AddSpeciality: React.FC<Props> = ({ modal, setModal, user }) => {
     };
 
     return (
-        <Modal open={modal} cancelText={'Отмена'} okText={"Изменить"} onCancel={() => setModal(false)} onClose={() => setModal(false)}>
+        <Modal open={modal} cancelText={'Отмена'} onOk={() => mutate({userID: user._id, speciality: selectedSpecialities})} okText={"Изменить"} onCancel={() => setModal(false)} onClose={() => setModal(false)}>
             <p className='text-[19px]'>Изменение специальности</p>
             <div className='flex flex-wrap w-full gap-[10px] gap-y-0 mt-[15px]'>
                 {specialities.map((speciality) => (

@@ -34,7 +34,7 @@ interface UserStore {
     getUser: (id: UserData) => void,
     sendAvatar: (val: string) => void,
     sendBg: (val: string) => void,
-    changeStudentSpeciality: (text: string) => void,
+    changeStudentSpeciality: (id: string, text: Array<string>) => void,
     getMessages: (data: UserData[]) => void,
     selectChatFn: (id: string, chat: Message[]) => void,
     sendMessage: (user: UserData) => void,
@@ -161,8 +161,29 @@ export const useUserStore = create<UserStore>((set) => ({
         }
 
     }),
-    changeStudentSpeciality: (text) => set(state => ({
-        user: {value: {...state.user.value, speciality: text}}
+    changeStudentSpeciality: (id, text) => set(state => ({
+        users: state.users.map(el => {
+
+            if(el._id === id){
+                return {
+                    ...el,
+                    speciality: text
+                }
+            }
+            
+            return el
+        }),
+        usersArr: state.users.map(el => {
+
+            if(el._id === id){
+                return {
+                    ...el,
+                    speciality: text
+                }
+            }
+            
+            return el
+        })
     })),
     getMessages: (data) => set({
         messagesArr: data.map(el => ({

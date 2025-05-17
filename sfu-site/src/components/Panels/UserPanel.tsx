@@ -81,7 +81,7 @@ export const UserPanel = () => {
             </h1>
         </aside>
         }
-        {token ? <Link to={`/profile/${isUser(state) && state._id}`} className='bg-slate-100 py-[10px] flex justify-center shadow-btn-shadow'>
+        {isUser(state) ? <Link to={`/profile/${isUser(state) && state._id}`} className='bg-slate-100 py-[10px] flex justify-center shadow-btn-shadow'>
           Профиль
         </Link> : <Link to={`/login`} className='bg-slate-100 py-[10px] flex justify-center shadow-btn-shadow'>
           Войти

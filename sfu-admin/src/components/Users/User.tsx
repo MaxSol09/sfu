@@ -49,8 +49,10 @@ export const User: React.FC<Props> = ({user}) => {
                 </Space>
                 </TableCell>
                 <TableCell className='break-all'>{user.email}</TableCell>
-                <TableCell>{user.speciality ? <span className='flex gap-[5px] items-center'>
-                    {user.speciality}
+                <TableCell>{user.speciality ? <span className='flex flex-wrap gap-[5px] items-center'>
+                    {user.speciality.length ? user.speciality.map((s, index) => (
+                        <p>{s}{user.speciality[index + 1] ? ',' : ''}</p>
+                    )) : 'отсутствует'}
                     <button className='bg-white shadow-xl p-[3px] flex justify-center items-center w-[23px] h-[23px]'>
                         <img onClick={() => setModal(true)} className='w-[17px]' src={Edit}></img>
                     </button>
