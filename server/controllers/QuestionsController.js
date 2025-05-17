@@ -292,6 +292,8 @@ export const createComment = async (req, res) => {
                     })
                 })    
 
+                console.log(req.body.url)
+
                 const message = `
                     <p>Текст: ${req.body.text}</p>
                     <p>Перейдите по ссылке: <a href="${req.body.url}">Ссылка на вопрос</a></p>
