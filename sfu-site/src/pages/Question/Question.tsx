@@ -48,7 +48,7 @@ export const Question: React.FC = () => {
                 <div key={el.id} className='text-[18px] text-gray-500 pt-[10px]'>#{el.tag}</div>
               )): <p>Тэги отсутствуют</p>}
             </div>
-            <div className='flex justify-between pt-[20px] max-[520px]:pt-[10px] max-[520px]:flex-wrap '>
+            <div className='flex justify-between pt-[15px] max-[590px]:flex-wrap items-center'>
               <div className='flex gap-[10px]'>
                 <div className='flex gap-[3px]'>
                   <img className='w-[23px]' src={Eyes} alt="просмотры" />
@@ -59,8 +59,8 @@ export const Question: React.FC = () => {
                   <p>{question.comments.length}</p>
                 </div>
               </div>
-              <p className='max-[520px]:pt-[10px]'>Дата: {question.createdAt.slice(0, 10)} 
-                <span className='pl-[15px]'>Время публикации: {+question.createdAt.slice(11, 13)}
+              <p className='flex max-[590px]:flex-wrap gap-[10px] gap-y-0 max-[590px]:mt-[10px]'>Дата: {question.createdAt.slice(0, 10)} 
+                <span >Время публикации: {+question.createdAt.slice(11, 13)}
                 {question.createdAt.slice(13, 16)}</span>
               </p>
             </div>

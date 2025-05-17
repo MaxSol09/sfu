@@ -302,6 +302,8 @@ export const createComment = async (req, res) => {
                 `;
 
                 if(question.user.email && question.user._id !== comment.user._id){
+                    console.log('тест условие')
+                    console.log(question.user)
                     sendMail(question.user.email, `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, message)
                 }
     

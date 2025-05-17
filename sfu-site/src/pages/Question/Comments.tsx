@@ -44,7 +44,7 @@ export const Comments: React.FC = () => {
 
 
   return (
-    <div className='py-[20px] text-2xl space-y-[20px] pb-[100px] mr-[50px] max-[800px]:mr-[0px]'>
+    <div className='py-[20px] text-2xl pb-[100px] mr-[50px] max-[800px]:mr-[0px]'>
       {isUser(state) && isPost(question) && 
       <form onSubmit={submitComment} style={{display: state.speciality.find(el => el === question.tags[0].tag) || (question.user !== null && state._id === question.user._id) ? 'flex' : 'none' }} 
         className='gap-[20px] justify-between'>
@@ -66,11 +66,11 @@ export const Comments: React.FC = () => {
           </button>
         </Tooltip>
       </form>}
-      <h1 className='text-[21px]'>Комментарии:</h1>
+      <h1 className='text-[21px] mt-[20px]'>Комментарии:</h1>
       {isPost(question) && question.comments.length > 0 ? question.comments.map((comment, index) => {
           return (
             <Comment key={index} comment={comment}/>
-        )}).reverse() : <p className='text-[18px]'>отсутствуют</p>
+        )}).reverse() : <p className='text-[18px] pt-[10px]'>отсутствуют</p>
       }
     </div>
   )

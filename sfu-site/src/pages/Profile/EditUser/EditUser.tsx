@@ -33,9 +33,9 @@ export const EditUser: React.FC = () => {
             </Tooltip>
           </div>
           <EditText changeText={changeText} setChangeText={setChangeText}/>
-          <div className='flex gap-[30px] max-[600px]:gap-[10px] max-[430px]:text-[15px] max-[620px]:grid'>
+          <div className='flex gap-[30px] max-[600px]:gap-[10px] max-[430px]:text-[15px] max-[820px]:grid max-[820px]:gap-0'>
             <p style={{display: changeText ? 'none' : 'block'}} className='pt-[10px]'>Роль: {user.role}</p>
-            <div style={{display: !changeText && user.role === 'Студент' ? 'flex' : 'none'}} className='gap-[5px] pt-[10px] max-[620px]pt-[5px] flex-wrap w-2/3 max-[620px]:w-full'>
+            <div style={{display: !changeText && user.role === 'Студент' ? 'flex' : 'none'}} className='gap-[5px] pt-[10px] max-[820px]pt-[5px] flex-wrap w-2/3 max-[820px]:w-full'>
               Специальность: {user.speciality.length ? user.speciality.map((s, index) => (
                 <p key={index}>{s}{user.speciality[index + 1] ? ',' : ''}</p>
               )) : 'отсутствует'}
