@@ -14,7 +14,7 @@ export const EditUser: React.FC = () => {
 
     return (
       <>
-        {isUser(user) && isUser(state) && <div className={`${changeText ? 'pt-[35px]' : 'pt-[55px]'} pb-[30px] bg-slate-100 px-[40px] max-[750px]:px-[20px]`}>
+        {isUser(user) && <div className={`${changeText ? 'pt-[35px]' : 'pt-[55px]'} pb-[30px] bg-slate-100 px-[40px] max-[750px]:px-[20px]`}>
           <div  className=' flex justify-between max-[700px]:flex-col'>
             <div className={`${!changeText && 'w-2/3'} max-[700px]:w-full`}> 
               <p style={{display: changeText ? 'none' : 'block'}} className='text-gray-600 pr-2 text-[18px] w-full'>
@@ -24,7 +24,7 @@ export const EditUser: React.FC = () => {
             <Tooltip color='gray' title={user.ban && `Вы заблокированы. Причина - ${user.banText}`}>
               <div className='flex max-[700px]:justify-end'>
                 <button disabled={user.ban ? true : false} onClick={() => setChangeText(true)} 
-                  style={{padding: '5px 15px', fontSize: '16px', display: changeText || state._id !== user._id ? 'none' : 'flex', 
+                  style={{padding: '5px 15px', fontSize: '16px', display: isUser(state) && state._id === user._id && !changeText ? 'flex' : 'none', 
                   height: 'fit-content', transition: 'all 0.9s'}} 
                   className={`border-[1px] border-gray-300 rounded-[5px] ${user.ban ? 'bg-gray-300 opacity-55 border-gray-700' : 'bg-white hover:border-blue-400'}`}>
                     Редактировать
@@ -33,10 +33,13 @@ export const EditUser: React.FC = () => {
             </Tooltip>
           </div>
           <EditText changeText={changeText} setChangeText={setChangeText}/>
-          <div className='flex gap-[30px] max-[600px]:gap-[10px] max-[430px]:text-[15px]'>
+          <div className='flex gap-[30px] max-[600px]:gap-[10px] max-[430px]:text-[15px] max-[620px]:grid'>
             <p style={{display: changeText ? 'none' : 'block'}} className='pt-[10px]'>Роль: {user.role}</p>
-            <p style={{display: !changeText && user.role === 'Студент' ? 'block' : 'none'}} className='pt-[10px]'>
-              Специальность: {user.speciality ? user.speciality : 'отсутствует'}</p>
+            <div style={{display: !changeText && user.role === 'Студент' ? 'flex' : 'none'}} className='gap-[5px] pt-[10px] max-[620px]pt-[5px] flex-wrap w-2/3 max-[620px]:w-full'>
+              Специальность: {user.speciality.length ? user.speciality.map((s, index) => (
+                <p key={index}>{s}{user.speciality[index + 1] ? ',' : ''}</p>
+              )) : 'отсутствует'}
+            </div>
           </div>
         </div>}
       </>

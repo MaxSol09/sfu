@@ -54,9 +54,9 @@ export const AvatarProfile: React.FC = () => {
 
   return (
     <>  
-      {isUser(state) && isUser(user) && <div className='relative bg-white rounded-full'>
+      {isUser(user) && <div className='relative bg-white rounded-full'>
           {status === 'loading' ? <SkeletAvatar variant="circular" width={130} height={130}/> :
-            <img src={state._id === user._id && state.avatarUrl ? state.avatarUrl : user.avatarUrl ? user.avatarUrl : User} alt="avatar" className='rounded-full w-[130px] h-[130px] object-cover border-gray-300 border-[3px]' 
+            <img src={isUser(state) && state._id === user._id && state.avatarUrl ? state.avatarUrl : user.avatarUrl ? user.avatarUrl : User} alt="avatar" className='rounded-full w-[130px] h-[130px] object-cover border-gray-300 border-[3px]' 
               onMouseOver={() => setShowButton(true)}
               onMouseOut={() => setShowButton(false)}
             />
@@ -64,7 +64,7 @@ export const AvatarProfile: React.FC = () => {
           <button
             onClick={() => ref.current?.click()}
             className='absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white text-[15px] whitespace-nowrap'
-            style={{ display: showButton && state._id === user._id && !user.ban ? 'block' : 'none' }}
+            style={{ display: showButton && isUser(state) && state._id === user._id && !user.ban ? 'block' : 'none' }}
             onMouseOver={() => setShowButton(true)}
             onMouseOut={() => setShowButton(false)}
           >

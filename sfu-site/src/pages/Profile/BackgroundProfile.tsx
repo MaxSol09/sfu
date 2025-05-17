@@ -52,13 +52,13 @@ export const BackgroundProfile = () => {
 
   return (
     <>
-      {isUser(user) && isUser(state) && <>
+      {isUser(user) && <>
       <img alt='bg-image' className='w-full h-[200px] object-cover' src={user.backgroundProfile ? user.backgroundProfile : Sfu}></img>
       <div className='absolute right-[15px] top-[15px] flex gap-[10px]'>
-          <Button onClick={() => bgRef.current?.click()} style={{display: state._id === user._id && !user.ban ? 'flex' : 'none'}}>
+          <Button onClick={() => bgRef.current?.click()} style={{display: isUser(state) && state._id === user._id && !user.ban ? 'flex' : 'none'}}>
             Смена фона
           </Button>
-          <Button style={{display: state._id === user._id && !user.ban && state.backgroundProfile ? 'flex' : 'none'}} onClick={() => setModalDeleteBg(true)}>
+          <Button style={{display: isUser(state) && state._id === user._id && !user.ban && state.backgroundProfile ? 'flex' : 'none'}} onClick={() => setModalDeleteBg(true)}>
               <img alt='image-delete' className='w-[23px]' src={Delete}></img>
           </Button>
       </div> 

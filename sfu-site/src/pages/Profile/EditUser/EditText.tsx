@@ -25,7 +25,7 @@ export const EditText: React.FC<Props> = ({changeText, setChangeText}) => {
     }, [user])    
 
     const submit = () => {
-        if(!text || text.length > 300) return 
+        if(text.length > 300) return 
         
         setChangeText(false)
         if(isUser(state)){

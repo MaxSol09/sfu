@@ -43,7 +43,7 @@ export const ModerationQuestion = async(req, res) => {
 
                     console.log(String(post._id))
                 
-                    if (el.role === 'Студент') {
+                    if (el.role === 'Студент' && el.speciality.find(post.tags[0].tag)) {
                         console.log('отправленно на ', el.email)
                         sendMail(el.email, `новый вопрос по вашей тематике`, `Ссылка ${el.url}`); // Добавлена await и try/catch
                         console.log(`Письмо отправлено студенту ${el.fullName}`);
