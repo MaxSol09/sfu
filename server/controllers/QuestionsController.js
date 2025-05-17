@@ -248,18 +248,12 @@ export const createComment = async (req, res) => {
             if(userComment.role === 'Студент' || String(userComment._id) === String(question.user._id)){
 
                 const checkStudentAnswer = question.comments.find(el => el.user === req.body.user)
-
-                console.log(checkStudentAnswer)
-
-
                 
                 const studentAnswer = await UserModel.findByIdAndUpdate(            
                     req.body.user,
                     {$inc: {answer: checkStudentAnswer ? 0 : 1}},
                     { new: true }
                 )
-                
-                console.log(req.body.avatar)
 
                 const comment = await QuestionModel.findByIdAndUpdate(
                     req.body.postId,
@@ -277,8 +271,6 @@ export const createComment = async (req, res) => {
                     }
                   }).populate({ path: 'user'});
                   
-
-                console.log(comment)
     
                 if (!comment | !studentAnswer) {
                     return res.status(404).json({ message: 'Пост не найден' });
@@ -300,6 +292,8 @@ export const createComment = async (req, res) => {
                     <p>Перейдите по ссылке: <a href="${req.body.url}">Ссылка на вопрос</a></p>
                     <p>С уважением, ИКТИБ-СОВЕТНИК</p>
                 `;
+
+                console.log('test log')
 
                 if(question.user.email && question.user._id !== comment.user._id){
                     console.log('тест условие')
