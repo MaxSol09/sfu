@@ -66,7 +66,7 @@ export const Comments: React.FC = () => {
         </Tooltip>
       </form>}
       <h1 className='text-[21px] mt-[20px]'>Комментарии:</h1>
-      <div className='grid gap-[10px] pt-[10px]'>
+      <div className='flex flex-col gap-[10px] pt-[10px]'>
         {isPost(question) && question.comments.length > 0 ? question.comments.map((comment, index) => {
             return (
               <Comment key={index} comment={comment}/>
