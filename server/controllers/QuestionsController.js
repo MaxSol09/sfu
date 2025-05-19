@@ -250,7 +250,7 @@ export const createComment = async (req, res) => {
 
 
         if(userComment && question){
-            if(userComment.role === 'Студент' || (question.user !== null && question.user._id === userComment._id)){
+            if(userComment.role === 'Студент' || (question.user !== null && String(question.user._id) === String(userComment._id))){
 
                 const checkStudentAnswer = question.comments.find(el => el.user === req.body.user)
                 
