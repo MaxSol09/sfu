@@ -41,14 +41,10 @@ export const ModerationQuestion = async(req, res) => {
 
                     console.log(el)
 
-                    console.log('тема вопроса', post.tags[0].tag)
-                    console.log('user.speciality >>> ', el.speciality)
-                    console.log('user email', el.email)
-
-                    console.log(String(post._id))
-
                     console.log('find', el.speciality.find(post.tags[0].tag))
                     console.log('>>>>> ', el.email)
+
+                    console.log('TESTTS')
                 
                     if (el.role === 'Студент' && el.speciality.find(post.tags[0].tag) && el.email) {
                         console.log('отправленно на ', el.email)
