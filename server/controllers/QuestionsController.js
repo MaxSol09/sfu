@@ -35,15 +35,22 @@ export const ModerationQuestion = async(req, res) => {
 
             if(users.length){
 
+                console.log('test log')
+
                 for (const el of users) { // Используем обычный цикл для асинхронных операций
+
+                    console.log(el)
 
                     console.log('тема вопроса', post.tags[0].tag)
                     console.log('user.speciality >>> ', el.speciality)
                     console.log('user email', el.email)
 
                     console.log(String(post._id))
+
+                    console.log(el.speciality.find(post.tags[0].tag))
+                    console.log(el.email)
                 
-                    if (el.role === 'Студент' && el.speciality.find(post.tags[0].tag)) {
+                    if (el.role === 'Студент' && el.speciality.find(post.tags[0].tag) && el.email) {
                         console.log('отправленно на ', el.email)
                         sendMail(el.email, `новый вопрос по вашей тематике`, `Ссылка ${el.url}`); // Добавлена await и try/catch
                         console.log(`Письмо отправлено студенту ${el.fullName}`);
@@ -302,7 +309,7 @@ export const createComment = async (req, res) => {
 
                 console.log('test log')
 
-                if(question.user.email && question.user._id !== comment.user._id){
+                if(question.user.email && String(question.user._id) !== String(comment.user._id)){
                     console.log('тест условие')
                     console.log(question.user)
                     sendMail(question.user.email, `новый ответ на ваш вопрос от пользователя ${comment.user.fullName}`, message)
