@@ -33,7 +33,7 @@ export const ModerationQuestion = async(req, res) => {
                 })
             })    
 
-            console.log(users)
+            console.log('users', users[0])
 
             if(users.length){
 
@@ -41,9 +41,6 @@ export const ModerationQuestion = async(req, res) => {
 
                 for (const el of users) { // Используем обычный цикл для асинхронных операций
 
-                    console.log(el)
-
-                    console.log('find', el.speciality.find(post.tags[0].tag))
                     console.log('>>>>> ', el.email)
 
                     console.log('TESTTS')
