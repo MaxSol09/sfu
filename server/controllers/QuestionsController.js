@@ -33,6 +33,8 @@ export const ModerationQuestion = async(req, res) => {
                 })
             })    
 
+            console.log(users)
+
             if(users.length){
 
                 console.log('test log')
