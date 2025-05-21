@@ -47,8 +47,8 @@ export const ModerationQuestion = async(req, res) => {
 
                     console.log(String(post._id))
 
-                    console.log(el.speciality.find(post.tags[0].tag))
-                    console.log(el.email)
+                    console.log('find', el.speciality.find(post.tags[0].tag))
+                    console.log('>>>>> ', el.email)
                 
                     if (el.role === 'Студент' && el.speciality.find(post.tags[0].tag) && el.email) {
                         console.log('отправленно на ', el.email)
