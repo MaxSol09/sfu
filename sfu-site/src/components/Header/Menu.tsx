@@ -8,7 +8,6 @@ import { fetchQuestions, fetchTags } from '../../redux/questions';
 import { Link, useNavigate } from 'react-router-dom';
 import { TypePage } from '../../types/types';
 import { Skeleton as SkeletonAvatar } from '@mui/material';
-import { logout } from '../../redux/auth';
 import { Logout } from './Logout';
 
 type typeProps = {

@@ -23,6 +23,12 @@ export const Questions: React.FC = () => {
     dispatch(changePage({type: 'FORM_CREATE'}))
   }
 
+  const date = new Date()
+
+  console.log(date)
+
+  console.log('FILTER >>> ', questions.filter(el => el.createdAt.slice(0, 10) === '2025-05-17'))
+
   return (
     <div className='grid w-full'>
         <Tags />

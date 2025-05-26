@@ -32,9 +32,15 @@ p, h1, h2, h3, input, div, button{
   text-align: center;
  }
 
- .parent {
+.parent {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+@media (max-width: 350px){
+  .parent{
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
 }
 
 .button-hover{
@@ -176,4 +182,10 @@ body, html {
 
 .hidden-btn{
   display: none !important;
+}
+
+@media screen and (width > 500) {
+  .modal-custom{
+    width: 1000px
+  }
 }

@@ -53,7 +53,7 @@ export const Comments: React.FC = () => {
           className='p-3 w-full text-xl border-2 border-gray-200 focus:outline-gray-400'
           placeholder='Написать комментарий'
         />
-        <Tooltip color='gray' title={isUser(state) ? state.role === 'Абитуриент' && question.user !== null && state._id !== question.user._id ? 'Доступно определённым студентам' 
+        <Tooltip color='gray' title={isUser(state) ? state.role === 'Абитуриент' && question.user !== null && state._id !== question.user._id ? 'Доступно студентам с определённой специальностью' 
             : state.ban ? `Вы заблокированы. Причина - ${state.banText ? state.banText : 'неизвестна'}` : '' : ''}
           >
           <button
@@ -70,7 +70,7 @@ export const Comments: React.FC = () => {
         {isPost(question) && question.comments.length > 0 ? question.comments.map((comment, index) => {
             return (
               <Comment key={index} comment={comment}/>
-          )}).reverse() : <p className='text-[18px] pt-[10px]'>отсутствуют</p>
+          )}).reverse() : <p className='text-[20px] pt-[30px] text-center'>отсутствуют</p>
         }
       </div>
     </div>

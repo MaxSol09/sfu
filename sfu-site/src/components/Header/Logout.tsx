@@ -1,40 +1,42 @@
 import { Box, Modal } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { logout } from '../../redux/auth';
-
-const style = {
-    position: 'absolute',
-    top: '30%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 440,
-    bgcolor: 'background.paper',
-    border: '0px solid #000',
-    borderRadius: '10px',
-    outline: 'none',
-    boxShadow: 24,
-    padding: '15px 25px'
-};
+import { useModalSize } from '../../hooks/useSizeModal';
 
 type Props = {
     modal: boolean,
     setModal: any
 }
 
-export const Logout: React.FC<Props> = ({modal, setModal}) => {
-    
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
+export const Logout: React.FC<Props> = ({ modal, setModal }) => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const {modalWidth} = useModalSize()
 
     const logoutFun = () => {
-        dispatch(logout())
-        setModal(false)
-        localStorage.removeItem('JWTtoken')
-        navigate('/login')
-        window.location.reload()
-    }
+        dispatch(logout());
+        setModal(false);
+        localStorage.removeItem('JWTtoken');
+        navigate('/login');
+        window.location.reload();
+    };
+
+    const style = {
+        position: 'absolute',
+        top: '30%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: modalWidth, // Используйте состояние для ширины
+        bgcolor: 'background.paper',
+        border: '0px solid #000',
+        borderRadius: '10px',
+        outline: 'none',
+        boxShadow: 24,
+        padding: '15px 25px',
+    };
 
     return (
         <Modal
@@ -42,6 +44,7 @@ export const Logout: React.FC<Props> = ({modal, setModal}) => {
             onClose={() => setModal(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            className='modal-custom'
             >
             <Box sx={style}>
                 <h1 className='text-[20px]'>

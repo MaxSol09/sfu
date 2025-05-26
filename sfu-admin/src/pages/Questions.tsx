@@ -14,6 +14,8 @@ export const Questions: React.FC = () => {
 
     const {isModerationQuestions, clickTabs, isSuccess} = useGetQuestions()
 
+    console.log(window.location.href)
+
     return (
         <LayoutPage sider={<Panel currPage='questions'/>} content={
             <div className='overflow-auto h-[100vh]'>

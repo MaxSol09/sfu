@@ -90,9 +90,13 @@ export const CreateQuestion: React.FC = () => {
           Выберите тему вопроса
           <span className='text-[23px] text-red-500 pl-[2px]'>{errorTag && '*'}</span>
         </h1>
-        <div className='parent text-[18px] gap-[10px] pl-[5px] max-[540px]:text-[16px] max-[540px]:gap-[5px]'>
+        <div className='parent text-[18px] gap-[10px] pl-[5px] max-[540px]:text-[16px] max-[540px]:gap-[5px] max-[360px]:gap-[0px]'>
           {variants.map(el => (
-            <p onClick={() => changeTag(el.value)} className={`${tag === el.value ? 'text-slate-500' : 'text-gray-400'} ${tag === el.value ? 'rounded-[5px] border-gray-400' : 'border-white'} border-[1px] py-[3px] text-center cursor-pointer hover:text-slate-500`} key={el.id}>{el.value}</p>
+            <p onClick={() => changeTag(el.value)} className={`${tag === el.value ? 'text-slate-500' : 'text-gray-400'} 
+              ${tag === el.value ? 'rounded-[5px] border-gray-400' : 'border-white'} border-[1px] py-[3px] text-center 
+              cursor-pointer hover:text-slate-500`} key={el.id}>
+              {el.value}
+            </p>
           ))}
         </div>
       </div>
@@ -106,10 +110,10 @@ export const CreateQuestion: React.FC = () => {
       </div>
       <div className='flex justify-between pt-[15px]'>
         <Button disabled={statusCreate === 'loading' ? true : false} onClick={() => dispatch(changePage({type: 'HOME'}))}
-         className='px-[30px] py-[10px] text-[18px]'>
+         className='px-[30px] py-[10px] text-[18px] max-[350px]:px-[13px]'>
           Назад
         </Button>
-        <Button disabled={statusCreate === 'loading' ? true : false} onClick={() => submit()} type='primary' className='text-[16px]'>Опубликовать</Button>
+        <Button disabled={statusCreate === 'loading' ? true : false} onClick={() => submit()} type='primary' className='text-[16px] max-[350px]:px-[5px]'>Опубликовать</Button>
       </div>
     </div>
   )

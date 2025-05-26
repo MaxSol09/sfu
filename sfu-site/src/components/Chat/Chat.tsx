@@ -46,7 +46,7 @@ export const Chat: React.FC = () => {
                 </div>
                 <div
                     style={{ display: support ? 'flex' : 'none' }}
-                    className="w-[320px] flex-col h-[410px] border-gray-600 shadow-custom-rounded bg-white fixed z-[1000] right-6 bottom-6"
+                    className="w-[320px] flex-col h-[410px] max-[1200px]:h-[350px] max-[1200px]:w-[274px] border-gray-600 shadow-custom-rounded bg-white fixed z-[1000] right-6 bottom-6"
                 >
                 <div className="py-2 bg-gray-100 flex px-3 justify-between text-[19px]">
                     <h1 className="text-center">Поддержка</h1>

@@ -33,10 +33,10 @@ export const Post: React.FC<Props> = ({question}) => {
         <div key={question._id} className={`bg-gray-200 py-[10px] px-[15px] grid rounded-md relative w-full`}>
             <div className='absolute top-[10px] right-[15px] flex gap-[10px]'>
                 {question.moderation === false ? <>
-                    <button onClick={() => mutate({postId: question._id, moderation: false})} className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full flex items-center hover:shadow-custom-hoverShadow'>
+                    <button onClick={() => mutate({postId: question._id, moderation: false, url: `https://sfu-86v5.vercel.app/question/${question._id}`})} className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full flex items-center hover:shadow-custom-hoverShadow'>
                         нет
                     </button>
-                    <button onClick={() => mutate({postId: question._id, moderation: true})} className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full flex items-center hover:shadow-custom-hoverShadow'>
+                    <button onClick={() => mutate({postId: question._id, moderation: true, url: `https://sfu-86v5.vercel.app/question/${question._id}`})} className='p-[7px] px-[9.5px] bg-slate-100 shadow-custom-rounded rounded-full flex items-center hover:shadow-custom-hoverShadow'>
                         да
                     </button>
                 </> : 

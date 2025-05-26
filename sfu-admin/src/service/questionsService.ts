@@ -3,7 +3,8 @@ import { API_ENDPOINTS_REAL } from "../api/endpoints"
 
 interface DataModeration {
     moderation: boolean,
-    postId: string
+    postId: string,
+    url: string
 }
 
 class QuestionsService {
